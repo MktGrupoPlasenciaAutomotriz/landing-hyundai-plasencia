@@ -273,6 +273,7 @@ button, a, .v-card, .filter-chip, .calc-term-btn { -webkit-user-select: none; us
   font-size: 13px; font-weight: 600; color: var(--ink-600);
   cursor: pointer; white-space: nowrap;
   transition: all var(--duration-fast) var(--ease);
+  min-height: 44px;
 }
 .filter-chip:hover { border-color: var(--brand-accent); color: var(--brand-accent); transform: translateY(-1px); }
 .filter-chip.active {
@@ -378,7 +379,7 @@ button, a, .v-card, .filter-chip, .calc-term-btn { -webkit-user-select: none; us
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   justify-content: center; align-items: flex-start;
-  padding: 16px; overflow-y: auto;
+  padding: 16px; overflow-y: auto; -webkit-overflow-scrolling: touch;
 }
 .modal-overlay.open { display: flex; }
 .modal-content {
@@ -392,7 +393,7 @@ button, a, .v-card, .filter-chip, .calc-term-btn { -webkit-user-select: none; us
 
 .modal-close {
   position: absolute; top: 16px; right: 16px; z-index: 10;
-  width: 40px; height: 40px; border-radius: 50%;
+  width: 44px; height: 44px; border-radius: 50%;
   background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
   color: var(--ink-800); border: 1px solid rgba(255,255,255,0.4);
   font-size: 22px; cursor: pointer;
@@ -499,6 +500,7 @@ button, a, .v-card, .filter-chip, .calc-term-btn { -webkit-user-select: none; us
   font-size: 13px; font-weight: 700; color: var(--ink-600);
   cursor: pointer; transition: all var(--duration-fast) var(--ease);
   font-family: var(--font-display);
+  min-height: 44px;
 }
 .calc-term-btn:hover { border-color: var(--brand-accent); color: var(--brand-accent); transform: translateY(-1px); }
 .calc-term-btn.active {
@@ -787,6 +789,7 @@ input.form-input[type="text"]::placeholder, input.form-input[type="email"]::plac
   display: flex; align-items: center; justify-content: center; gap: 10px;
   width: 100%; max-width: 420px; margin: 0 auto 10px;
   padding: 15px;
+  min-height: 44px;
   background: var(--ink-900); color: #fff;
   border: none; border-radius: var(--radius-md);
   font-family: var(--font-display); font-size: 14px; font-weight: 700;
@@ -798,6 +801,7 @@ input.form-input[type="text"]::placeholder, input.form-input[type="email"]::plac
   display: flex; align-items: center; justify-content: center; gap: 10px;
   width: 100%; max-width: 420px; margin: 0 auto 10px;
   padding: 15px;
+  min-height: 44px;
   background: #fff; color: var(--ink-900);
   border: 1.5px solid var(--ink-300); border-radius: var(--radius-md);
   font-size: 14px; font-weight: 600;
@@ -951,7 +955,7 @@ input.form-input[type="text"]::placeholder, input.form-input[type="email"]::plac
   background: var(--ink-50); border: 1.5px solid var(--ink-200);
   font-size: 13px; font-weight: 600; color: var(--ink-600);
   cursor: pointer; transition: all var(--duration-fast) var(--ease);
-  min-height: 40px; display: flex; align-items: center;
+  min-height: 44px; display: flex; align-items: center;
 }
 .time-pill:hover:not(.selected) {
   border-color: var(--brand-accent); color: var(--brand-accent);
@@ -1767,11 +1771,19 @@ function openModal(id) {
 
   document.getElementById('vehicleModal').classList.add('open');
   document.body.style.overflow = 'hidden';
+  document.body.style.position = 'fixed';
+  document.body.style.width = '100%';
+  document.body.style.top = `-${window.scrollY}px`;
 }
 
 function closeModal() {
   document.getElementById('vehicleModal').classList.remove('open');
+  const scrollY = document.body.style.top;
   document.body.style.overflow = '';
+  document.body.style.position = '';
+  document.body.style.width = '';
+  document.body.style.top = '';
+  window.scrollTo(0, parseInt(scrollY || '0') * -1);
 }
 
 document.getElementById('vehicleModal').addEventListener('click', function(e) {
