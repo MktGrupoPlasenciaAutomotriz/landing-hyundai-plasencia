@@ -1301,6 +1301,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <input class="form-input" id="fEmail" type="email" placeholder="tu@email.com" oninput="validateField(this)" autocomplete="email">
               <div class="form-error-msg" id="fEmail-error">Ingresa un correo válido</div>
             </div>
+            <div class="form-group">
+              <label class="form-label" for="fSucursal">Sucursal <span style="color:var(--color-error);">*</span></label>
+              <select class="form-input" id="fSucursal" required>
+                <option value="">Selecciona sucursal</option>
+                <option value="Hyundai Plasencia Guadalajara">Plasencia — Av. López Mateos Sur 2600</option>
+                <option value="Hyundai Santa Anita">Santa Anita — Av. López Mateos Sur 4115</option>
+              </select>
+            </div>
             <div class="cita-picker">
               <div class="cita-picker-label">Fecha y hora de cita <span style="color:var(--color-error);">*</span></div>
               <input type="hidden" id="fDate" value="">
@@ -2048,6 +2056,7 @@ function submitForm() {
     email: email,
     vehiculo: `${currentCar.name} ${currentCar.year} ${currentCar.version}`.toUpperCase(),
     precio: currentCar.price,
+    sucursal: document.getElementById('fSucursal').value,
     agencia: 'LOPEZ MATEOS',
     fecha_cita: dateVal,
     hora_cita: timeVal,
@@ -2308,21 +2317,56 @@ updateFilterUI();
 <div id="mapModal" onclick="if(event.target===this)this.style.display='none'" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.6);backdrop-filter:blur(3px);align-items:center;justify-content:center;padding:16px;">
   <div style="background:#fff;border-radius:16px;width:100%;max-width:640px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
     <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #E2E8F0;">
-      <div>
-        <div style="font-family:var(--font-display);font-weight:700;font-size:16px;color:#1A1A1A;">Hyundai Plasencia Guadalajara</div>
-        <div style="font-size:12px;color:#718096;margin-top:2px;">Av. Adolfo López Mateos Sur 2600, Jardines del Sol, 45050 Guadalajara, Jal.</div>
-      </div>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:16px;color:#1A1A1A;">Nuestras sucursales</div>
       <button onclick="document.getElementById('mapModal').style.display='none'" style="background:none;border:none;font-size:24px;cursor:pointer;color:#718096;padding:4px 8px;line-height:1;" aria-label="Cerrar mapa">&times;</button>
     </div>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3733.632479061859!2d-103.4079787!3d20.643832!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428ac338232cb31%3A0xfa29193860dce1b1!2sHyundai%20Plasencia%20Guadalajara!5e0!3m2!1ses-419!2smx!4v1776196919553!5m2!1ses-419!2smx" width="100%" height="360" style="border:0;display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación Hyundai Plasencia Guadalajara - Av. López Mateos Sur 2600"></iframe>
+    <div style="display:flex;border-bottom:1px solid #E2E8F0;">
+      <button onclick="switchMapTab('plasencia')" id="mapTabPlasencia" style="flex:1;padding:12px;border:none;background:#fff;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;border-bottom:3px solid var(--brand-accent,#00AAD2);color:var(--brand-accent,#00AAD2);">Plasencia</button>
+      <button onclick="switchMapTab('santaanita')" id="mapTabSantaAnita" style="flex:1;padding:12px;border:none;background:#fff;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;color:#718096;">Santa Anita</button>
+    </div>
+    <div id="mapPlasencia" style="display:block;">
+      <div style="padding:12px 20px;">
+        <div style="font-weight:600;font-size:13px;color:#1A1A1A;">Hyundai Plasencia Guadalajara</div>
+        <div style="font-size:12px;color:#718096;margin-top:2px;">Av. Adolfo López Mateos Sur 2600, Jardines del Sol, 45050 Guadalajara, Jal.</div>
+      </div>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3733.632479061859!2d-103.4079787!3d20.643832!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428ac338232cb31%3A0xfa29193860dce1b1!2sHyundai%20Plasencia%20Guadalajara!5e0!3m2!1ses-419!2smx!4v1776196919553!5m2!1ses-419!2smx" width="100%" height="360" style="border:0;display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación Hyundai Plasencia Guadalajara"></iframe>
+    </div>
+    <div id="mapSantaAnita" style="display:none;">
+      <div style="padding:12px 20px;">
+        <div style="font-weight:600;font-size:13px;color:#1A1A1A;">Hyundai Santa Anita</div>
+        <div style="font-size:12px;color:#718096;margin-top:2px;">Av. Adolfo López Mateos Sur 4115, Los Gavilanes, 45645 Guadalajara, Jal.</div>
+      </div>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3735.412658627408!2d-103.45509299999999!3d20.5711989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428ab9534b7948b%3A0xf606e3c28a9cc5d!2sHyundai%20Santa%20Anita!5e0!3m2!1ses-419!2smx!4v1776197319904!5m2!1ses-419!2smx" width="100%" height="360" style="border:0;display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación Hyundai Santa Anita"></iframe>
+    </div>
     <div style="padding:12px 20px;display:flex;gap:8px;justify-content:flex-end;border-top:1px solid #E2E8F0;">
-      <a href="https://maps.google.com/?q=Hyundai+Plasencia+Guadalajara" target="_blank" rel="noopener" style="padding:10px 20px;background:var(--brand-accent,#00AAD2);color:#fff;border:none;border-radius:9999px;font-family:var(--font-display);font-weight:700;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
+      <a id="mapExternalLink" href="https://maps.google.com/?q=Hyundai+Plasencia+Guadalajara" target="_blank" rel="noopener" style="padding:10px 20px;background:var(--brand-accent);color:#fff;border:none;border-radius:9999px;font-family:var(--font-display);font-weight:700;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
         Abrir en Google Maps
       </a>
     </div>
   </div>
 </div>
+<script>
+function switchMapTab(tab) {
+  var tabP = document.getElementById('mapTabPlasencia');
+  var tabS = document.getElementById('mapTabSantaAnita');
+  var mapP = document.getElementById('mapPlasencia');
+  var mapS = document.getElementById('mapSantaAnita');
+  var link = document.getElementById('mapExternalLink');
+  var accent = 'var(--brand-accent)';
+  if (tab === 'plasencia') {
+    tabP.style.borderBottomColor = accent; tabP.style.color = accent;
+    tabS.style.borderBottomColor = 'transparent'; tabS.style.color = '#718096';
+    mapP.style.display = 'block'; mapS.style.display = 'none';
+    link.href = 'https://maps.google.com/?q=Hyundai+Plasencia+Guadalajara';
+  } else {
+    tabS.style.borderBottomColor = accent; tabS.style.color = accent;
+    tabP.style.borderBottomColor = 'transparent'; tabP.style.color = '#718096';
+    mapS.style.display = 'block'; mapP.style.display = 'none';
+    link.href = 'https://maps.google.com/?q=Hyundai+Santa+Anita+Guadalajara';
+  }
+}
+</script>
 
 </body>
 </html>
