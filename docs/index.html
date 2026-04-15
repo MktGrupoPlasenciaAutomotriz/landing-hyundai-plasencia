@@ -261,7 +261,6 @@ button, a, .v-card, .filter-chip, .filter-select, .filter-clear, .calc-term-btn 
   backdrop-filter: blur(16px);
   padding: 18px 0;
   border-bottom: 1px solid var(--ink-200);
-  position: sticky; top: 64px; z-index: 90;
 }
 /* ── FILTER BAR (dropdowns) ── */
 .filter-bar { padding: 16px 0; }
@@ -404,6 +403,7 @@ button, a, .v-card, .filter-chip, .filter-select, .filter-clear, .calc-term-btn 
   -webkit-backdrop-filter: blur(8px);
   justify-content: center; align-items: flex-start;
   padding: 16px; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 .modal-overlay.open { display: flex; }
 .modal-content {
@@ -930,7 +930,7 @@ input.form-input[type="text"]::placeholder, input.form-input[type="email"]::plac
   .calc-slider::-webkit-slider-thumb { width: 30px; height: 30px; }
   .calc-slider::-moz-range-thumb { width: 30px; height: 30px; }
   .btn-conversion, .btn-wa-asesor, .btn-secondary, .btn-outline { min-height: 52px; }
-  .modal-overlay { padding: 0; align-items: stretch; }
+  .modal-overlay { padding: 0; align-items: stretch; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
   .modal-content {
     margin: 0; max-width: 100%;
     border-radius: 0; min-height: 100vh;
