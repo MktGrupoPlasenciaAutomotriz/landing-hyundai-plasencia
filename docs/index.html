@@ -712,6 +712,80 @@ input.form-input[type="text"]::placeholder, input.form-input[type="email"]::plac
 .form-privacy { font-size: 11px; color: var(--ink-400); text-align: center; margin-top: 14px; line-height: 1.6; }
 .form-privacy a { color: var(--brand-accent); font-weight: 600; }
 
+/* ── FORM PROGRESS BAR ── */
+.form-progress {
+  display: flex; align-items: center; gap: 0;
+  margin-bottom: 24px; padding: 0 4px;
+}
+.form-progress-step {
+  display: flex; align-items: center; gap: 8px;
+  flex: 1; position: relative;
+}
+.form-progress-step:not(:last-child)::after {
+  content: ''; flex: 1; height: 2px;
+  background: var(--ink-200); margin: 0 8px;
+  border-radius: 2px;
+  transition: background 0.3s ease;
+}
+.form-progress-step.active:not(:last-child)::after,
+.form-progress-step.completed:not(:last-child)::after {
+  background: var(--brand-accent);
+}
+.form-step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ink-100); color: var(--ink-500);
+  font-family: var(--font-display); font-size: 12px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  border: 2px solid var(--ink-200);
+  transition: all 0.3s ease;
+}
+.form-progress-step.active .form-step-num {
+  background: var(--brand-accent); color: #fff;
+  border-color: var(--brand-accent);
+  box-shadow: 0 4px 12px -4px rgba(0,170,210,0.5);
+}
+.form-progress-step.completed .form-step-num {
+  background: var(--color-success); color: #fff;
+  border-color: var(--color-success);
+}
+.form-step-label {
+  font-size: 11px; font-weight: 700; color: var(--ink-500);
+  letter-spacing: 0.3px; white-space: nowrap;
+}
+.form-progress-step.active .form-step-label { color: var(--ink-900); }
+.form-progress-step.completed .form-step-label { color: var(--color-success-dark); }
+@media(max-width:559px){ .form-step-label { display: none; } }
+
+/* ── FORM STEPS ── */
+.form-step { display: none; }
+.form-step.active { display: block; }
+.form-step-nav {
+  display: flex; gap: 12px; margin-top: 20px;
+}
+.btn-step-next, .btn-step-prev {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 24px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display); font-size: 14px; font-weight: 800;
+  cursor: pointer; min-height: 48px;
+  transition: all 0.2s ease;
+  letter-spacing: 0.3px; text-transform: uppercase;
+  border: none;
+}
+.btn-step-next {
+  flex: 1;
+  background: linear-gradient(135deg, var(--brand-accent), var(--brand-accent-hover));
+  color: #fff;
+  box-shadow: 0 8px 20px -6px rgba(0,170,210,0.45);
+}
+.btn-step-next:hover { transform: translateY(-1px); box-shadow: 0 12px 26px -6px rgba(0,170,210,0.55); }
+.btn-step-prev {
+  background: var(--ink-100); color: var(--ink-600);
+  border: 1.5px solid var(--ink-200);
+}
+.btn-step-prev:hover { background: var(--ink-200); }
+
 /* ── AGENCIA CARD ── */
 .agencia-card {
   margin-bottom: 18px; padding: 16px 18px;
@@ -1212,51 +1286,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
 
-        <!-- ── PURCHASE INFO (3 nuevos campos) ── -->
-        <div class="purchase-section">
-          <div class="form-section-title">Sobre tu compra</div>
-          <div class="form-section-sub">Nos ayuda a ofrecerte el mejor esquema. Todo opcional excepto el tipo de pago.</div>
-          <div class="form-grid">
-            <div class="form-group full">
-              <label class="form-label">Tipo de persona (opcional)</label>
-              <select class="form-input" id="fTipoPersona" onchange="onTipoPersonaChange()">
-                <option value="">Selecciona una opción</option>
-                <option value="PERSONA FISICA">Persona física</option>
-                <option value="PERSONA FISICA CON ACTIVIDAD EMPRESARIAL">Persona física con actividad empresarial</option>
-                <option value="PERSONA MORAL">Persona moral</option>
-              </select>
-              <div class="iva-banner" id="ivaBanner" style="display:none;">
-                <div class="iva-banner-icon">💰</div>
-                <div class="iva-banner-text">
-                  <strong>Beneficio fiscal disponible</strong>
-                  <span>Como persona con actividad empresarial o moral, puedes acreditar el IVA y deducir este vehículo. Te preparamos el mejor esquema en tu cita.</span>
-                </div>
-              </div>
-              <div class="field-help" id="ivaFieldHelp">Personas físicas con actividad empresarial y morales pueden acreditar el IVA y deducir el vehículo si lo destinan a su actividad. Nos sirve para ofrecerte el mejor esquema (factura, leasing, crédito empresarial).</div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">¿Necesitas financiamiento? <span style="color:var(--color-error);">*</span></label>
-              <select class="form-input" id="fBuscaFinanciamiento" onchange="toggleIngresos()">
-                <option value="">Selecciona una opción</option>
-                <option value="SI">Sí</option>
-                <option value="NO (CONTADO)">No (contado)</option>
-              </select>
-            </div>
-            <div class="form-group" id="ingresosGroup" style="display:none;">
-              <label class="form-label">¿Puedes comprobar ingresos?</label>
-              <select class="form-input" id="fCompruebaIngresos">
-                <option value="">Selecciona una opción</option>
-                <option value="SI">Sí</option>
-                <option value="NO">No</option>
-              </select>
-              <div class="field-help">No es requisito, solo nos ayuda a calificar mejor tu crédito.</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ── FORM ── -->
+        <!-- ── PROGRESSIVE FORM (3 pasos) ── -->
         <div class="form-section">
-          <div class="form-section-title">Agenda tu visita</div>
+          <div class="form-section-title form-section-head">Agenda tu visita</div>
           <div class="form-section-sub">Completa tus datos y recibe tu precotización al instante.</div>
 
           <div class="form-empty-state" id="formGlobalError">
@@ -1265,42 +1297,113 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="form-empty-state-sub">Los campos marcados necesitan tu atención.</div>
           </div>
 
-          <div class="agencia-card">
-            <div class="agencia-card-eyebrow">Agencia</div>
-            <div class="agencia-card-name">Hyundai Plasencia Guadalajara</div>
-            <div class="agencia-card-addr">Av. Adolfo López Mateos Sur 2600, Jardines del Sol, 45050</div>
+          <!-- Progress bar -->
+          <div class="form-progress" id="formProgress">
+            <div class="form-progress-step active" data-step="1">
+              <div class="form-step-num">1</div>
+              <div class="form-step-label">Tus datos</div>
+            </div>
+            <div class="form-progress-step" data-step="2">
+              <div class="form-step-num">2</div>
+              <div class="form-step-label">Vehículo</div>
+            </div>
+            <div class="form-progress-step" data-step="3">
+              <div class="form-step-num">3</div>
+              <div class="form-step-label">Tu cita</div>
+            </div>
           </div>
 
-          <div class="form-grid">
-            <div class="form-group full">
-              <label class="form-label" for="fName">Nombre(s) <span style="color:var(--color-error);">*</span></label>
-              <input class="form-input uppercase-field" id="fName" type="text" placeholder="JUAN CARLOS" oninput="sanitizeOnInput(this); validateField(this)" autocomplete="given-name">
-              <div class="form-error-msg" id="fName-error">Ingresa tu nombre</div>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="fLastName1">Apellido paterno <span style="color:var(--color-error);">*</span></label>
-              <input class="form-input uppercase-field" id="fLastName1" type="text" placeholder="PÉREZ" oninput="sanitizeOnInput(this); validateField(this)" autocomplete="family-name">
-              <div class="form-error-msg" id="fLastName1-error">Ingresa tu apellido paterno</div>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="fLastName2">Apellido materno <span style="color:var(--color-error);">*</span></label>
-              <input class="form-input uppercase-field" id="fLastName2" type="text" placeholder="GARCÍA" oninput="sanitizeOnInput(this); validateField(this)" autocomplete="additional-name">
-              <div class="form-error-msg" id="fLastName2-error">Ingresa tu apellido materno</div>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="fPhone">Celular / WhatsApp <span style="color:var(--color-error);">*</span></label>
-              <div class="phone-row">
-                <div class="phone-prefix">MX +52</div>
-                <input class="form-input" id="fPhone" type="tel" placeholder="3312345678" maxlength="10" pattern="[0-9]{10}" oninput="formatPhone(this); validateField(this)" onkeypress="return /[0-9]/.test(event.key)" autocomplete="tel-national" inputmode="numeric" style="flex:1;">
+          <!-- ── PASO 1: Tus datos ── -->
+          <div class="form-step active" id="formStep1" data-step="1">
+            <div class="form-grid">
+              <div class="form-group full">
+                <label class="form-label" for="fName">Nombre(s) <span style="color:var(--color-error);">*</span></label>
+                <input class="form-input uppercase-field" id="fName" type="text" placeholder="JUAN CARLOS" oninput="sanitizeOnInput(this); validateField(this)" autocomplete="given-name">
+                <div class="form-error-msg" id="fName-error">Ingresa tu nombre</div>
               </div>
-              <div class="field-help">10 dígitos sin espacios</div>
-              <div class="form-error-msg" id="fPhone-error">Ingresa un número de celular válido de 10 dígitos</div>
+              <div class="form-group">
+                <label class="form-label" for="fLastName1">Apellido paterno <span style="color:var(--color-error);">*</span></label>
+                <input class="form-input uppercase-field" id="fLastName1" type="text" placeholder="PÉREZ" oninput="sanitizeOnInput(this); validateField(this)" autocomplete="family-name">
+                <div class="form-error-msg" id="fLastName1-error">Ingresa tu apellido paterno</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="fLastName2">Apellido materno <span style="color:var(--color-error);">*</span></label>
+                <input class="form-input uppercase-field" id="fLastName2" type="text" placeholder="GARCÍA" oninput="sanitizeOnInput(this); validateField(this)" autocomplete="additional-name">
+                <div class="form-error-msg" id="fLastName2-error">Ingresa tu apellido materno</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="fPhone">Celular / WhatsApp <span style="color:var(--color-error);">*</span></label>
+                <div class="phone-row">
+                  <div class="phone-prefix">MX +52</div>
+                  <input class="form-input" id="fPhone" type="tel" placeholder="3312345678" maxlength="10" pattern="[0-9]{10}" oninput="formatPhone(this); validateField(this)" onkeypress="return /[0-9]/.test(event.key)" autocomplete="tel-national" inputmode="numeric" style="flex:1;">
+                </div>
+                <div class="field-help">10 dígitos sin espacios</div>
+                <div class="form-error-msg" id="fPhone-error">Ingresa un número de celular válido de 10 dígitos</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="fEmail">Correo electrónico <span style="color:var(--color-error);">*</span></label>
+                <input class="form-input" id="fEmail" type="email" placeholder="tu@email.com" oninput="validateField(this)" autocomplete="email">
+                <div class="form-error-msg" id="fEmail-error">Ingresa un correo válido</div>
+              </div>
             </div>
-            <div class="form-group">
-              <label class="form-label" for="fEmail">Correo electrónico <span style="color:var(--color-error);">*</span></label>
-              <input class="form-input" id="fEmail" type="email" placeholder="tu@email.com" oninput="validateField(this)" autocomplete="email">
-              <div class="form-error-msg" id="fEmail-error">Ingresa un correo válido</div>
+            <div class="form-step-nav">
+              <button type="button" class="btn-step-next" onclick="goToFormStep(2)">Siguiente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></button>
             </div>
+          </div>
+
+          <!-- ── PASO 2: Vehículo ── -->
+          <div class="form-step" id="formStep2" data-step="2">
+            <div class="form-grid">
+              <div class="form-group full">
+                <label class="form-label">Tipo de persona (opcional)</label>
+                <select class="form-input" id="fTipoPersona" onchange="onTipoPersonaChange()">
+                  <option value="">Selecciona una opción</option>
+                  <option value="PERSONA FISICA">Persona física</option>
+                  <option value="PERSONA FISICA CON ACTIVIDAD EMPRESARIAL">Persona física con actividad empresarial</option>
+                  <option value="PERSONA MORAL">Persona moral</option>
+                </select>
+                <div class="iva-banner" id="ivaBanner" style="display:none;">
+                  <div class="iva-banner-icon">💰</div>
+                  <div class="iva-banner-text">
+                    <strong>Beneficio fiscal disponible</strong>
+                    <span>Como persona con actividad empresarial o moral, puedes acreditar el IVA y deducir este vehículo. Te preparamos el mejor esquema en tu cita.</span>
+                  </div>
+                </div>
+                <div class="field-help" id="ivaFieldHelp">Personas físicas con actividad empresarial y morales pueden acreditar el IVA y deducir el vehículo si lo destinan a su actividad. Nos sirve para ofrecerte el mejor esquema (factura, leasing, crédito empresarial).</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">¿Necesitas financiamiento? <span style="color:var(--color-error);">*</span></label>
+                <select class="form-input" id="fBuscaFinanciamiento" onchange="toggleIngresos()">
+                  <option value="">Selecciona una opción</option>
+                  <option value="SI">Sí</option>
+                  <option value="NO (CONTADO)">No (contado)</option>
+                </select>
+              </div>
+              <div class="form-group" id="ingresosGroup" style="display:none;">
+                <label class="form-label">¿Puedes comprobar ingresos?</label>
+                <select class="form-input" id="fCompruebaIngresos">
+                  <option value="">Selecciona una opción</option>
+                  <option value="SI">Sí</option>
+                  <option value="NO">No</option>
+                </select>
+                <div class="field-help">No es requisito, solo nos ayuda a calificar mejor tu crédito.</div>
+              </div>
+              <div class="form-group full">
+                <label class="form-label">¿Tienes auto a cuenta? (opcional)</label>
+                <select class="form-input" id="fTradeIn">
+                  <option value="">No, compra directa</option>
+                  <option value="si">Sí, quiero que lo evalúen</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-step-nav">
+              <button type="button" class="btn-step-prev" onclick="goToFormStep(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg> Anterior</button>
+              <button type="button" class="btn-step-next" onclick="goToFormStep(3)">Siguiente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></button>
+            </div>
+          </div>
+
+          <!-- ── PASO 3: Tu cita ── -->
+          <div class="form-step" id="formStep3" data-step="3">
             <div style="margin-bottom:16px;">
               <label class="form-label">¿En cuál sucursal te gustaría tu cita?</label>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0;">
@@ -1346,28 +1449,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <div class="form-error-msg" id="fDate-error">Selecciona una fecha y hora para tu cita</div>
               <div class="form-error-msg" id="fTime-error">Selecciona un horario</div>
             </div>
-            <div class="form-group full">
-              <label class="form-label">¿Tienes auto a cuenta? (opcional)</label>
-              <select class="form-input" id="fTradeIn">
-                <option value="">No, compra directa</option>
-                <option value="si">Sí, quiero que lo evalúen</option>
-              </select>
-            </div>
+
+            <label style="display:flex; align-items:flex-start; gap:8px; margin:16px 0 8px; font-size:13px; color:var(--ink-500, #64748b); line-height:1.4; cursor:pointer;">
+              <input type="checkbox" id="fPrivacy" required style="margin-top:3px; min-width:18px; min-height:18px; accent-color:var(--brand-accent, #00AAD2);">
+              <span>He leído y acepto el <a href="https://grupoplasencia.com/aviso_de_privacidad/" target="_blank" rel="noopener" style="color:var(--brand-accent, #00AAD2); text-decoration:underline;">Aviso de Privacidad</a> de Grupo Plasencia Automotriz.</span>
+            </label>
+            <div class="form-error-msg" id="fPrivacy-error">Debes aceptar el aviso de privacidad para continuar.</div>
+
+            <label style="display:flex; align-items:flex-start; gap:8px; margin:0 0 16px; font-size:13px; color:var(--ink-500, #64748b); line-height:1.4; cursor:pointer;">
+              <input type="checkbox" id="fMarketing" style="margin-top:3px; min-width:18px; min-height:18px; accent-color:var(--brand-accent, #00AAD2);">
+              <span>Acepto que mis datos sean utilizados con fines promocionales y de contacto comercial.</span>
+            </label>
+
+            <button class="btn-conversion" onclick="submitForm()">Agendar mi cita</button>
+            <p class="form-privacy">Tus datos se usan únicamente para coordinar tu visita a la agencia conforme a la LFPDPPP.</p>
           </div>
-
-          <label style="display:flex; align-items:flex-start; gap:8px; margin:16px 0 8px; font-size:13px; color:var(--ink-500, #64748b); line-height:1.4; cursor:pointer;">
-            <input type="checkbox" id="fPrivacy" required style="margin-top:3px; min-width:18px; min-height:18px; accent-color:var(--brand-accent, #00AAD2);">
-            <span>He leído y acepto el <a href="https://grupoplasencia.com/aviso_de_privacidad/" target="_blank" rel="noopener" style="color:var(--brand-accent, #00AAD2); text-decoration:underline;">Aviso de Privacidad</a> de Grupo Plasencia Automotriz.</span>
-          </label>
-          <div class="form-error-msg" id="fPrivacy-error">Debes aceptar el aviso de privacidad para continuar.</div>
-
-          <label style="display:flex; align-items:flex-start; gap:8px; margin:0 0 16px; font-size:13px; color:var(--ink-500, #64748b); line-height:1.4; cursor:pointer;">
-            <input type="checkbox" id="fMarketing" style="margin-top:3px; min-width:18px; min-height:18px; accent-color:var(--brand-accent, #00AAD2);">
-            <span>Acepto que mis datos sean utilizados con fines promocionales y de contacto comercial.</span>
-          </label>
-
-          <button class="btn-conversion" onclick="submitForm()">Agendar mi cita</button>
-          <p class="form-privacy">Tus datos se usan únicamente para coordinar tu visita a la agencia conforme a la LFPDPPP.</p>
         </div>
       </div>
 
@@ -1908,6 +2004,7 @@ function openModal(id) {
   document.getElementById('fCompruebaIngresos').value = '';
   document.getElementById('ingresosGroup').style.display = 'none';
   clearValidation();
+  if (typeof goToFormStep === 'function') goToFormStep(1);
 
   document.getElementById('detailState').style.display = 'block';
   document.getElementById('confirmState').classList.remove('show');
@@ -1946,6 +2043,50 @@ function sanitizeOnInput(el) {
   el.setSelectionRange(pos - diff, pos - diff);
 }
 function formatPhone(el) { el.value = el.value.replace(/[^0-9]/g, '').slice(0, 10); }
+
+// ── FORM STEP NAVIGATION (Progressive Disclosure) ──
+let currentFormStep = 1;
+function hideFieldError(id) {
+  var el = document.getElementById(id);
+  var errorEl = document.getElementById(id + '-error');
+  if (el) el.classList.remove('error');
+  if (errorEl) errorEl.classList.remove('show');
+}
+function goToFormStep(step) {
+  // Validate current step before advancing
+  if (step > currentFormStep) {
+    if (currentFormStep === 1) {
+      var step1Fields = ['fName','fLastName1','fLastName2','fPhone','fEmail'];
+      var allValid = true;
+      step1Fields.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        var v = el.value.trim();
+        var valid = v.length > 0;
+        if (id === 'fPhone') valid = /^[0-9]{10}$/.test(v);
+        else if (id === 'fEmail') valid = v.includes('@') && v.length >= 5;
+        if (!valid) { showFieldError(id); el.classList.add('error'); el.classList.remove('valid'); allValid = false; }
+        else { hideFieldError(id); el.classList.remove('error'); el.classList.add('valid'); }
+      });
+      if (!allValid) return;
+    }
+  }
+  // Update steps
+  currentFormStep = step;
+  document.querySelectorAll('.form-step').forEach(function(s) { s.classList.remove('active'); });
+  var target = document.getElementById('formStep' + step);
+  if (target) target.classList.add('active');
+  // Update progress bar
+  document.querySelectorAll('.form-progress-step').forEach(function(s) {
+    var sNum = parseInt(s.dataset.step);
+    s.classList.remove('active','completed');
+    if (sNum === step) s.classList.add('active');
+    else if (sNum < step) s.classList.add('completed');
+  });
+  // Scroll form into view
+  var formHead = document.querySelector('.form-section-head');
+  if (formHead) formHead.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
 function validateField(el) {
   const errorEl = document.getElementById(el.id + '-error');
