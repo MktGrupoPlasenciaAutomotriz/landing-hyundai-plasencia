@@ -933,10 +933,13 @@ input.form-input[type="text"]::placeholder, input.form-input[type="email"]::plac
   .modal-overlay { padding: 0; align-items: stretch; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
   .modal-content {
     margin: 0; max-width: 100%;
-    border-radius: 0; min-height: 100vh;
+    border-radius: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
-  .modal-gallery { aspect-ratio: 16/10; }
-  .filters-section { top: 56px; }
+  .modal-gallery { aspect-ratio: 4/3; }
 }
 @media(max-width:380px){
   .container { padding: 0 16px; }
