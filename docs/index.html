@@ -340,19 +340,14 @@ button, a, .v-card, .filter-chip, .filter-select, .filter-clear, .calc-term-btn 
   border: 1px solid var(--ink-200);
   box-shadow: var(--shadow-sm);
   cursor: pointer;
+  display: flex; flex-direction: column;
   transition: all var(--duration-normal) var(--ease);
-}
-.v-card::after {
-  content:''; position: absolute; inset: 0;
-  border-radius: inherit; pointer-events: none;
-  border: 1.5px solid transparent;
-  transition: border-color var(--duration-normal) var(--ease);
 }
 .v-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
+  border-color: var(--brand-accent);
 }
-.v-card:hover::after { border-color: var(--brand-accent); }
 .v-card-img-wrap {
   position: relative; aspect-ratio: 16/10; overflow: hidden;
   background: linear-gradient(135deg, var(--ink-100), var(--ink-200));
@@ -374,13 +369,19 @@ button, a, .v-card, .filter-chip, .filter-select, .filter-clear, .calc-term-btn 
   background: rgba(15,23,42,0.7); backdrop-filter: blur(10px); color: #fff;
   font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: var(--radius-full);
 }
-.v-card-body { padding: 20px; }
+.v-card-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+.v-card-brand-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.v-card-type {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 4px;
+  background: rgba(0,170,210,0.08); color: var(--brand-accent);
+}
 .v-card-title {
-  font-family: var(--font-display); font-size: 17px; font-weight: 700;
-  color: var(--ink-900); letter-spacing: -0.01em; margin-bottom: 4px;
+  font-family: var(--font-display); font-size: 18px; font-weight: 800;
+  color: var(--ink-900); letter-spacing: -0.02em; margin-bottom: 4px;
 }
 .v-card-specs { font-size: 12px; color: var(--ink-500); margin-bottom: 14px; font-weight: 500; }
-.v-card-price-row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.v-card-price-row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--ink-100); }
 .v-card-price {
   font-family: var(--font-display); font-size: 22px; font-weight: 800;
   color: var(--ink-900); letter-spacing: -0.02em;
@@ -1698,6 +1699,9 @@ function renderCards(filter) {
         ${v.photos > 0 ? `<div class="v-card-photos">${v.photos} fotos</div>` : ''}
       </div>
       <div class="v-card-body">
+        <div class="v-card-brand-row">
+          <span class="v-card-type">${{suv:'SUV',sedan:'Sedán',hatchback:'Hatchback',pickup:'Pickup',van:'Van',electrico:'Eléctrico'}[v.type] || v.type}</span>
+        </div>
         <div class="v-card-title">${v.name} ${v.year}</div>
         <div class="v-card-specs">${v.version} &middot; ${v.engine} &middot; ${v.trans}</div>
         <div class="v-card-price-row">
