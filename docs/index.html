@@ -1262,7 +1262,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <p><strong>Hyundai Plasencia Guadalajara</strong> &middot; Distribuidor Autorizado<br>Av. Adolfo López Mateos Sur 2600, Jardines del Sol, 45050 Guadalajara, Jal.<br>Lun a Vie 9:00 a 20:00 &middot; Sáb 9:00 a 19:00 &middot; Dom 11:00 a 18:00 &middot; Tel. (33) 3344 4477<br><a href="#" onclick="event.preventDefault();document.getElementById('mapModal').style.display='flex'" style="color:var(--brand-accent,#00AAD2);text-decoration:underline;font-weight:600;font-size:13px;">📍 Ver ubicación en mapa</a></p>
     <div style="margin-top:16px;"><a href="https://grupoplasencia.com/aviso_de_privacidad/" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.6); text-decoration: underline; font-size: 12px;">Aviso de Privacidad</a></div>
-    <p style="margin-top:14px;font-size:11px;opacity:0.65;">Vigencia del 1 al 30 de abril de 2026 o hasta agotar existencias. Promociones y bonos aplican únicamente en modelos Hyundai seleccionados. Imágenes ilustrativas. Consulta modelos participantes, términos y condiciones con tu asesor de ventas. Crédito sujeto a aprobación bancaria.</p>
+    <p style="margin-top:14px;font-size:11px;opacity:0.65;">Vigencia del 1 al 30 de abril de 2026 o hasta agotar existencias. Precios de lista en pesos mexicanos, incluyen IVA y estan sujetos a cambios sin previo aviso. Los intereses del financiamiento causan IVA adicional; la mensualidad mostrada es estimada y puede variar al momento de la contratacion segun tasa autorizada, enganche y esquema elegido. Promociones y bonos aplican unicamente en modelos Hyundai seleccionados. Imagenes ilustrativas. Consulta modelos participantes, terminos y condiciones con tu asesor de ventas. Credito sujeto a aprobacion bancaria.</p>
     <p style="margin-top:8px;font-size:11px;opacity:0.55;">© 2026 Grupo Plasencia Automotriz. Todos los derechos reservados.</p>
   </div>
 </footer>
@@ -1338,6 +1338,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="calc-result-label">Mensualidad estimada</div>
             <div class="calc-result-amount" id="monthlyAmount">$0</div>
             <div class="calc-result-sub">Tasa referencial anual: <strong id="rateSubDisplay">13.99%</strong></div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.42);margin-top:6px;line-height:1.35;font-style:italic;position:relative;">Mensualidad estimada. El importe real puede variar al contratar segun tasa autorizada, enganche, plazo y esquema elegido. El interes causa IVA.</div>
             <div style="font-size:9px;color:rgba(255,255,255,0.4);margin-top:6px;line-height:1.4;position:relative;">* Financiamiento con Banorte. Comisión por apertura 1%. Tasa variable según enganche (9.49% a 17.99%). Vigencia abril 2026. Cálculo con fines informativos, no constituye una autorización de crédito.</div>
           </div>
 
@@ -1752,7 +1753,7 @@ function renderCards(filter) {
         <div class="v-card-title">${v.name} ${v.year}</div>
         <div class="v-card-specs">${v.version} &middot; ${v.engine} &middot; ${v.trans}</div>
         <div class="v-card-price-row">
-          <div class="v-card-price">${fmt(v.price)}</div>
+          <div class="v-card-price" title="Precio de lista, incluye IVA. Sujeto a cambios sin previo aviso.">${fmt(v.price)}</div>
           <div class="v-card-monthly">Desde ${fmt(monthly)}/mes</div>
         </div>
         <div style="margin-top:8px;display:flex;gap:6px;position:relative;">
