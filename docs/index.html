@@ -2521,6 +2521,11 @@ function generateQuotePDF() {
   row('Tipo de persona:', a.tipo_persona);
   row('Busca financiamiento:', a.busca_financiamiento);
   row('Comprueba ingresos:', a.comprueba_ingresos);
+  if ((a.comprueba_ingresos||'').toUpperCase() === 'NO') {
+    y += 2; doc.setFontSize(8); doc.setTextColor(16, 93, 78);
+    doc.text('Nota: No comprobar ingresos no impide la compra. Puede implicar enganche desde 25% o esquema alternativo que tu asesor te detallara.', margin, y, { maxWidth: pageW - (margin*2) });
+    doc.setFontSize(10); doc.setTextColor(0,0,0); y += 5;
+  }
   row('Enganche:', `${a.enganche_pct}% - $${downAmount.toLocaleString('es-MX')} MXN`);
   row('Plazo:', `${a.plazo_meses} meses`);
   row('Tasa referencial:', `${(getTasaAnual(a.enganche_pct) * 100).toFixed(2)}% anual (Banorte, escalonada)`);
