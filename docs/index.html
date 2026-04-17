@@ -2012,13 +2012,16 @@ function renderTimeSlots() {
   // Ventana +24h: no permitir slots cuyo momento exacto sea < ahora+24h
   const now = new Date();
   const minMoment = new Date(now.getTime() + 24 * 60 * 60 * 1000);
-  const parts = calSelectedDate.split('-').map(Number);
+  // calSelectedDate es un Date object (no string). Extraer componentes directamente.
+  const y = calSelectedDate.getFullYear();
+  const mo = calSelectedDate.getMonth();
+  const dy = calSelectedDate.getDate();
 
   const slots = [];
   for (let h = 9; h <= 18; h++) {
     for (let m = 0; m < 60; m += 30) {
       if (h === 18 && m > 30) continue;
-      const slotDate = new Date(parts[0], parts[1]-1, parts[2], h, m, 0);
+      const slotDate = new Date(y, mo, dy, h, m, 0);
       if (slotDate < minMoment) continue;
       const val = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
       const hour12 = h > 12 ? h - 12 : h;
