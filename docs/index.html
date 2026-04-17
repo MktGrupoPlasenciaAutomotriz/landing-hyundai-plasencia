@@ -1759,16 +1759,34 @@ function renderCards(filter) {
   document.getElementById('carCount').textContent = filtered.length > showing ? showing + ' de ' + filtered.length : filtered.length;
 
   if (filtered.length === 0) {
-    grid.innerHTML = '<div class="inventory-no-results">Sin resultados para &ldquo;' + searchQuery.replace(/</g,'&lt;') + '&rdquo;</div>';
+    const suggestions = getSuggestions(3);
+    document.getElementById('carCount').textContent = 0;
+    const msgText = searchQuery ? 'para "' + searchQuery.replace(/</g,'&lt;') + '"' : 'con esos filtros';
+    grid.innerHTML =
+      '<div class="inventory-no-results" style="grid-column:1/-1;">' +
+        '<div style="font-weight:800;font-size:18px;color:var(--ink-900);margin-bottom:8px;font-family:var(--font-display);">No encontramos autos ' + msgText + '</div>' +
+        '<div style="font-size:14px;color:var(--ink-500);margin-bottom:18px;">Pero te sugerimos estos — con los mejores bonos de abril:</div>' +
+        '<button onclick="clearAllFilters()" style="padding:10px 20px;background:transparent;border:1.5px solid var(--ink-300);border-radius:9999px;font-size:13px;font-weight:700;cursor:pointer;color:var(--ink-700);font-family:var(--font-body);">↺ Ver todo el inventario</button>' +
+      '</div>' +
+      suggestions.map(buildVCardHTML).join('');
     return;
   }
 
   const toShow = filtered.slice(0, visibleCount);
   const remaining = filtered.length - toShow.length;
 
-  grid.innerHTML = toShow.map(v => {
-    // Prioriza mensualidad oficial del boletin (comunicacion Hyundai) si existe.
-    // Fallback: calc dinamica a 20% enganche / 36 meses con minRate del modelo.
+  grid.innerHTML = toShow.map(buildVCardHTML).join('');
+  if (remaining > 0) {
+    grid.innerHTML += `<div style="grid-column:1/-1;text-align:center;padding:24px;">
+      <button onclick="loadMore()" style="padding:14px 32px;background:var(--brand-accent,#00AAD2);color:#fff;border:none;border-radius:9999px;font-family:var(--font-display);font-weight:700;font-size:15px;cursor:pointer;min-height:48px;box-shadow:0 4px 12px rgba(0,0,0,0.15);transition:transform 0.15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+        Ver más vehículos (${remaining} restantes)
+      </button>
+    </div>`;
+  }
+}
+
+// Card template unificado — usado por renderCards y por sugerencias en empty state
+function buildVCardHTML(v) {
     const monthly = v.monthlyFrom || calcMonthly(v.price, 20, 36, v.minRate);
     const hasImg = v.img && v.img.length > 0;
     return `
@@ -1803,15 +1821,33 @@ function renderCards(filter) {
         </div>
       </div>
     </div>`;
-  }).join('');
+}
 
-  if (remaining > 0) {
-    grid.innerHTML += `<div style="grid-column:1/-1;text-align:center;padding:24px;">
-      <button onclick="loadMore()" style="padding:14px 32px;background:var(--brand-accent,#00AAD2);color:#fff;border:none;border-radius:9999px;font-family:var(--font-display);font-weight:700;font-size:15px;cursor:pointer;min-height:48px;box-shadow:0 4px 12px rgba(0,0,0,0.15);transition:transform 0.15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
-        Ver más vehículos (${remaining} restantes)
-      </button>
-    </div>`;
+// Sugerencias: top N por bono monetario descendiente, desempate por año, luego precio
+function getSuggestions(n) {
+  function bonoAmt(v) {
+    const m = (v.badge || '').match(/\$\s*([\d,]+)/);
+    return m ? parseInt(m[1].replace(/,/g,''), 10) : 0;
   }
+  return vehicles.slice().sort(function(a, b){
+    const d = bonoAmt(b) - bonoAmt(a);
+    if (d !== 0) return d;
+    const y = (b.year || 0) - (a.year || 0);
+    if (y !== 0) return y;
+    return (b.price || 0) - (a.price || 0);
+  }).slice(0, n || 3);
+}
+
+function clearAllFilters() {
+  searchQuery = '';
+  currentFilter = 'all';
+  currentPriceFilter = 'all';
+  const si = document.getElementById('searchInput'); if (si) si.value = '';
+  const ft = document.getElementById('filterType'); if (ft) ft.value = 'all';
+  const fp = document.getElementById('filterPrice'); if (fp) fp.value = 'all';
+  visibleCount = ITEMS_PER_PAGE;
+  renderCards('all');
+  updateFilterUI();
 }
 
 /* filterCars replaced by filterByType dropdown */
