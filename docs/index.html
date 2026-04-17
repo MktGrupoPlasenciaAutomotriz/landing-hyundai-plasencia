@@ -1653,6 +1653,35 @@ const vehicles = [
   { id:35, name:"Hyundai Palisade HEV",   year:2026, version:"LIMITED TECH AWD",  type:"suv",       km:0, trans:"Automática", fuel:"Híbrido",  engine:"1.6L T HEV", color:"", price:1288300, img:"https://www.hyundai.com.mx/dA/2f6fc974-a519-4772-9863-424ba02ef688/deck_palisade625x300.jpg", badge:"",             photos:0 },
 ];
 
+// ── Enriquecimiento con datos oficiales del boletin SA-19-26 ──
+// monthlyFrom: "Mensualidad desde" oficial por modelo (comunicacion Hyundai)
+// minRate: tasa minima real (Elantra HEV arranca en 10.49%, no 9.49%)
+// badgeFallback: copy cuando no hay bono flexible
+(function enrichVehicles() {
+  var modelMeta = {
+    'Hyundai HB20 Sedán':     { monthlyFrom: 3199 },
+    'Hyundai HB20 HB':         { monthlyFrom: null }, // boletin no publica mensualidad desde HB20 HB
+    'Hyundai IONIQ 5':         { monthlyFrom: null },
+    'Hyundai Palisade':         { monthlyFrom: 11099 },
+    'Hyundai Grand i10 HB':     { monthlyFrom: 2699 },
+    'Hyundai Grand i10 Sedán':  { monthlyFrom: 2899 },
+    'Hyundai Creta':            { monthlyFrom: 3999 },
+    'Hyundai Creta Grand':      { monthlyFrom: 5199 },
+    'Hyundai Elantra HEV':      { monthlyFrom: 6099, minRate: 0.1049 }, // Boletin: "Tasa desde 10.49%"
+    'Hyundai Tucson':           { monthlyFrom: 5599 },
+    'Hyundai Tucson HEV':       { monthlyFrom: 8199 },
+    'Hyundai Santa Fe HEV':     { monthlyFrom: 9499 },
+    'Hyundai Palisade HEV':     { monthlyFrom: null }
+  };
+  vehicles.forEach(function(v) {
+    var m = modelMeta[v.name] || {};
+    if (m.monthlyFrom != null) v.monthlyFrom = m.monthlyFrom;
+    if (m.minRate != null) v.minRate = m.minRate;
+    // Badge fallback para modelos sin bono (Elantra HEV, Palisade HEV)
+    if (!v.badge) v.badge = 'Sin bono · Precio neto';
+  });
+})();
+
 let currentCar = null;
 let selectedTerm = 36;
 let currentFilter = 'all';
@@ -1739,7 +1768,9 @@ function renderCards(filter) {
   const remaining = filtered.length - toShow.length;
 
   grid.innerHTML = toShow.map(v => {
-    const monthly = calcMonthly(v.price, 20, 36);
+    // Prioriza mensualidad oficial del boletin (comunicacion Hyundai) si existe.
+    // Fallback: calc dinamica a 20% enganche / 36 meses con minRate del modelo.
+    const monthly = v.monthlyFrom || calcMonthly(v.price, 20, 36, v.minRate);
     const hasImg = v.img && v.img.length > 0;
     return `
     <div class="v-card" onclick="openModal(${v.id})">
@@ -1787,16 +1818,20 @@ function renderCards(filter) {
 /* filterCars replaced by filterByType dropdown */
 
 // Tasa escalonada Banorte — Abril 2026 (Boletín SA-19-26)
-function getTasaAnual(downPct) {
-  if (downPct >= 50) return 0.0949;
-  if (downPct >= 40) return 0.1049;
-  if (downPct >= 30) return 0.1179;
-  if (downPct >= 20) return 0.1399;
-  return 0.1799; // 10%+
+// minRate: piso por modelo (Elantra HEV = 10.49% incluso a 50% enganche)
+function getTasaAnual(downPct, minRate) {
+  var floor = (typeof minRate === 'number') ? minRate : 0.0949;
+  var r;
+  if (downPct >= 50) r = 0.0949;
+  else if (downPct >= 40) r = 0.1049;
+  else if (downPct >= 30) r = 0.1179;
+  else if (downPct >= 20) r = 0.1399;
+  else r = 0.1799; // 10%+
+  return Math.max(r, floor);
 }
-function calcMonthly(price, downPct, months) {
+function calcMonthly(price, downPct, months, minRate) {
   const principal = price * (1 - downPct / 100);
-  const r = getTasaAnual(downPct) / 12;
+  const r = getTasaAnual(downPct, minRate) / 12;
   if (r === 0) return Math.round(principal / months);
   // PMT = P * (r * (1+r)^n) / ((1+r)^n - 1)
   const payment = principal * (r * Math.pow(1+r, months)) / (Math.pow(1+r, months) - 1);
@@ -1813,8 +1848,8 @@ function updateCalc() {
   const slider = document.getElementById('downSlider');
   const pct = ((downPct - 10) / 60) * 100;
   slider.style.background = `linear-gradient(to right, var(--brand-accent) 0%, var(--brand-accent) ${pct}%, var(--ink-200) ${pct}%)`;
-  const tasaActual = getTasaAnual(downPct);
-  const monthly = calcMonthly(currentCar.price, downPct, selectedTerm);
+  const tasaActual = getTasaAnual(downPct, currentCar.minRate);
+  const monthly = calcMonthly(currentCar.price, downPct, selectedTerm, currentCar.minRate);
   document.getElementById('monthlyAmount').textContent = fmt(monthly);
   const rateEl = document.getElementById('rateDisplay');
   if (rateEl) rateEl.textContent = `${(tasaActual * 100).toFixed(2)}% anual`;
@@ -2354,7 +2389,7 @@ function submitForm() {
     return `${h12}:${String(mm).padStart(2,'0')} ${ampm}`;
   })();
   const downPct = parseInt(document.getElementById('downSlider').value);
-  const monthly = calcMonthly(currentCar.price, downPct, selectedTerm);
+  const monthly = calcMonthly(currentCar.price, downPct, selectedTerm, currentCar.minRate);
   const folio = generateFolio('GP-HYU');
 
   const tipoPersona = document.getElementById('fTipoPersona').value || 'NO ESPECIFICADO';
@@ -2548,7 +2583,7 @@ function generateQuotePDF() {
   }
   row('Enganche:', `${a.enganche_pct}% - $${downAmount.toLocaleString('es-MX')} MXN`);
   row('Plazo:', `${a.plazo_meses} meses`);
-  row('Tasa referencial:', `${(getTasaAnual(a.enganche_pct) * 100).toFixed(2)}% anual (Banorte, escalonada)`);
+  row('Tasa referencial:', `${(getTasaAnual(a.enganche_pct, currentCar && currentCar.minRate) * 100).toFixed(2)}% anual (Banorte, escalonada)`);
 
   checkOverflow(20);
   doc.setFillColor(...cfg.primaryColor);
