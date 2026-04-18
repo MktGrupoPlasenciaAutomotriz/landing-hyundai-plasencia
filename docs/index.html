@@ -295,7 +295,7 @@ button, a, .v-card, .filter-chip, .filter-select, .filter-clear, .calc-term-btn 
 .type-chip { display:inline-flex; align-items:center; gap:8px; padding:10px 16px; background:#fff; border:1.5px solid var(--ink-200); border-radius:999px; font-family:var(--font-body); font-size:13px; font-weight:700; color:var(--ink-700); cursor:pointer; flex-shrink:0; transition:all 0.15s ease; white-space:nowrap; }
 .type-chip:hover { border-color:var(--brand-accent); color:var(--brand-accent); transform:translateY(-1px); }
 .type-chip.active { background:var(--brand-accent); color:#fff; border-color:var(--brand-accent); box-shadow:0 4px 10px rgba(0,170,210,0.25); }
-.type-chip .emoji { font-size:18px; line-height:1; display:inline-block; }
+.type-chip svg { width:24px; height:16px; flex-shrink:0; } .type-chip svg[viewBox='0 0 24 24'] { height:18px; width:18px; }
 #filterType { display:none; } /* reemplazado por type-chips */
 
 
@@ -1324,23 +1324,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Type icon chips (replaces type dropdown) -->
     <div class="type-chips" role="group" aria-label="Filtrar por tipo de vehiculo">
       <button type="button" class="type-chip active" data-type="all" onclick="filterByTypeChip('all')" aria-pressed="true">
-        <span class="emoji" aria-hidden="true">🚘</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg>
         <span>Todos</span>
       </button>
       <button type="button" class="type-chip" data-type="suv" onclick="filterByTypeChip('suv')">
-        <span class="emoji" aria-hidden="true">🚙</span>
+        <svg viewBox="0 0 24 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10.5h21"/><path d="M1.8 10.5v-2.5L3.8 6 6 3h11l2.8 3 2.4 2v2"/><path d="M7 6h11"/><circle cx="6.5" cy="11.5" r="1.8" fill="currentColor" stroke="none"/><circle cx="17.5" cy="11.5" r="1.8" fill="currentColor" stroke="none"/></svg>
         <span>SUV</span>
       </button>
       <button type="button" class="type-chip" data-type="sedan" onclick="filterByTypeChip('sedan')">
-        <span class="emoji" aria-hidden="true">🚗</span>
+        <svg viewBox="0 0 24 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10.5h21"/><path d="M2.5 10.5v-1l1.5-2.2 3-0.3 2-2.5h6.5l3 2.8 3.5 0.3v2.9"/><path d="M9 4.5h6.5"/><circle cx="6.5" cy="11.5" r="1.7" fill="currentColor" stroke="none"/><circle cx="17.5" cy="11.5" r="1.7" fill="currentColor" stroke="none"/></svg>
         <span>Sedán</span>
       </button>
       <button type="button" class="type-chip" data-type="hatchback" onclick="filterByTypeChip('hatchback')">
-        <span class="emoji" aria-hidden="true">🏎️</span>
+        <svg viewBox="0 0 24 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 10.5h21"/><path d="M2.5 10.5v-1.5l1.8-2 3-0.8 1.5-2.2h7l2.5 5 3.7 0.5v1"/><path d="M8.8 4h6.8"/><circle cx="6.5" cy="11.5" r="1.7" fill="currentColor" stroke="none"/><circle cx="17.5" cy="11.5" r="1.7" fill="currentColor" stroke="none"/></svg>
         <span>Hatchback</span>
       </button>
       <button type="button" class="type-chip" data-type="electrico" onclick="filterByTypeChip('electrico')">
-        <span class="emoji" aria-hidden="true">⚡</span>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2.5L4 14h6.5l-2 7.5L20 9h-7l2-6.5z"/></svg>
         <span>Eléctrico</span>
       </button>
     </div>
