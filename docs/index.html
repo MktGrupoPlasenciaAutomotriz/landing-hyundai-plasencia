@@ -637,7 +637,9 @@ button, a, .v-card, .filter-chip, .filter-select, .filter-clear, .calc-term-btn 
 
 .form-group { display: flex; flex-direction: column; }
 .form-group.full { grid-column: 1 / -1; }
-.form-label { font-size: 12px; font-weight: 700; color: var(--ink-700); margin-bottom: 7px; letter-spacing: 0.2px; }
+.form-label { font-size: 12px; font-weight: 700; color: var(--ink-700); margin-bottom: 7px; letter-spacing: 0.2px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.label-req { font-size: 10px; font-weight: 700; color: #dc2626; letter-spacing: 0.03em; text-transform: uppercase; padding: 2px 7px; background: rgba(220,38,38,0.08); border-radius: 999px; }
+.label-opt { font-size: 10px; font-weight: 600; color: #94a3b8; letter-spacing: 0.03em; text-transform: uppercase; padding: 2px 7px; background: rgba(148,163,184,0.12); border-radius: 999px; }
 .form-input {
   padding: 14px 16px; border: 1.5px solid var(--ink-200); border-radius: var(--radius-md);
   font-size: 16px; /* evita auto-zoom de iOS al focus */
@@ -1023,7 +1025,8 @@ html, body { overflow-x: hidden; max-width: 100vw; }
 
 .cal-wrap {
   background: #fff; border: 1.5px solid var(--ink-200); border-radius: var(--radius-lg);
-  padding: 16px; margin-bottom: 14px;
+  padding: 14px; margin-bottom: 14px;
+  max-width: 340px;
   transition: border-color var(--duration-fast) var(--ease);
 }
 .cal-wrap.error { border-color: var(--color-error); background: #FEF2F2; }
@@ -1358,7 +1361,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="form-empty-state" id="formGlobalError">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-error)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            <div class="form-empty-state-text" id="formGlobalErrorText">Completa los campos requeridos para agendar</div>
+            <div class="form-empty-state-text" id="formGlobalErrorText">Faltan campos obligatorios. Revisa los marcados en rojo para continuar.</div>
             <div class="form-empty-state-sub">Los campos marcados necesitan tu atención.</div>
           </div>
 
@@ -1382,22 +1385,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="form-step active" id="formStep1" data-step="1">
             <div class="form-grid">
               <div class="form-group full">
-                <label class="form-label" for="fName">Nombre(s) <span style="color:var(--color-error);">*</span></label>
+                <label class="form-label" for="fName">Nombre(s) <span class="label-req">Obligatorio</span></label>
                 <input class="form-input uppercase-field" id="fName" type="text" placeholder="JUAN CARLOS" oninput="sanitizeOnInput(this); validateField(this)" autocomplete="given-name">
                 <div class="form-error-msg" id="fName-error">Ingresa tu nombre</div>
               </div>
               <div class="form-group">
-                <label class="form-label" for="fLastName1">Apellido paterno <span style="color:var(--color-error);">*</span></label>
+                <label class="form-label" for="fLastName1">Apellido paterno <span class="label-req">Obligatorio</span></label>
                 <input class="form-input uppercase-field" id="fLastName1" type="text" placeholder="PÉREZ" oninput="sanitizeOnInput(this); validateField(this)" autocomplete="family-name">
                 <div class="form-error-msg" id="fLastName1-error">Ingresa tu apellido paterno</div>
               </div>
               <div class="form-group">
-                <label class="form-label" for="fLastName2">Apellido materno <span style="color:var(--color-error);">*</span></label>
+                <label class="form-label" for="fLastName2">Apellido materno <span class="label-req">Obligatorio</span></label>
                 <input class="form-input uppercase-field" id="fLastName2" type="text" placeholder="GARCÍA" oninput="sanitizeOnInput(this); validateField(this)" autocomplete="additional-name">
                 <div class="form-error-msg" id="fLastName2-error">Ingresa tu apellido materno</div>
               </div>
               <div class="form-group">
-                <label class="form-label" for="fPhone">Celular / WhatsApp <span style="color:var(--color-error);">*</span></label>
+                <label class="form-label" for="fPhone">Celular / WhatsApp <span class="label-req">Obligatorio</span></label>
                 <div class="phone-row">
                   <div class="phone-prefix">MX +52</div>
                   <input class="form-input" id="fPhone" type="tel" placeholder="3312345678" maxlength="10" pattern="[0-9]{10}" oninput="formatPhone(this); validateField(this)" onkeypress="return /[0-9]/.test(event.key)" autocomplete="tel-national" inputmode="numeric" style="flex:1;">
@@ -1406,7 +1409,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="form-error-msg" id="fPhone-error">Ingresa un número de celular válido de 10 dígitos</div>
               </div>
               <div class="form-group">
-                <label class="form-label" for="fEmail">Correo electrónico <span style="color:var(--color-error);">*</span></label>
+                <label class="form-label" for="fEmail">Correo electrónico <span class="label-req">Obligatorio</span></label>
                 <input class="form-input" id="fEmail" type="email" placeholder="tu@email.com" oninput="validateField(this)" autocomplete="email">
                 <div class="form-error-msg" id="fEmail-error">Ingresa un correo válido</div>
               </div>
@@ -1420,7 +1423,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="form-step" id="formStep2" data-step="2">
             <div class="form-grid">
               <div class="form-group full">
-                <label class="form-label">Tipo de persona (opcional)</label>
+                <label class="form-label">Tipo de persona <span class="label-opt">Opcional</span></label>
                 <select class="form-input" id="fTipoPersona" onchange="onTipoPersonaChange()">
                   <option value="">Selecciona una opción</option>
                   <option value="PERSONA FISICA">Persona física</option>
@@ -1437,7 +1440,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="field-help" id="ivaFieldHelp">Personas físicas con actividad empresarial y morales pueden acreditar el IVA y deducir el vehículo si lo destinan a su actividad. Nos sirve para ofrecerte el mejor esquema (factura, leasing, crédito empresarial).</div>
               </div>
               <div class="form-group">
-                <label class="form-label">¿Necesitas financiamiento? <span style="color:var(--color-error);">*</span></label>
+                <label class="form-label">¿Necesitas financiamiento? <span class="label-req">Obligatorio</span></label>
                 <select class="form-input" id="fBuscaFinanciamiento" onchange="toggleIngresos()">
                   <option value="">Selecciona una opción</option>
                   <option value="SI">Sí</option>
@@ -1454,7 +1457,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="field-help">Si no puedes comprobarlos, no te preocupes: no es restricción para la compra. Solo puede implicar un enganche mayor (desde 25%).</div>
               </div>
               <div class="form-group full">
-                <label class="form-label">¿Tienes auto a cuenta? (opcional)</label>
+                <label class="form-label">¿Tienes auto a cuenta? <span class="label-opt">Opcional</span></label>
                 <select class="form-input" id="fTradeIn">
                   <option value="">No, compra directa</option>
                   <option value="si">Sí, quiero que lo evalúen</option>
@@ -1491,7 +1494,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <div class="form-error-msg" id="fSucursal-error" role="alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Selecciona una sucursal para tu cita</div>
             </div>
             <div class="cita-picker">
-              <div class="cita-picker-label">Fecha y hora de cita <span style="color:var(--color-error);">*</span></div>
+              <div class="cita-picker-label">Fecha y hora de cita <span class="label-req">Obligatorio</span></div>
               <input type="hidden" id="fDate" value="">
               <input type="hidden" id="fTime" value="">
               <div class="cal-wrap" id="calWrap">
