@@ -191,13 +191,17 @@ button, a, .v-card, .filter-chip, .filter-select, .filter-clear, .calc-term-btn 
 /* ── HERO ── */
 .hero {
   position: relative; overflow: hidden;
-  background: var(--brand-primary-dark);
+  background: var(--brand-primary-dark) url('hero-hyundai.jpg') no-repeat center center;
+  background-size: cover;
   color: #fff;
-  padding: 72px 0 88px;
+  padding: 96px 0 104px;
+  min-height: 620px;
 }
 .hero::before {
   content:''; position: absolute; inset: 0;
-  background: var(--gradient-mesh);
+  background:
+    linear-gradient(90deg, var(--brand-primary-dark) 0%, rgba(15,26,46,0.88) 40%, rgba(15,26,46,0.55) 70%, rgba(15,26,46,0.3) 100%),
+    var(--gradient-mesh);
   pointer-events: none;
 }
 .hero::after {
@@ -209,8 +213,14 @@ button, a, .v-card, .filter-chip, .filter-select, .filter-clear, .calc-term-btn 
   mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
   -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
   pointer-events: none;
+  opacity: 0.5;
 }
-.hero-content { position: relative; z-index: 2; text-align: center; max-width: 820px; margin: 0 auto; }
+.hero-content { position: relative; z-index: 2; text-align: left; max-width: 640px; }
+@media (max-width: 768px) {
+  .hero { padding: 64px 0 72px; min-height: auto; background-position: 65% center; }
+  .hero::before { background: linear-gradient(180deg, rgba(15,26,46,0.60) 0%, rgba(15,26,46,0.85) 50%, var(--brand-primary-dark) 100%); }
+  .hero-content { text-align: center; max-width: 100%; }
+}
 .hero-tagline {
   display: inline-flex; align-items: center; gap: 8px;
   background: rgba(0,170,210,0.12); border: 1px solid rgba(0,170,210,0.32);
