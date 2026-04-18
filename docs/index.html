@@ -249,9 +249,11 @@ button, a, .v-card, .filter-chip, .filter-select, .filter-clear, .calc-term-btn 
 .hero-sub {
   font-size: clamp(15px, 1.6vw, 18px);
   color: rgba(255,255,255,0.66);
-  line-height: 1.6; margin: 0 auto 40px; max-width: 620px;
+  line-height: 1.6; margin: 0 0 8px; max-width: 620px;
 }
-.hero-stats { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+@media (max-width: 768px) { .hero-sub { margin: 0 auto 8px; } }
+.hero-stats { display: flex; justify-content: flex-start; gap: 12px; flex-wrap: wrap; margin: 32px 0 28px; }
+@media (max-width: 768px) { .hero-stats { justify-content: center; } }
 .hero-stat {
   text-align: left;
   padding: 16px 22px;
@@ -293,8 +295,30 @@ button, a, .v-card, .filter-chip, .filter-select, .filter-clear, .calc-term-btn 
 .type-chip { display:inline-flex; align-items:center; gap:8px; padding:10px 16px; background:#fff; border:1.5px solid var(--ink-200); border-radius:999px; font-family:var(--font-body); font-size:13px; font-weight:700; color:var(--ink-700); cursor:pointer; flex-shrink:0; transition:all 0.15s ease; white-space:nowrap; }
 .type-chip:hover { border-color:var(--brand-accent); color:var(--brand-accent); transform:translateY(-1px); }
 .type-chip.active { background:var(--brand-accent); color:#fff; border-color:var(--brand-accent); box-shadow:0 4px 10px rgba(0,170,210,0.25); }
-.type-chip svg { width:18px; height:18px; flex-shrink:0; }
+.type-chip .emoji { font-size:18px; line-height:1; display:inline-block; }
 #filterType { display:none; } /* reemplazado por type-chips */
+
+
+
+/* Cómo funciona — 3 pasos */
+.steps-section { background:#F7F9FC; padding:72px 0; border-top:1px solid var(--ink-200); }
+.steps-head { text-align:center; max-width:680px; margin:0 auto 48px; }
+.steps-kicker { font-size:11px; font-weight:800; letter-spacing:0.18em; text-transform:uppercase; color:var(--brand-accent); margin-bottom:10px; }
+.steps-title { font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,32px); line-height:1.2; color:var(--ink-900); letter-spacing:-0.02em; margin:0 0 12px; }
+.steps-sub { font-size:15px; line-height:1.6; color:var(--ink-600); margin:0; }
+.steps-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; max-width:1100px; margin:0 auto; }
+.step-card { background:#fff; border:1px solid var(--ink-200); border-radius:16px; padding:28px 24px; position:relative; transition:transform 0.2s, box-shadow 0.2s; }
+.step-card:hover { transform:translateY(-3px); box-shadow:0 14px 30px -12px rgba(0,170,210,0.18); }
+.step-num { font-family:var(--font-display); font-size:38px; font-weight:900; color:var(--brand-accent); line-height:1; letter-spacing:-0.04em; opacity:0.7; }
+.step-emoji { font-size:32px; line-height:1; margin:14px 0 10px; }
+.step-title { font-family:var(--font-display); font-weight:800; font-size:18px; color:var(--ink-900); margin-bottom:8px; letter-spacing:-0.01em; }
+.step-desc { font-size:14px; line-height:1.6; color:var(--ink-600); }
+@media (max-width: 640px) {
+  .steps-section { padding:48px 0; }
+  .steps-head { margin-bottom:32px; }
+  .step-card { padding:22px 20px; }
+  .step-num { font-size:32px; }
+}
 
 /* FAQ */
 .faq-section { background:#F7F9FC; padding:72px 0; }
@@ -1242,6 +1266,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<!-- ════ COMO FUNCIONA (3 pasos) ════ -->
+<section class="steps-section" aria-labelledby="stepsTitle">
+  <div class="container">
+    <div class="steps-head">
+      <div class="steps-kicker">En 3 pasos</div>
+      <h2 class="steps-title" id="stepsTitle">Así de simple es estrenar tu Hyundai</h2>
+      <p class="steps-sub">Agendas en menos de 60 segundos. Todo lo demás pasa en tu cita.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-emoji" aria-hidden="true">🚙</div>
+        <div class="step-title">Elige tu Hyundai</div>
+        <div class="step-desc">12 modelos con bonos desde $10,000 hasta $400,000. Filtra por tipo, precio o busca directo el que te guste.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-emoji" aria-hidden="true">💰</div>
+        <div class="step-title">Calcula tu mensualidad</div>
+        <div class="step-desc">Ajusta enganche y plazo con la calculadora Banorte. Tasa desde 9.49% anual. Sin afectar tu buró.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-emoji" aria-hidden="true">📅</div>
+        <div class="step-title">Agenda tu cita</div>
+        <div class="step-desc">Eliges día, hora y sucursal. Tu asesor te contacta por WhatsApp para confirmar. Llegas, manejas y decides.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ════ TRUST BAR ════ -->
 <div class="trust-bar">
   <div class="container">
@@ -1269,23 +1324,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Type icon chips (replaces type dropdown) -->
     <div class="type-chips" role="group" aria-label="Filtrar por tipo de vehiculo">
       <button type="button" class="type-chip active" data-type="all" onclick="filterByTypeChip('all')" aria-pressed="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span class="emoji" aria-hidden="true">🚘</span>
         <span>Todos</span>
       </button>
       <button type="button" class="type-chip" data-type="suv" onclick="filterByTypeChip('suv')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 13l2-4 3-3h8l3 3 2 4v5h-2a2 2 0 0 0-4 0H9a2 2 0 0 0-4 0H3v-5z"/><circle cx="7" cy="18" r="1.5" fill="currentColor"/><circle cx="17" cy="18" r="1.5" fill="currentColor"/></svg>
+        <span class="emoji" aria-hidden="true">🚙</span>
         <span>SUV</span>
       </button>
       <button type="button" class="type-chip" data-type="sedan" onclick="filterByTypeChip('sedan')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 16l2-3 5-3h4l5 3 2 3v3h-2a2 2 0 0 0-4 0H9a2 2 0 0 0-4 0H3v-3z"/><circle cx="7" cy="19" r="1.3" fill="currentColor"/><circle cx="17" cy="19" r="1.3" fill="currentColor"/></svg>
+        <span class="emoji" aria-hidden="true">🚗</span>
         <span>Sedán</span>
       </button>
       <button type="button" class="type-chip" data-type="hatchback" onclick="filterByTypeChip('hatchback')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 15l4-3 5-4h2l5 7v3h-2a2 2 0 0 0-4 0H9a2 2 0 0 0-4 0H3v-3z"/><circle cx="7" cy="18" r="1.3" fill="currentColor"/><circle cx="17" cy="18" r="1.3" fill="currentColor"/></svg>
+        <span class="emoji" aria-hidden="true">🏎️</span>
         <span>Hatchback</span>
       </button>
       <button type="button" class="type-chip" data-type="electrico" onclick="filterByTypeChip('electrico')">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L4 14h7l-2 8 9-12h-7l2-8z"/></svg>
+        <span class="emoji" aria-hidden="true">⚡</span>
         <span>Eléctrico</span>
       </button>
     </div>
