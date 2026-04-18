@@ -246,12 +246,16 @@ button, a, .v-card, .filter-chip, .filter-select, .filter-clear, .calc-term-btn 
   background-clip: text;
   color: transparent;
 }
+.hero-vp { font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.55); margin:14px 0 18px; max-width:540px; }
+@media (max-width: 768px) { .hero-vp { margin:14px auto 18px; text-align:center; } }
 .hero-sub {
   font-size: clamp(15px, 1.6vw, 18px);
   color: rgba(255,255,255,0.66);
   line-height: 1.6; margin: 0 0 8px; max-width: 620px;
 }
-@media (max-width: 768px) { .hero-sub { margin: 0 auto 8px; } }
+@media (max-width: 768px) { .hero-vp { font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.55); margin:14px 0 18px; max-width:540px; }
+@media (max-width: 768px) { .hero-vp { margin:14px auto 18px; text-align:center; } }
+.hero-sub { margin: 0 auto 8px; } }
 .hero-stats { display: flex; justify-content: flex-start; gap: 12px; flex-wrap: wrap; margin: 32px 0 28px; }
 @media (max-width: 768px) { .hero-stats { justify-content: center; } }
 .hero-stat {
@@ -1275,6 +1279,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="container">
     <div class="hero-content">
       <div class="hero-tagline"><span class="hero-tagline-dot"></span>Vigencia del 1 al 30 de abril de 2026</div>
+      <div class="hero-vp">75 años convirtiendo dudas en autos que amas</div>
       <h1>Estrena tu <span class="accent">Hyundai</span><br>con bonos de hasta $400,000</h1>
       <p class="hero-sub">Hyundai Plasencia Guadalajara. Bonos en todos los modelos + financiamiento desde 9.49% con Banorte. Calcula tu mensualidad y agenda tu cita en menos de 60 segundos.</p>
       <div class="hero-stats">
