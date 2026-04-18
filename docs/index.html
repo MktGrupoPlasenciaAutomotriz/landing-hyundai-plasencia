@@ -2256,7 +2256,7 @@ function goToFormStep(step) {
         var v = el.value.trim();
         var valid = v.length > 0;
         if (id === 'fPhone') valid = /^[0-9]{10}$/.test(v);
-        else if (id === 'fEmail') valid = v.includes('@') && v.length >= 5;
+        else if (id === 'fEmail') valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
         if (!valid) { showFieldError(id); el.classList.add('error'); el.classList.remove('valid'); allValid = false; }
         else { hideFieldError(id); el.classList.remove('error'); el.classList.add('valid'); }
       });
@@ -2293,7 +2293,7 @@ function validateField(el) {
   } else if (el.id === 'fEmail') {
     const v = el.value.trim().toUpperCase();
     el.value = v;
-    isValid = v.includes('@') && v.length >= 5;
+    isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
   } else {
     isValid = el.value.trim().length > 0;
   }
@@ -2301,6 +2301,11 @@ function validateField(el) {
     el.classList.remove('error');
     el.classList.add('valid');
     if (errorEl) errorEl.classList.remove('show');
+    // Limpiar banner global si ya no hay errores visibles
+    if (!document.querySelector('.form-error-msg.show') && !document.querySelector('.form-input.error')) {
+      const ge = document.getElementById('formGlobalError');
+      if (ge) ge.classList.remove('show');
+    }
   } else {
     el.classList.remove('valid');
   }
@@ -2375,6 +2380,7 @@ function sendToWebhook(data) {
 
 function submitForm() {
   if (submitting) return;
+  clearValidation(); // limpia errores stale de intentos previos
   const nombre = document.getElementById('fName').value.trim().toUpperCase();
   const ap1 = document.getElementById('fLastName1').value.trim().toUpperCase();
   const ap2 = document.getElementById('fLastName2').value.trim().toUpperCase();
@@ -2387,7 +2393,7 @@ function submitForm() {
     { id: 'fLastName1', val: ap1 },
     { id: 'fLastName2', val: ap2 },
     { id: 'fPhone', val: phone, check: v => /^[0-9]{10}$/.test(v) },
-    { id: 'fEmail', val: email, check: v => v.includes('@') && v.length >= 5 },
+    { id: 'fEmail', val: email, check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
     { id: 'fSucursal', val: document.getElementById('fSucursal').value },
     { id: 'fDate', val: document.getElementById('fDate').value },
     { id: 'fTime', val: document.getElementById('fTime').value },
@@ -2402,15 +2408,20 @@ function submitForm() {
   required.forEach(f => {
     const valid = f.check ? f.check(f.val) : f.val.length > 0;
     if (!valid) { showFieldError(f.id); hasErrors = true; }
+    else { hideFieldError(f.id); } // limpiar error stale del intento previo
   });
 
   if (!validateDate()) hasErrors = true;
 
   const privacy = document.getElementById('fPrivacy');
-  if (!privacy.checked) {
-    privacy.closest('label').querySelector('input').classList.add('error');
-    document.getElementById('fPrivacy-error').classList.add('show');
+  const privErr = document.getElementById('fPrivacy-error');
+  if (privacy && !privacy.checked) {
+    privacy.classList.add('error');
+    if (privErr) privErr.classList.add('show');
     hasErrors = true;
+  } else if (privacy) {
+    privacy.classList.remove('error');
+    if (privErr) privErr.classList.remove('show');
   }
 
   if (hasErrors) {
