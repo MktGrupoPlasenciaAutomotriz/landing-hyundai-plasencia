@@ -1182,7 +1182,22 @@ html, body { overflow-x: hidden; max-width: 100vw; }
 .cal-day.disabled {
   color: var(--ink-300); cursor: default; pointer-events: none;
 }
+/* Hoy deshabilitado: clickeable para disparar warning, pero no seleccionable */
+.cal-day.today.disabled { pointer-events: auto; cursor: not-allowed; }
 .cal-day.sunday.disabled { color: var(--ink-200); text-decoration: line-through; }
+
+/* ── CALENDAR WARNING BANNER (no agendamos mismo dia) ── */
+.cal-warning {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 10px 14px; margin: 0 0 12px;
+  background: #FEF3C7; border: 1px solid #FCD34D; border-radius: 8px;
+  color: #92400E; font-size: 12.5px; font-weight: 600; line-height: 1.4;
+}
+.cal-warning svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; color: #D97706; }
+.cal-warning.hidden { display: none; }
+.cal-warning.shake { animation: warnShake 0.45s ease-in-out; border-color: #F59E0B; background: #FDE68A; }
+@keyframes warnShake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 50%{transform:translateX(4px)} 75%{transform:translateX(-2px)} }
+@media (max-width: 640px) { .cal-warning { font-size: 12px; padding: 9px 12px; } }
 .cal-day.today:not(.selected) {
   border: 2px solid var(--brand-accent); color: var(--brand-accent);
 }
@@ -1741,6 +1756,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <div class="cita-picker-label">Fecha y hora de cita <span class="label-req">Obligatorio</span></div>
               <input type="hidden" id="fDate" value="">
               <input type="hidden" id="fTime" value="">
+              <div class="cal-warning" id="calWarning" role="status" aria-live="polite">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>No agendamos citas el mismo día. Selecciona una fecha de mañana en adelante (mínimo 24 h).</span>
+              </div>
               <div class="cal-wrap" id="calWrap">
                 <div class="cal-header">
                   <button type="button" class="cal-nav" id="calPrev" onclick="calNavigate(-1)">&#8249;</button>
@@ -2235,7 +2254,24 @@ function setupDateInput() {
   document.getElementById('timeSlotsWrap').classList.remove('show');
   document.getElementById('citaSummary').classList.remove('show');
   document.getElementById('calWrap').classList.remove('error');
+  showSameDayWarning(true); // visible al abrir, sin shake
   renderCalendar();
+}
+
+let _calWarnTimer = null;
+function showSameDayWarning(initial) {
+  const w = document.getElementById('calWarning'); if (!w) return;
+  w.classList.remove('hidden');
+  if (initial) return; // primera vez: solo mostrar, sin shake
+  w.classList.remove('shake');
+  void w.offsetWidth; // reflow para reiniciar la animacion
+  w.classList.add('shake');
+  if (_calWarnTimer) clearTimeout(_calWarnTimer);
+  _calWarnTimer = setTimeout(function(){ w.classList.remove('shake'); }, 500);
+}
+function hideSameDayWarning() {
+  const w = document.getElementById('calWarning'); if (!w) return;
+  w.classList.add('hidden');
 }
 
 function renderCalendar() {
@@ -2284,7 +2320,8 @@ function renderCalendar() {
     if (isToday) cls += ' today';
     if (isSelected) cls += ' selected';
     const isoStr = toISO(dt);
-    html += `<button type="button" class="${cls}" data-date="${isoStr}" ${enabled ? `onclick="selectCalDay('${isoStr}')"` : ''}>${d}</button>`;
+    const onclickAttr = enabled ? `onclick="selectCalDay('${isoStr}')"` : (isToday ? `onclick="showSameDayWarning()"` : '');
+    html += `<button type="button" class="${cls}" data-date="${isoStr}" ${onclickAttr}>${d}</button>`;
   }
   container.innerHTML = html;
 }
@@ -2305,6 +2342,7 @@ function selectCalDay(isoStr) {
   document.getElementById('fTime').value = '';
   document.getElementById('citaSummary').classList.remove('show');
   document.getElementById('calWrap').classList.remove('error');
+  hideSameDayWarning();
   // Clear date error
   const errEl = document.getElementById('fDate-error');
   if (errEl) { errEl.classList.remove('show'); }
