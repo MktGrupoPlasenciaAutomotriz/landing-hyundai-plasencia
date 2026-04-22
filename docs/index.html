@@ -2129,21 +2129,21 @@ const vehicles = [
   { id:35, name:"Hyundai Palisade HEV",   year:2026, version:"LIMITED TECH AWD",  type:"suv",       km:0, trans:"Automática", fuel:"Híbrido",  engine:"2.5L T HEV", color:"", price:1288300, img:"https://www.hyundai.com.mx/dA/2f6fc974-a519-4772-9863-424ba02ef688/deck_palisade625x300.jpg", badge:"",             photos:0 },
 ];
 
-// ── Enriquecimiento con datos oficiales del boletin SA-19-26 ──
-// monthlyFrom: "Mensualidad desde" oficial por modelo (comunicacion Hyundai)
+// ── Enriquecimiento con datos oficiales del tabulador interno ──
+// monthlyFrom: "Mensualidad desde" oficial por modelo (tabulador interno)
 // minRate: tasa minima real (Elantra HEV arranca en 10.49%, no 9.49%)
 // badgeFallback: copy cuando no hay bono flexible
 (function enrichVehicles() {
   var modelMeta = {
     'Hyundai HB20 Sedán':     { monthlyFrom: 3199 },
-    'Hyundai HB20 HB':         { monthlyFrom: null }, // boletin no publica mensualidad desde HB20 HB
+    'Hyundai HB20 HB':         { monthlyFrom: null }, // tabulador no publica mensualidad desde HB20 HB
     'Hyundai IONIQ 5':         { monthlyFrom: null },
     'Hyundai Palisade':         { monthlyFrom: 11099 },
     'Hyundai Grand i10 HB':     { monthlyFrom: 2699 },
     'Hyundai Grand i10 Sedán':  { monthlyFrom: 2899 },
     'Hyundai Creta':            { monthlyFrom: 3999 },
     'Hyundai Creta Grand':      { monthlyFrom: 5199 },
-    'Hyundai Elantra HEV':      { monthlyFrom: 6099, minRate: 0.1049 }, // Boletin: "Tasa desde 10.49%"
+    'Hyundai Elantra HEV':      { monthlyFrom: 6099, minRate: 0.1049 }, // Tabulador: "Tasa desde 10.49%"
     'Hyundai Tucson':           { monthlyFrom: 5599 },
     'Hyundai Tucson HEV':       { monthlyFrom: 8199 },
     'Hyundai Santa Fe HEV':     { monthlyFrom: 9499 },
@@ -2335,7 +2335,7 @@ function clearAllFilters() {
 
 /* filterCars replaced by filterByType dropdown */
 
-// Tasa escalonada Banorte — Abril 2026 (Boletín SA-19-26)
+// Tasa escalonada Banorte — Abril 2026 (tabulador interno)
 // minRate: piso por modelo (Elantra HEV = 10.49% incluso a 50% enganche)
 function getTasaAnual(downPct, minRate) {
   var floor = (typeof minRate === 'number') ? minRate : 0.0949;
