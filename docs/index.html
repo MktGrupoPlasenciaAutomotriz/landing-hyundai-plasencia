@@ -1268,6 +1268,80 @@ html, body { overflow-x: hidden; max-width: 100vw; }
 .skip-link:focus { top:0; }
 .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 :focus-visible { outline:3px solid var(--color-accent); outline-offset:2px; }
+
+/* ── H2: STICKY MOBILE CTA (aparece al pasar del hero) ── */
+.sticky-mobile-cta {
+  display: none;
+  position: fixed; left: 0; right: 0; bottom: 0;
+  z-index: 998;
+  background: #fff;
+  border-top: 1px solid var(--ink-200);
+  padding: 10px 16px;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+  opacity: 0; transform: translateY(100%);
+  transition: opacity 250ms cubic-bezier(0.4,0,0.2,1), transform 250ms cubic-bezier(0.4,0,0.2,1);
+  pointer-events: none;
+}
+@media (max-width: 640px) {
+  .sticky-mobile-cta { display: flex; gap: 10px; align-items: center; }
+  .sticky-mobile-cta.is-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  body.has-sticky-cta { padding-bottom: 76px; }
+  body[style*="position: fixed"] .sticky-mobile-cta { opacity: 0; transform: translateY(100%); pointer-events: none; }
+}
+@media (prefers-reduced-motion: reduce) { .sticky-mobile-cta { transition: none; } }
+.sticky-mobile-cta-btn {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 16px; min-height: 48px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display); font-weight: 800; font-size: 14px;
+  cursor: pointer; text-decoration: none; border: none;
+  letter-spacing: 0.2px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.sticky-mobile-cta-btn:active { transform: scale(0.98); }
+.sticky-mobile-cta-btn--primary {
+  background: linear-gradient(135deg, var(--brand-accent), var(--brand-accent-hover));
+  color: #fff;
+  box-shadow: 0 6px 18px -6px rgba(0,170,210,0.55);
+}
+.sticky-mobile-cta-btn--primary svg { width: 16px; height: 16px; }
+.sticky-mobile-cta-btn--wa {
+  background: #25D366; color: #fff;
+  box-shadow: 0 6px 18px -6px rgba(37,211,102,0.55);
+}
+.sticky-mobile-cta-btn--wa svg { width: 22px; height: 22px; }
+
+/* ── Step 4: Sucursal selector (radio cards) ── */
+.sucursal-cards { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 4px 0 14px; }
+@media (min-width: 560px) { .sucursal-cards { grid-template-columns: 1fr 1fr; } }
+.sucursal-card {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 14px 16px;
+  border: 2px solid var(--ink-200); border-radius: var(--radius-md);
+  background: #fff; cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+}
+.sucursal-card:hover { border-color: var(--brand-accent); background: rgba(0,170,210,0.04); }
+.sucursal-card.selected {
+  border-color: var(--brand-accent);
+  background: rgba(0,170,210,0.08);
+  box-shadow: 0 0 0 3px rgba(0,170,210,0.15);
+}
+.sucursal-card-title { font-family: var(--font-display); font-weight: 800; font-size: 14px; color: var(--ink-900); display: flex; align-items: center; gap: 6px; }
+.sucursal-card-addr { font-size: 12px; color: var(--ink-500); line-height: 1.35; }
+.sucursal-card-hours { font-size: 11px; color: var(--ink-400); line-height: 1.35; }
+.sucursal-card-radio {
+  position: absolute; top: 12px; right: 12px;
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid var(--ink-300); background: #fff;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.sucursal-card.selected .sucursal-card-radio {
+  border-color: var(--brand-accent); background: var(--brand-accent);
+  box-shadow: inset 0 0 0 3px #fff;
+}
 </style>
 </head>
 <body>
@@ -1580,56 +1654,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="trust-badge-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="4.93" y1="19.07" x2="10.12" y2="13.88"/><line x1="19.07" y1="19.07" x2="13.88" y2="13.88"/></svg> Prueba de manejo</div>
         </div>
 
-        <!-- ── CALCULATOR ── -->
-        <div class="calc-section">
-          <div class="calc-title">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="12" y1="10" x2="14" y2="10"/><line x1="16" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="12" y1="14" x2="14" y2="14"/><line x1="16" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="10" y2="18"/><line x1="12" y1="18" x2="14" y2="18"/><line x1="16" y1="18" x2="16" y2="18"/></svg>
-            Calcula tu mensualidad
-          </div>
-          <div class="calc-subtitle">Ajusta enganche y plazo. Resultado en tiempo real.</div>
-          <div class="calc-rate-note" style="font-size:11px;color:var(--ink-400);margin-bottom:14px;">Tasa Banorte (escalonada por enganche): <strong id="rateDisplay">13.99% anual</strong></div>
-
-          <div class="calc-row">
-            <div class="calc-label">
-              <span>Enganche</span>
-              <span class="calc-label-value" id="downLabel">20%</span>
-            </div>
-            <input type="range" class="calc-slider" id="downSlider" min="10" max="70" value="20" step="5" oninput="updateCalc()">
-            <div class="calc-slider-meta"><span>20%</span><span>70%</span></div>
-            <div class="enganche-highlight" id="engancheBox">
-              <div class="enganche-label">Tu enganche</div>
-              <div class="enganche-amount" id="engancheAmount">$0</div>
-            </div>
-          </div>
-
-          <div class="calc-row">
-            <div class="calc-label"><span>Plazo</span></div>
-            <div class="calc-terms" id="termBtns">
-              <button class="calc-term-btn" onclick="setTerm(12,this)">12m</button>
-              <button class="calc-term-btn" onclick="setTerm(24,this)">24m</button>
-              <button class="calc-term-btn active" onclick="setTerm(36,this)">36m</button>
-              <button class="calc-term-btn" onclick="setTerm(48,this)">48m</button>
-              <button class="calc-term-btn" onclick="setTerm(60,this)">60m</button>
-            </div>
-          </div>
-
-          <div class="calc-result">
-            <div class="calc-result-label">Mensualidad estimada</div>
-            <div class="calc-result-amount" id="monthlyAmount">$0</div>
-            <div class="calc-result-sub">Tasa referencial anual: <strong id="rateSubDisplay">13.99%</strong></div>
-            <div style="font-size:10px;color:rgba(255,255,255,0.42);margin-top:6px;line-height:1.35;font-style:italic;position:relative;">Mensualidad estimada. El importe real puede variar al contratar según tasa autorizada, enganche, plazo y esquema elegido. El interés causa IVA.</div>
-            <div style="font-size:9px;color:rgba(255,255,255,0.4);margin-top:6px;line-height:1.4;position:relative;">* Financiamiento con Banorte. Comisión por apertura 1%. Tasa variable según enganche (9.49% a 17.99%). Vigencia abril 2026. Cálculo con fines informativos, no constituye una autorización de crédito.</div>
-          </div>
-
-          <div class="calc-offer-banner" id="offerBanner">
-            <strong>Promoción del mes.</strong> Consulta beneficios exclusivos con tu asesor.
-          </div>
-        </div>
-
-        <!-- ── PROGRESSIVE FORM (3 pasos) ── -->
+        <!-- ── PROGRESSIVE FORM (5 pasos: Cotiza / Datos / Perfil / Sucursal / Cita) ── -->
         <div class="form-section">
-          <div class="form-section-title form-section-head">Agenda tu visita</div>
-          <div class="form-section-sub">Completa tus datos y recibe tu precotización al instante.</div>
+          <div class="form-section-title form-section-head" id="formSectionTitle">Cotiza tu mensualidad</div>
+          <div class="form-section-sub" id="formSectionSub">Ajusta enganche y plazo con la tasa escalonada Banorte.</div>
 
           <div class="form-empty-state" id="formGlobalError">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-error)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
@@ -1641,15 +1669,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="form-progress" id="formProgress">
             <div class="form-progress-step active" data-step="1">
               <div class="form-step-num">1</div>
-              <div class="form-step-label">Tus datos</div>
+              <div class="form-step-label">Cotiza</div>
             </div>
             <div class="form-progress-step" data-step="2">
               <div class="form-step-num">2</div>
-              <div class="form-step-label">Vehículo</div>
+              <div class="form-step-label">Datos</div>
             </div>
             <div class="form-progress-step" data-step="3">
               <div class="form-step-num">3</div>
-              <div class="form-step-label">Tu cita</div>
+              <div class="form-step-label">Perfil</div>
+            </div>
+            <div class="form-progress-step" data-step="4">
+              <div class="form-step-num">4</div>
+              <div class="form-step-label">Sucursal</div>
+            </div>
+            <div class="form-progress-step" data-step="5">
+              <div class="form-step-num">5</div>
+              <div class="form-step-label">Cita</div>
             </div>
           </div>
 
@@ -1661,8 +1697,72 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
           </div>
 
-          <!-- ── PASO 1: Tus datos ── -->
+          <!-- ── PASO 1: Cotiza (calculadora = commitment trigger) ── -->
           <div class="form-step active" id="formStep1" data-step="1">
+            <div class="calc-section" style="margin:0 0 16px;">
+              <div class="calc-rate-note" style="font-size:11px;color:var(--ink-400);margin-bottom:14px;">Tasa Banorte (escalonada por enganche): <strong id="rateDisplay">13.99% anual</strong></div>
+
+              <div class="calc-row">
+                <div class="calc-label">
+                  <span>Enganche</span>
+                  <span class="calc-label-value" id="downLabel">20%</span>
+                </div>
+                <input type="range" class="calc-slider" id="downSlider" min="10" max="70" value="20" step="5" oninput="updateCalc(); pushCalcInteraction('enganche');" aria-label="Porcentaje de enganche" aria-valuemin="10" aria-valuemax="70" aria-valuenow="20" aria-valuetext="20% de enganche">
+                <div class="calc-slider-meta"><span>10%</span><span>70%</span></div>
+                <div class="enganche-highlight" id="engancheBox">
+                  <div class="enganche-label">Tu enganche</div>
+                  <div class="enganche-amount" id="engancheAmount">$0</div>
+                </div>
+              </div>
+
+              <div class="calc-row">
+                <div class="calc-label"><span>Plazo</span></div>
+                <div class="calc-terms" id="termBtns">
+                  <button class="calc-term-btn" onclick="setTerm(12,this)">12m</button>
+                  <button class="calc-term-btn" onclick="setTerm(24,this)">24m</button>
+                  <button class="calc-term-btn active" onclick="setTerm(36,this)">36m</button>
+                  <button class="calc-term-btn" onclick="setTerm(48,this)">48m</button>
+                  <button class="calc-term-btn" onclick="setTerm(60,this)">60m</button>
+                </div>
+              </div>
+
+              <div class="calc-result">
+                <div class="calc-result-label">Mensualidad estimada</div>
+                <div class="calc-result-amount" id="monthlyAmount">$0</div>
+                <div class="calc-result-sub">Tasa referencial anual: <strong id="rateSubDisplay">13.99%</strong></div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.42);margin-top:6px;line-height:1.35;font-style:italic;position:relative;">Mensualidad estimada. El importe real puede variar al contratar según tasa autorizada, enganche, plazo y esquema elegido. El interés causa IVA.</div>
+                <div style="font-size:9px;color:rgba(255,255,255,0.4);margin-top:6px;line-height:1.4;position:relative;">* Financiamiento con Banorte. Comisión por apertura 1%. Tasa variable según enganche (9.49% a 17.99%). Vigencia abril 2026. Cálculo con fines informativos, no constituye una autorización de crédito.</div>
+              </div>
+
+              <div class="calc-offer-banner" id="offerBanner">
+                <strong>Promoción del mes.</strong> Consulta beneficios exclusivos con tu asesor.
+              </div>
+            </div>
+
+            <!-- Commitment CTA: ata la cotizacion a la siguiente accion (dar datos) -->
+            <div class="form-step-nav" style="margin-top:4px;">
+              <button type="button" class="btn-step-next" id="btnCommitCalc" onclick="goToFormStep(2)" style="width:100%; justify-content:center; font-size:15px; padding:14px 20px;">
+                Agendar mi cita con esta cotización
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+            <!-- Disclaimer transparente: baja ansiedad + resetea expectativa (LIFT anxiety reducer) -->
+            <div style="margin:12px 0 0; padding:12px 14px; background:var(--ink-50,#F8FAFC); border:1px solid var(--ink-200,#E2E8F0); border-left:3px solid var(--brand-accent,#00AAD2); border-radius:8px;">
+              <div style="display:flex; align-items:flex-start; gap:10px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--brand-accent,#00AAD2)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="flex-shrink:0; margin-top:1px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                <div style="font-size:12.5px; color:var(--ink-600,#475569); line-height:1.5;">
+                  <strong style="color:var(--ink-800,#1E293B);">Esto es una estimación, no una cotización final.</strong>
+                  En tu visita, el asesor te arma planes de pago a tu medida, revisa otros esquemas y te confirma el precio exacto según tu perfil.
+                </div>
+              </div>
+            </div>
+            <p style="text-align:center; font-size:12px; color:var(--ink-500,#64748B); margin:10px 0 0; line-height:1.5;">
+              Llevamos tu cotización a la cita · Respuesta por WhatsApp en minutos
+            </p>
+          </div>
+
+          <!-- ── PASO 2: Tus datos ── -->
+          <div class="form-step" id="formStep2" data-step="2">
             <div class="form-grid">
               <div class="form-group full">
                 <label class="form-label" for="fName">Nombre(s) <span class="label-req">Obligatorio</span></label>
@@ -1695,12 +1795,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               </div>
             </div>
             <div class="form-step-nav">
-              <button type="button" class="btn-step-next" onclick="goToFormStep(2)">Siguiente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></button>
+              <button type="button" class="btn-step-prev" onclick="goToFormStep(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg> Volver a cotizar</button>
+              <button type="button" class="btn-step-next" onclick="goToFormStep(3)">Siguiente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></button>
             </div>
           </div>
 
-          <!-- ── PASO 2: Vehículo ── -->
-          <div class="form-step" id="formStep2" data-step="2">
+          <!-- ── PASO 3: Perfil (financiamiento + trade-in) ── -->
+          <div class="form-step" id="formStep3" data-step="3">
             <div class="form-grid">
               <div class="form-group full">
                 <label class="form-label">Tipo de persona <span class="label-opt">Opcional</span></label>
@@ -1747,21 +1848,64 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               </div>
             </div>
             <div class="form-step-nav">
-              <button type="button" class="btn-step-prev" onclick="goToFormStep(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg> Anterior</button>
-              <button type="button" class="btn-step-next" onclick="goToFormStep(3)">Siguiente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></button>
+              <button type="button" class="btn-step-prev" onclick="goToFormStep(2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg> Anterior</button>
+              <button type="button" class="btn-step-next" onclick="goToFormStep(4)">Siguiente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></button>
             </div>
           </div>
 
-          <!-- ── PASO 3: Tu cita ── -->
-          <div class="form-step" id="formStep3" data-step="3">
+          <!-- ── PASO 4: Sucursal (selector visual + mapa dinamico) ── -->
+          <div class="form-step" id="formStep4" data-step="4">
+            <label class="form-label" style="margin-bottom:10px;">¿En cuál sucursal te gustaría tu cita? <span class="label-req">Obligatorio</span></label>
+            <div class="sucursal-cards" role="radiogroup" aria-label="Sucursal">
+              <div class="sucursal-card" id="sucCardPlasencia" role="radio" tabindex="0" aria-checked="false" onclick="selectSucursal('HYUNDAI PLASENCIA')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectSucursal('HYUNDAI PLASENCIA');}">
+                <span class="sucursal-card-radio" aria-hidden="true"></span>
+                <div class="sucursal-card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="color:var(--brand-accent);"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  Hyundai Plasencia
+                </div>
+                <div class="sucursal-card-addr">Av. López Mateos Sur 2600, Jardines del Sol, 45050 Guadalajara, Jal.</div>
+                <div class="sucursal-card-hours">Lun–Vie 9:00–20:00 · Sáb 9:00–19:00 · Dom 11:00–18:00</div>
+              </div>
+              <div class="sucursal-card" id="sucCardSantaAnita" role="radio" tabindex="0" aria-checked="false" onclick="selectSucursal('HYUNDAI SANTA ANITA')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectSucursal('HYUNDAI SANTA ANITA');}">
+                <span class="sucursal-card-radio" aria-hidden="true"></span>
+                <div class="sucursal-card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="color:var(--brand-accent);"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  Hyundai Santa Anita
+                </div>
+                <div class="sucursal-card-addr">Av. López Mateos Sur 4115, Los Gavilanes, Tlajomulco, Jal.</div>
+                <div class="sucursal-card-hours">Lun–Vie 9:00–20:00 · Sáb 9:00–19:00 · Dom 11:00–18:00</div>
+              </div>
+            </div>
+            <input type="hidden" id="fSucursal" value="">
+            <div class="form-error-msg" id="fSucursal-error" role="alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Selecciona una sucursal para tu cita</div>
+
+            <!-- Mapa dinamico segun seleccion -->
+            <div id="sedeMapWrap" style="display:none; margin-top:14px; border-radius:10px; overflow:hidden; border:1px solid var(--ink-200); aspect-ratio:16/10; background:var(--ink-100);">
+              <iframe id="sedeMapIframe" src="" width="100%" height="100%" style="border:0; display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de la sucursal"></iframe>
+            </div>
+
+            <div class="form-step-nav">
+              <button type="button" class="btn-step-prev" onclick="goToFormStep(3)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg> Anterior</button>
+              <button type="button" class="btn-step-next" onclick="goToFormStep(5)">Confirmar sucursal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></button>
+            </div>
+          </div>
+
+          <!-- ── PASO 5: Cita (calendario primero, warning debajo) ── -->
+          <div class="form-step" id="formStep5" data-step="5">
+            <!-- Badge compacto de sucursal ya confirmada -->
+            <div id="citaSedeBadge" style="display:flex; align-items:center; gap:8px; padding:10px 12px; background:var(--ink-50,#F8FAFC); border:1px solid var(--ink-200,#E2E8F0); border-radius:8px; margin-bottom:14px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--brand-accent,#00AAD2)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <div style="flex:1; min-width:0;">
+                <div style="font-size:11px; color:var(--ink-500,#64748B); font-weight:600; text-transform:uppercase; letter-spacing:0.3px; line-height:1;">Tu cita en</div>
+                <div id="citaSedeBadgeName" style="font-size:14px; font-weight:700; color:var(--ink-900,#0F172A); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">—</div>
+              </div>
+            </div>
+
             <div class="cita-picker">
               <div class="cita-picker-label">Fecha y hora de cita <span class="label-req">Obligatorio</span></div>
               <input type="hidden" id="fDate" value="">
               <input type="hidden" id="fTime" value="">
-              <div class="cal-warning" id="calWarning" role="status" aria-live="polite">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                <span>No agendamos citas el mismo día. Selecciona una fecha de mañana en adelante (mínimo 24 h).</span>
-              </div>
+              <!-- CALENDARIO PRIMERO -->
               <div class="cal-wrap" id="calWrap">
                 <div class="cal-header">
                   <button type="button" class="cal-nav" id="calPrev" onclick="calNavigate(-1)">&#8249;</button>
@@ -1775,6 +1919,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
                 <div class="cal-days" id="calDays"></div>
               </div>
+              <!-- WARNING DEBAJO del calendario -->
+              <div class="cal-warning" id="calWarning" role="status" aria-live="polite" style="margin-top:10px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>Mínimo 24 h de anticipación. No agendamos citas el mismo día.</span>
+              </div>
               <div class="time-slots-wrap" id="timeSlotsWrap">
                 <div class="time-slots-label">Selecciona horario</div>
                 <div class="time-slots" id="timeSlots"></div>
@@ -1782,26 +1931,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <div class="cita-summary" id="citaSummary"></div>
               <div class="form-error-msg" id="fDate-error">Selecciona una fecha y hora para tu cita</div>
               <div class="form-error-msg" id="fTime-error">Selecciona un horario</div>
-            </div>
-
-            <div style="margin:24px 0 8px;">
-              <label class="form-label" for="fSucursal">¿En cuál sucursal te gustaría tu cita? <span class="label-req">Obligatorio</span></label>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0;">
-                <label onclick="document.getElementById('fSucursal').value='HYUNDAI PLASENCIA';validateField(document.getElementById('fSucursal'))" style="cursor:pointer;border:1px solid var(--ink-200,#E2E8F0);border-radius:10px;padding:12px;transition:border-color 0.15s,background 0.15s;" onmouseover="this.style.borderColor='var(--brand-accent,#00AAD2)';this.style.background='rgba(0,170,210,0.04)'" onmouseout="this.style.borderColor='';this.style.background=''">
-                  <div style="font-weight:700;font-size:13px;color:var(--ink-900,#1A1A1A);">📍 Plasencia</div>
-                  <div style="font-size:11px;color:var(--ink-500,#718096);margin-top:4px;line-height:1.3;">Av. López Mateos Sur 2600, Jardines del Sol</div>
-                </label>
-                <label onclick="document.getElementById('fSucursal').value='HYUNDAI SANTA ANITA';validateField(document.getElementById('fSucursal'))" style="cursor:pointer;border:1px solid var(--ink-200,#E2E8F0);border-radius:10px;padding:12px;transition:border-color 0.15s,background 0.15s;" onmouseover="this.style.borderColor='var(--brand-accent,#00AAD2)';this.style.background='rgba(0,170,210,0.04)'" onmouseout="this.style.borderColor='';this.style.background=''">
-                  <div style="font-weight:700;font-size:13px;color:var(--ink-900,#1A1A1A);">📍 Santa Anita</div>
-                  <div style="font-size:11px;color:var(--ink-500,#718096);margin-top:4px;line-height:1.3;">Av. López Mateos Sur 4115, Los Gavilanes</div>
-                </label>
-              </div>
-              <select class="form-input" id="fSucursal" required style="margin-top:4px;" onchange="validateField(this)">
-                <option value="">Selecciona sucursal</option>
-                <option value="HYUNDAI PLASENCIA">Plasencia — Av. López Mateos Sur 2600</option>
-                <option value="HYUNDAI SANTA ANITA">Santa Anita — Av. López Mateos Sur 4115</option>
-              </select>
-              <div class="form-error-msg" id="fSucursal-error" role="alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Selecciona una sucursal para tu cita</div>
             </div>
 
             <label style="display:flex; align-items:flex-start; gap:8px; margin:16px 0 8px; font-size:13px; color:var(--ink-500, #64748b); line-height:1.4; cursor:pointer;">
@@ -1815,6 +1944,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <span>Acepto que mis datos sean utilizados con fines promocionales y de contacto comercial.</span>
             </label>
 
+            <div class="form-step-nav" style="margin-bottom:12px;">
+              <button type="button" class="btn-step-prev" onclick="goToFormStep(4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg> Anterior</button>
+            </div>
             <button class="btn-conversion" onclick="submitForm()">Agendar mi cita</button>
             <p class="form-privacy">Tus datos se usan únicamente para coordinar tu visita a la agencia conforme a la LFPDPPP.</p>
           </div>
@@ -2215,6 +2347,7 @@ function setTerm(months, el) {
   selectedTerm = months;
   document.querySelectorAll('.calc-term-btn').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
+  if (typeof pushCalcInteraction === 'function') pushCalcInteraction('plazo');
   updateCalc();
 }
 
@@ -2373,6 +2506,15 @@ function selectCalDay(isoStr) {
   const errEl = document.getElementById('fDate-error');
   if (errEl) { errEl.classList.remove('show'); }
 
+  try {
+    dataLayer.push({
+      event: 'calendar_day_selected',
+      selected_date: isoStr,
+      day_of_week: calSelectedDate.getDay(),
+      item_name: currentCar ? (currentCar.name + ' ' + currentCar.year) : ''
+    });
+  } catch (e) {}
+
   renderCalendar();
   renderTimeSlots();
 }
@@ -2426,6 +2568,22 @@ function selectTimeSlot(val, el) {
   document.querySelectorAll('.time-pill').forEach(p => p.classList.remove('selected'));
   el.classList.add('selected');
   updateCitaSummary();
+
+  try {
+    var fullIso = '';
+    if (calSelectedDate) {
+      var y = calSelectedDate.getFullYear();
+      var m = String(calSelectedDate.getMonth()+1).padStart(2,'0');
+      var d = String(calSelectedDate.getDate()).padStart(2,'0');
+      fullIso = y + '-' + m + '-' + d + 'T' + val;
+    }
+    dataLayer.push({
+      event: 'calendar_time_selected',
+      selected_time: val,
+      selected_datetime: fullIso,
+      item_name: currentCar ? (currentCar.name + ' ' + currentCar.year) : ''
+    });
+  } catch (e) {}
 }
 
 function updateCitaSummary() {
@@ -2470,6 +2628,7 @@ function validateDate() {
 
 function resetSubmitState() {
   submitting = false;
+  window._submitCompleted = false;
   const b = document.querySelector('.btn-conversion');
   if (b) { b.disabled = false; b.style.opacity = ''; b.style.cursor = ''; b.textContent = 'Agendar mi cita'; }
 }
@@ -2479,8 +2638,10 @@ function setView(viewName, detail) {
   if (_spaNavigating) return;
   let hash = '', title = 'Hyundai Plasencia';
   if (viewName === 'vehiculo' && detail != null) { hash = '#vehiculo-' + detail; title = 'Detalle vehiculo'; }
-  else if (viewName === 'agendar-paso-2') { hash = '#agendar-paso-2'; title = 'Agendar paso 2 - Perfil'; }
-  else if (viewName === 'agendar-paso-3') { hash = '#agendar-paso-3'; title = 'Agendar paso 3 - Cita'; }
+  else if (viewName === 'agendar-paso-2') { hash = '#agendar-paso-2'; title = 'Agendar paso 2 - Datos'; }
+  else if (viewName === 'agendar-paso-3') { hash = '#agendar-paso-3'; title = 'Agendar paso 3 - Perfil'; }
+  else if (viewName === 'agendar-paso-4') { hash = '#agendar-paso-4'; title = 'Agendar paso 4 - Sucursal'; }
+  else if (viewName === 'agendar-paso-5') { hash = '#agendar-paso-5'; title = 'Agendar paso 5 - Cita'; }
   else if (viewName === 'confirmacion') { hash = '#confirmacion'; title = 'Confirmacion cita'; }
   const targetUrl = window.location.pathname + window.location.search + hash;
   if (window.location.pathname + window.location.search + window.location.hash === targetUrl) return;
@@ -2551,6 +2712,18 @@ function openModal(id) {
   document.getElementById('fBuscaFinanciamiento').value = '';
   document.getElementById('fCompruebaIngresos').value = '';
   document.getElementById('ingresosGroup').style.display = 'none';
+  // Reset sucursal selection (Step 4)
+  var sucInput = document.getElementById('fSucursal'); if (sucInput) sucInput.value = '';
+  var sucCardP = document.getElementById('sucCardPlasencia');
+  var sucCardS = document.getElementById('sucCardSantaAnita');
+  if (sucCardP) { sucCardP.classList.remove('selected'); sucCardP.setAttribute('aria-checked','false'); }
+  if (sucCardS) { sucCardS.classList.remove('selected'); sucCardS.setAttribute('aria-checked','false'); }
+  var sedeMapWrap = document.getElementById('sedeMapWrap'); if (sedeMapWrap) sedeMapWrap.style.display = 'none';
+  var sedeBadgeName = document.getElementById('citaSedeBadgeName'); if (sedeBadgeName) sedeBadgeName.textContent = '—';
+  // Reset tradeIn
+  var tradeInEl = document.getElementById('fTradeIn'); if (tradeInEl) tradeInEl.value = '';
+  // Reset submit completion flag so modal_close_before_submit funciona en proxima sesion
+  window._submitCompleted = false;
   clearValidation();
   if (typeof goToFormStep === 'function') goToFormStep(1);
 
@@ -2578,6 +2751,18 @@ function openModal(id) {
 }
 
 function closeModal() {
+  // modal_close_before_submit: dropoff tracker si el usuario avanzo pero no completo submit
+  try {
+    if (!window._submitCompleted && typeof currentFormStep !== 'undefined' && currentFormStep > 1 && currentCar) {
+      dataLayer.push({
+        event: 'modal_close_before_submit',
+        last_step_reached: currentFormStep,
+        last_step_name: (FORM_STEP_HEADS[currentFormStep]||{}).title || '',
+        item_name: currentCar.name + ' ' + currentCar.year,
+        item_price: currentCar.price
+      });
+    }
+  } catch (e) {}
   document.getElementById('vehicleModal').classList.remove('open');
   var savedScrollY = document.body.dataset.scrollY || '0';
   document.body.style.overflow = '';
@@ -2606,7 +2791,15 @@ function sanitizeOnInput(el) {
 function formatPhone(el) { el.value = el.value.replace(/[^0-9]/g, '').slice(0, 10); }
 
 // ── FORM STEP NAVIGATION (Progressive Disclosure) ──
+// 5 steps: 1=Cotiza · 2=Datos · 3=Perfil · 4=Sucursal · 5=Cita
 let currentFormStep = 1;
+const FORM_STEP_HEADS = {
+  1: { title: 'Cotiza tu mensualidad',              sub: 'Ajusta enganche y plazo con la tasa escalonada Banorte.' },
+  2: { title: 'Deja tus datos',                      sub: 'Te enviamos la precotización por WhatsApp y correo.' },
+  3: { title: 'Completa tu perfil',                  sub: 'Así afinamos el mejor esquema para ti.' },
+  4: { title: 'Elige tu sucursal',                   sub: 'Selecciona la agencia Hyundai donde quieres tu cita.' },
+  5: { title: 'Elige fecha y hora',                  sub: 'Selecciona el día que te acomode para visitar el auto.' }
+};
 function hideFieldError(id) {
   var el = document.getElementById(id);
   var errorEl = document.getElementById(id + '-error');
@@ -2614,45 +2807,113 @@ function hideFieldError(id) {
   if (errorEl) errorEl.classList.remove('show');
 }
 function goToFormStep(step) {
+  var stepFrom = currentFormStep;
   // Validate current step before advancing
   if (step > currentFormStep) {
-    if (currentFormStep === 1) {
-      var step1Fields = ['fName','fLastName1','fLastName2','fPhone','fEmail'];
+    // Step 1 (calc) → Step 2 : no validation required (slider siempre valido)
+    if (currentFormStep === 2) {
+      var stepFields = ['fName','fLastName1','fLastName2','fPhone','fEmail'];
       var allValid = true;
-      step1Fields.forEach(function(id) {
+      var firstErrorField = null;
+      stepFields.forEach(function(id) {
         var el = document.getElementById(id);
         if (!el) return;
         var v = el.value.trim();
         var valid = v.length > 0;
         if (id === 'fPhone') valid = /^[0-9]{10}$/.test(v);
         else if (id === 'fEmail') valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-        if (!valid) { showFieldError(id); el.classList.add('error'); el.classList.remove('valid'); allValid = false; }
+        if (!valid) { showFieldError(id); el.classList.add('error'); el.classList.remove('valid'); allValid = false; if (!firstErrorField) firstErrorField = id; }
         else { hideFieldError(id); el.classList.remove('error'); el.classList.add('valid'); }
       });
-      if (!allValid) { if (typeof scrollToFirstError === 'function') scrollToFirstError(); return; }
+      if (!allValid) {
+        try { dataLayer.push({ event: 'form_step_error', step: stepFrom, step_name: (FORM_STEP_HEADS[stepFrom]||{}).title || '', first_error_field: firstErrorField, item_name: currentCar ? (currentCar.name + ' ' + currentCar.year) : '' }); } catch (e) {}
+        if (typeof scrollToFirstError === 'function') scrollToFirstError();
+        return;
+      }
     }
-    if (currentFormStep === 2) {
-      var step2Fields = ['fBuscaFinanciamiento'];
-      if (document.getElementById('fBuscaFinanciamiento').value === 'SI') step2Fields.push('fCompruebaIngresos');
-      var allValid2 = true;
-      step2Fields.forEach(function(id) {
+    if (currentFormStep === 3) {
+      var stepFields3 = ['fBuscaFinanciamiento'];
+      if (document.getElementById('fBuscaFinanciamiento').value === 'SI') stepFields3.push('fCompruebaIngresos');
+      var allValid3 = true;
+      var firstErrorField3 = null;
+      stepFields3.forEach(function(id) {
         var el = document.getElementById(id);
         if (!el) return;
         var v = el.value.trim();
-        if (v.length === 0) { showFieldError(id); el.classList.add('error'); el.classList.remove('valid'); allValid2 = false; }
+        if (v.length === 0) { showFieldError(id); el.classList.add('error'); el.classList.remove('valid'); allValid3 = false; if (!firstErrorField3) firstErrorField3 = id; }
         else { hideFieldError(id); el.classList.remove('error'); el.classList.add('valid'); }
       });
-      if (!allValid2) { if (typeof scrollToFirstError === 'function') scrollToFirstError(); return; }
+      if (!allValid3) {
+        try { dataLayer.push({ event: 'form_step_error', step: stepFrom, step_name: (FORM_STEP_HEADS[stepFrom]||{}).title || '', first_error_field: firstErrorField3, item_name: currentCar ? (currentCar.name + ' ' + currentCar.year) : '' }); } catch (e) {}
+        if (typeof scrollToFirstError === 'function') scrollToFirstError();
+        return;
+      }
     }
-    // Nota: fSucursal vive en step 3 (no 2). submitForm() la valida junto con fecha/hora/privacidad antes de enviar.
+    if (currentFormStep === 4) {
+      // Validar que el usuario eligio sucursal antes de pasar a cita
+      var sucVal = (document.getElementById('fSucursal') || {}).value || '';
+      if (!sucVal) {
+        showFieldError('fSucursal');
+        try { dataLayer.push({ event: 'form_step_error', step: stepFrom, step_name: (FORM_STEP_HEADS[stepFrom]||{}).title || '', first_error_field: 'fSucursal', item_name: currentCar ? (currentCar.name + ' ' + currentCar.year) : '' }); } catch (e) {}
+        if (typeof scrollToFirstError === 'function') scrollToFirstError();
+        return;
+      }
+    }
   }
-  // Update steps
-  if (step === 2 && currentCar) {
-    dataLayer.push({ event: 'form_start', item_name: currentCar.name + ' ' + currentCar.year, item_price: currentCar.price });
+  // form_start + commitment_cta_click cuando pasa de calc → datos (engagement real)
+  if (step === 2 && stepFrom === 1 && currentCar) {
+    var downPct = parseInt((document.getElementById('downSlider')||{}).value || 20);
+    var term = (typeof selectedTerm !== 'undefined') ? selectedTerm : 36;
+    var monthly = (typeof calcMonthly === 'function') ? calcMonthly(currentCar.price, downPct, term, currentCar.minRate) : 0;
+    try {
+      dataLayer.push({
+        event: 'form_start',
+        item_name: currentCar.name + ' ' + currentCar.year,
+        item_price: currentCar.price,
+        down_pct: downPct,
+        term_months: term,
+        monthly_estimate: monthly
+      });
+    } catch (e) {}
+    try {
+      dataLayer.push({
+        event: 'commitment_cta_click',
+        item_name: currentCar.name + ' ' + currentCar.year,
+        item_price: currentCar.price,
+        monthly_estimate: monthly,
+        down_pct: downPct,
+        term_months: term
+      });
+    } catch (e) {}
   }
+  // form_step_complete: todos los forward-advances exitosos
+  if (step > stepFrom && currentCar) {
+    try {
+      var downPctFSC = parseInt((document.getElementById('downSlider')||{}).value || 20);
+      var termFSC = (typeof selectedTerm !== 'undefined') ? selectedTerm : 36;
+      var monthlyFSC = (typeof calcMonthly === 'function') ? calcMonthly(currentCar.price, downPctFSC, termFSC, currentCar.minRate) : 0;
+      dataLayer.push({
+        event: 'form_step_complete',
+        step_from: stepFrom,
+        step_to: step,
+        step_from_name: (FORM_STEP_HEADS[stepFrom]||{}).title || '',
+        step_to_name: (FORM_STEP_HEADS[step]||{}).title || '',
+        item_name: currentCar.name + ' ' + currentCar.year,
+        item_price: currentCar.price,
+        monthly_estimate: monthlyFSC
+      });
+    } catch (e) {}
+  }
+  // Al entrar a step 5, poblar badge de sucursal elegida
+  if (step === 5 && typeof updateCitaSedeBadge === 'function') updateCitaSedeBadge();
   updateStepSummary(step);
   currentFormStep = step;
-  if (step === 2 || step === 3) setView('agendar-paso-' + step);
+  // Update headline per step
+  var headTitle = document.getElementById('formSectionTitle');
+  var headSub = document.getElementById('formSectionSub');
+  if (headTitle && FORM_STEP_HEADS[step]) headTitle.textContent = FORM_STEP_HEADS[step].title;
+  if (headSub && FORM_STEP_HEADS[step]) headSub.textContent = FORM_STEP_HEADS[step].sub;
+  if (step >= 2 && step <= 5) setView('agendar-paso-' + step);
   document.querySelectorAll('.form-step').forEach(function(s) { s.classList.remove('active'); });
   var target = document.getElementById('formStep' + step);
   if (target) target.classList.add('active');
@@ -2663,26 +2924,112 @@ function goToFormStep(step) {
     if (sNum === step) s.classList.add('active');
     else if (sNum < step) s.classList.add('completed');
   });
-  // Scroll form into view
-  var formHead = document.querySelector('.form-section-head');
-  // Auto-focus sobre el primer campo del nuevo step (asi el usuario ve la sucursal/calendario, no se queda arriba)
+  // Auto-focus sobre el primer campo del nuevo step
   setTimeout(function(){
     var stepEl = document.getElementById('formStep' + step);
     if (!stepEl) return;
-    var firstField = stepEl.querySelector('.cita-picker, select:not([type=hidden]), input:not([type=hidden]):not([type=checkbox]), textarea');
+    var firstField = stepEl.querySelector('.cita-picker, .sucursal-card, select:not([type=hidden]), input:not([type=hidden]):not([type=checkbox]):not([type=range]), textarea');
     var target = firstField || stepEl;
     target.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }, 120);
 }
 
+// ── Mapa + datos por sucursal Hyundai (2 sucursales reales) ──
+function getSucursalMap(key) {
+  var map = {
+    'HYUNDAI PLASENCIA': {
+      name: 'Hyundai Plasencia Guadalajara',
+      addr: 'Av. Adolfo López Mateos Sur 2600, Jardines del Sol, 45050 Guadalajara, Jal.',
+      hours: 'Lun–Vie 9:00–20:00 · Sáb 9:00–19:00 · Dom 11:00–18:00',
+      src: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3733.632479061859!2d-103.4079787!3d20.643832!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428ac338232cb31%3A0xfa29193860dce1b1!2sHyundai%20Plasencia%20Guadalajara!5e0!3m2!1ses-419!2smx!4v1776196919553!5m2!1ses-419!2smx'
+    },
+    'HYUNDAI SANTA ANITA': {
+      name: 'Hyundai Santa Anita',
+      addr: 'Av. López Mateos Sur 4115, Los Gavilanes, Tlajomulco, Jal.',
+      hours: 'Lun–Vie 9:00–20:00 · Sáb 9:00–19:00 · Dom 11:00–18:00',
+      src: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3735.412658627408!2d-103.45509299999999!3d20.5711989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428ab9534b7948b%3A0xf606e3c28a9cc5d!2sHyundai%20Santa%20Anita!5e0!3m2!1ses-419!2smx!4v1776197319904!5m2!1ses-419!2smx'
+    }
+  };
+  return map[key] || map['HYUNDAI PLASENCIA'];
+}
+
+// ── Step 4: seleccion de sucursal (radio card) ──
+function selectSucursal(key) {
+  var input = document.getElementById('fSucursal');
+  if (input) input.value = key;
+  // Update visual selection
+  var cardP = document.getElementById('sucCardPlasencia');
+  var cardS = document.getElementById('sucCardSantaAnita');
+  if (cardP) { cardP.classList.remove('selected'); cardP.setAttribute('aria-checked','false'); }
+  if (cardS) { cardS.classList.remove('selected'); cardS.setAttribute('aria-checked','false'); }
+  if (key === 'HYUNDAI PLASENCIA' && cardP) { cardP.classList.add('selected'); cardP.setAttribute('aria-checked','true'); }
+  if (key === 'HYUNDAI SANTA ANITA' && cardS) { cardS.classList.add('selected'); cardS.setAttribute('aria-checked','true'); }
+  hideFieldError('fSucursal');
+  // Update map
+  var cfg = getSucursalMap(key);
+  var iframe = document.getElementById('sedeMapIframe');
+  var wrap = document.getElementById('sedeMapWrap');
+  if (iframe && cfg.src && iframe.src !== cfg.src) iframe.src = cfg.src;
+  if (wrap) wrap.style.display = 'block';
+  // GA4 event
+  try {
+    dataLayer.push({
+      event: 'sucursal_selected',
+      sucursal: key,
+      item_name: currentCar ? (currentCar.name + ' ' + currentCar.year) : '',
+      item_price: currentCar ? currentCar.price : 0
+    });
+  } catch (e) {}
+}
+
+// ── Step 5: badge compacto con la sucursal ya confirmada ──
+function updateCitaSedeBadge() {
+  var key = (document.getElementById('fSucursal') || {}).value || '';
+  if (!key) return;
+  var cfg = getSucursalMap(key);
+  var el = document.getElementById('citaSedeBadgeName');
+  if (el) el.textContent = cfg.name;
+}
+
+// ── Calc interaction (debounced 600ms) ──
+var _calcInteractionTimer = null;
+function pushCalcInteraction(type) {
+  if (!currentCar) return;
+  if (_calcInteractionTimer) clearTimeout(_calcInteractionTimer);
+  _calcInteractionTimer = setTimeout(function(){
+    try {
+      var downPct = parseInt((document.getElementById('downSlider')||{}).value || 20);
+      var term = (typeof selectedTerm !== 'undefined') ? selectedTerm : 36;
+      var monthly = (typeof calcMonthly === 'function') ? calcMonthly(currentCar.price, downPct, term, currentCar.minRate) : 0;
+      dataLayer.push({
+        event: 'calc_interaction',
+        interaction_type: type,
+        down_pct: downPct,
+        term_months: term,
+        monthly_estimate: monthly,
+        item_name: currentCar.name + ' ' + currentCar.year,
+        item_price: currentCar.price
+      });
+    } catch (e) {}
+  }, 600);
+}
+
 function updateStepSummary(step) {
   var bar = document.getElementById('stepSummary'); if (!bar) return;
+  // Step 1 = calculadora (no se muestra sticky summary, la calc ya es el foco)
   if (step === 1 || !currentCar) { bar.classList.remove('show'); return; }
   var t = document.getElementById('stepSummaryTitle');
   var m = document.getElementById('stepSummaryMeta');
   if (t) t.textContent = (currentCar.name || '') + ' ' + (currentCar.year || '') + (currentCar.version ? ' · ' + currentCar.version : '');
-  var monthly = currentCar.monthlyFrom || (typeof calcMonthly === 'function' ? calcMonthly(currentCar.price, 20, 36, currentCar.minRate) : 0);
-  if (m) m.textContent = fmt(currentCar.price) + (monthly ? '  ·  Desde ' + fmt(monthly) + '/mes' : '');
+  // Usa el estado real de la calc que el usuario acaba de cerrar
+  var sliderEl = document.getElementById('downSlider');
+  var downPct = sliderEl ? parseInt(sliderEl.value) || 20 : 20;
+  var term = (typeof selectedTerm !== 'undefined') ? selectedTerm : 36;
+  var monthly = (typeof calcMonthly === 'function') ? calcMonthly(currentCar.price, downPct, term, currentCar.minRate) : 0;
+  var downAmount = Math.round(currentCar.price * downPct / 100);
+  if (m) {
+    m.textContent = (monthly ? fmt(monthly) + '/mes · ' : '') + downPct + '% enganche (' + fmt(downAmount) + ') · ' + term + 'm';
+  }
   bar.classList.add('show');
 }
 
@@ -2999,6 +3346,7 @@ function submitForm() {
 
   sendToWebhook(payload);
   dataLayer.push({ event: 'generate_lead', folio: folio, item_name: currentCar.name + ' ' + currentCar.year, item_price: currentCar.price, lead_value: currentCar.price });
+  window._submitCompleted = true;
 
   let dateLabel = dateVal;
   if (dateVal) {
@@ -3016,7 +3364,7 @@ function submitForm() {
   document.getElementById('confirmDetails').innerHTML = `
     <p><strong>Vehículo:</strong> ${currentCar.name} ${currentCar.year} ${currentCar.version}</p>
     <p><strong>Precio:</strong> ${fmt(currentCar.price)}</p>
-    <p><strong>Agencia:</strong> ${agenciaFija}</p>
+    <p><strong>Agencia:</strong> ${(typeof getSucursalMap === 'function' && payload.sucursal ? getSucursalMap(payload.sucursal).name : (payload.sucursal || agenciaFija))}</p>
     <p><strong>Fecha:</strong> ${dateLabel}</p>
     <p><strong>Hora:</strong> ${timeLabel}</p>
     <p><strong>Nombre:</strong> ${name}</p>
@@ -3296,6 +3644,69 @@ function switchMapTab(tab) {
   }
 }
 
+// ── H2: Sticky Mobile CTA handlers ──
+function stickyCtaBrowse() {
+  try {
+    dataLayer.push({ event: 'sticky_cta_browse_click', viewport: 'mobile' });
+  } catch (e) {}
+  var inv = document.querySelector('.inventory-section');
+  var searchEl = document.getElementById('searchInput');
+  if (inv) inv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setTimeout(function(){
+    if (searchEl && typeof searchEl.focus === 'function') {
+      try { searchEl.focus({ preventScroll: true }); } catch (e) { searchEl.focus(); }
+    }
+  }, 450);
+}
+function stickyCtaWaClick() {
+  try {
+    dataLayer.push({ event: 'sticky_cta_wa_click', viewport: 'mobile' });
+  } catch (e) {}
+  var a = document.getElementById('stickyCtaWa');
+  if (a && (!a.href || a.getAttribute('href') === '#')) {
+    var phone = (typeof ASESOR_ASIGNADO !== 'undefined' && ASESOR_ASIGNADO.telefono)
+      ? ASESOR_ASIGNADO.telefono.replace(/[^0-9]/g,'')
+      : '5222227083255';
+    var msg = 'Hola, vi los Hyundai en linea en Grupo Plasencia y me interesa saber mas.';
+    a.href = 'https://api.whatsapp.com/send/?phone=' + phone + '&text=' + encodeURIComponent(msg) + '&type=phone_number&app_absent=0';
+  }
+}
+(function initStickyMobileCta(){
+  function boot() {
+    var hero = document.querySelector('.hero');
+    var bar = document.getElementById('stickyMobileCta');
+    if (!hero || !bar) return;
+    var a = document.getElementById('stickyCtaWa');
+    if (a) {
+      var phone = (typeof ASESOR_ASIGNADO !== 'undefined' && ASESOR_ASIGNADO.telefono)
+        ? ASESOR_ASIGNADO.telefono.replace(/[^0-9]/g,'')
+        : '5222227083255';
+      var msg = 'Hola, vi los Hyundai en linea en Grupo Plasencia y me interesa saber mas.';
+      a.href = 'https://api.whatsapp.com/send/?phone=' + phone + '&text=' + encodeURIComponent(msg) + '&type=phone_number&app_absent=0';
+    }
+    var impressionFired = false;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        var isMobile = window.matchMedia('(max-width: 640px)').matches;
+        if (!entry.isIntersecting) {
+          bar.classList.add('is-visible');
+          document.body.classList.add('has-sticky-cta');
+          if (isMobile && !impressionFired) {
+            impressionFired = true;
+            try { dataLayer.push({ event: 'sticky_cta_impression', viewport: 'mobile' }); } catch (e) {}
+          }
+        } else {
+          bar.classList.remove('is-visible');
+          document.body.classList.remove('has-sticky-cta');
+        }
+      });
+    }, { threshold: 0, rootMargin: '-80px 0px 0px 0px' });
+    io.observe(hero);
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', boot); }
+  else { boot(); }
+})();
+
 // Feedback amistoso cuando el usuario indica que no puede comprobar ingresos
 function toggleIngresosFeedback(sel) {
   var existing = document.getElementById('ingresosFeedback');
@@ -3313,6 +3724,17 @@ function toggleIngresosFeedback(sel) {
 }
 
 </script>
+
+<!-- STICKY MOBILE CTA BAR (H2) — aparece cuando el usuario pasa del hero en mobile -->
+<div class="sticky-mobile-cta" id="stickyMobileCta" role="region" aria-label="Acciones rápidas">
+  <button type="button" class="sticky-mobile-cta-btn sticky-mobile-cta-btn--primary" id="stickyCtaBrowse" onclick="stickyCtaBrowse()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    Encuentra tu Hyundai
+  </button>
+  <a class="sticky-mobile-cta-btn sticky-mobile-cta-btn--wa" id="stickyCtaWa" href="#" target="_blank" rel="noopener" onclick="stickyCtaWaClick()" aria-label="Hablar con un asesor por WhatsApp" style="flex:0 0 auto; min-width:56px; max-width:56px; padding:14px 0;">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.488"/></svg>
+  </a>
+</div>
 
 </body>
 </html>
