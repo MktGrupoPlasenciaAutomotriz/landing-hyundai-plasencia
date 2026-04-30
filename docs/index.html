@@ -2423,8 +2423,17 @@ function getMaxDate() {
   max.setHours(23,59,59,999);
   return max;
 }
+// Dias inhabiles (mismo trato que domingo: deshabilitado en calendario, no clickeable).
+// Formato YYYY-MM-DD. Agregar aqui festivos oficiales conforme se confirmen.
+const BLOCKED_DATES = ['2026-05-01'];
+function isBlockedDate(d) {
+  const iso = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  return BLOCKED_DATES.indexOf(iso) !== -1;
+}
+
 function isDayEnabled(d) {
   if (d.getDay() === 0) return false;
+  if (isBlockedDate(d)) return false; // dia inhabil
   const min = getMinDate();
   const max = getMaxDate();
   const cmp = new Date(d); cmp.setHours(12,0,0,0);
