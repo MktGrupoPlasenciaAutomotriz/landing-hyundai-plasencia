@@ -1504,6 +1504,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span>Eléctrico</span>
       </button>
     </div>
+    <!-- Filtro de sucursal: Plasencia Guadalajara (López Mateos Sur 2600) vs Santa Anita (López Mateos Sur 4115) -->
+    <div class="loc-chips" role="group" aria-label="Filtrar por sucursal" style="display:flex;gap:8px;flex-wrap:wrap;padding:0 0 12px;align-items:center;">
+      <span style="font-size:11px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;color:var(--ink-500,#64748B);margin-right:2px;">Sucursal:</span>
+      <button type="button" class="loc-chip type-chip active" data-loc="all" onclick="filterByLocChip('all')" aria-pressed="true" style="padding:7px 14px;font-size:12px;">
+        <span>Ambas sedes</span>
+      </button>
+      <button type="button" class="loc-chip type-chip" data-loc="guadalajara" onclick="filterByLocChip('guadalajara')" aria-pressed="false" title="Av. López Mateos Sur 2600, Col. La Calma, Zapopan" style="padding:7px 14px;font-size:12px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Plasencia GDL</span>
+      </button>
+      <button type="button" class="loc-chip type-chip" data-loc="santa_anita" onclick="filterByLocChip('santa_anita')" aria-pressed="false" title="Av. López Mateos Sur 4115, Tlajomulco" style="padding:7px 14px;font-size:12px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Santa Anita</span>
+      </button>
+    </div>
     <div class="filter-bar">
       <div class="filter-bar-inner">
         <div class="filter-search">
@@ -2119,7 +2134,20 @@ let currentCar = null;
 let selectedTerm = 36;
 let currentFilter = 'all';
 let currentPriceFilter = 'all';
+let currentLocFilter = 'all'; // 'all' | 'guadalajara' | 'santa_anita'
 let searchQuery = '';
+
+// Match de un vehiculo contra el filtro de sucursal usando v.locs (array) + fallback a v.loc.
+// Hyundai: "Hyundai Guadalajara" (Plasencia GDL) vs "Hyundai Santa Anita".
+function vehicleMatchesLoc(v, locKey) {
+  if (locKey === 'all') return true;
+  var needle = (locKey === 'guadalajara') ? 'guadalajara' : 'santa anita';
+  var locs = Array.isArray(v.locs) ? v.locs : [];
+  if (locs.length) {
+    return locs.some(function(l) { return String(l && l.nombre || '').toLowerCase().includes(needle); });
+  }
+  return String(v.loc || '').toLowerCase().includes(needle);
+}
 const ITEMS_PER_PAGE = 12;
 let visibleCount = ITEMS_PER_PAGE;
 
@@ -2130,6 +2158,12 @@ function filterByTypeChip(val) {
   var dd = document.getElementById('filterType'); if (dd) dd.value = val;
 }
 function filterByPriceSelect(val) { currentPriceFilter = val; visibleCount = ITEMS_PER_PAGE; updateFilters(); if (val !== 'all') dataLayer.push({ event: 'filter_price', filter_value: val }); }
+function filterByLocChip(val) {
+  currentLocFilter = val; visibleCount = ITEMS_PER_PAGE;
+  document.querySelectorAll('.loc-chip').forEach(function(c){ var on = c.dataset.loc === val; c.classList.toggle('active', on); c.setAttribute('aria-pressed', on?'true':'false'); });
+  updateFilters();
+  if (val !== 'all') dataLayer.push({ event: 'filter_loc', filter_value: val });
+}
 function onSearch(val) {
   searchQuery = val; visibleCount = ITEMS_PER_PAGE; renderCards(currentFilter); updateFilterUI();
   clearTimeout(searchDebounce);
@@ -2142,11 +2176,12 @@ function onSearch(val) {
 function loadMore() { visibleCount += ITEMS_PER_PAGE; renderCards(currentFilter); }
 
 function clearAllFilters() {
-  currentFilter = 'all'; currentPriceFilter = 'all'; searchQuery = '';
+  currentFilter = 'all'; currentPriceFilter = 'all'; currentLocFilter = 'all'; searchQuery = '';
   visibleCount = ITEMS_PER_PAGE;
   document.getElementById('filterType').value = 'all';
   document.getElementById('filterPrice').value = 'all';
   document.getElementById('searchInput').value = '';
+  document.querySelectorAll('.loc-chip').forEach(function(c){ var on = c.dataset.loc === 'all'; c.classList.toggle('active', on); c.setAttribute('aria-pressed', on?'true':'false'); });
   updateFilters();
   dataLayer.push({ event: 'filter_clear' });
 }
@@ -2174,6 +2209,11 @@ function fmt(n) { return '$' + n.toLocaleString('es-MX'); }
 function renderCards(filter) {
   const grid = document.getElementById('inventoryGrid');
   let filtered = filter === 'all' ? vehicles.slice() : vehicles.filter(v => v.type === filter);
+
+  // Filtro de sucursal (Plasencia GDL / Santa Anita / all)
+  if (currentLocFilter !== 'all') {
+    filtered = filtered.filter(v => vehicleMatchesLoc(v, currentLocFilter));
+  }
 
   // Filtro de precio
   if (currentPriceFilter !== 'all') {
@@ -2225,9 +2265,21 @@ function renderCards(filter) {
 }
 
 // Card template unificado — usado por renderCards y por sugerencias en empty state
+// Abrevia el nombre de sucursal Hyundai para los badges
+function formatSucursalShort(loc, locs) {
+  if (Array.isArray(locs) && locs.length > 1) return '📍 Ambas sedes';
+  var raw = (locs && locs.length === 1 ? locs[0].nombre : loc) || '';
+  raw = String(raw)
+    .replace(/^Hyundai\s+/i, '')
+    .replace(/^Guadalajara$/i, 'Plasencia GDL')
+    .trim();
+  return raw ? '📍 ' + raw : '';
+}
+
 function buildVCardHTML(v) {
     const monthly = calcMonthly(v.price, 20, 36, v.tasa);
     const hasImg = v.img && v.img.length > 0;
+    const sucursalLabel = formatSucursalShort(v.loc, v.locs);
     return `
     <div class="v-card" onclick="openModal(${v.id})">
       <div class="v-card-img-wrap">
@@ -2243,6 +2295,7 @@ function buildVCardHTML(v) {
         ${v.badge ? `<div class="v-card-badge ${v.badge==='Más vendido'?'promo':''}">${v.badge}</div>` : ''}
         ${v.photos > 0 ? `<div class="v-card-photos">${v.photos} foto${v.photos===1?'':'s'}</div>` : ''}
         <div class="img-ref-chip" style="position:absolute;bottom:6px;left:6px;background:rgba(0,0,0,0.65);color:#fff;font-size:9px;padding:3px 8px;border-radius:4px;font-weight:500;letter-spacing:0.3px;">Imagen referencial</div>
+        ${sucursalLabel ? `<div class="v-card-loc-chip" style="position:absolute;bottom:6px;right:6px;background:rgba(15,26,46,0.85);color:#fff;font-size:10px;padding:3px 8px;border-radius:4px;font-weight:600;letter-spacing:0.2px;">${sucursalLabel}</div>` : ''}
       </div>
       <div class="v-card-body">
         <div class="v-card-brand-row">
