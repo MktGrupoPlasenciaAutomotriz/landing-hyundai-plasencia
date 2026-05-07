@@ -2089,45 +2089,11 @@ function getCookie(name) {
 })();
 
 // ── VEHICLE DATA ──
-const vehicles = [
-  // ── MY25 ──
-  { id:1,  name:"Hyundai HB20 Sedán",   year:2025, version:"GL TM",            type:"sedan",     km:0, trans:"Manual",     fuel:"Gasolina", engine:"1.6L", color:"", price:330800,  img:"https://www.hyundai.com.mx/dA/a12b9263-60ac-4bed-a1c2-df34292ec396/Descripción-HB20-sedan-2023-3cuartos-gltm-625x300.jpg", badge:"Bono $45,000",  photos:0 },
-  { id:2,  name:"Hyundai HB20 Sedán",   year:2025, version:"GL TA",            type:"sedan",     km:0, trans:"Automática", fuel:"Gasolina", engine:"1.6L", color:"", price:346400,  img:"https://www.hyundai.com.mx/dA/a12b9263-60ac-4bed-a1c2-df34292ec396/Descripción-HB20-sedan-2023-3cuartos-gltm-625x300.jpg", badge:"Bono $45,000",  photos:0 },
-  { id:3,  name:"Hyundai HB20 Sedán",   year:2025, version:"GL MID TM",        type:"sedan",     km:0, trans:"Manual",     fuel:"Gasolina", engine:"1.6L", color:"", price:362300,  img:"https://www.hyundai.com.mx/dA/a12b9263-60ac-4bed-a1c2-df34292ec396/Descripción-HB20-sedan-2023-3cuartos-gltm-625x300.jpg", badge:"Bono $45,000",  photos:0 },
-  { id:4,  name:"Hyundai HB20 Sedán",   year:2025, version:"GL MID TA",        type:"sedan",     km:0, trans:"Automática", fuel:"Gasolina", engine:"1.6L", color:"", price:382800,  img:"https://www.hyundai.com.mx/dA/a12b9263-60ac-4bed-a1c2-df34292ec396/Descripción-HB20-sedan-2023-3cuartos-gltm-625x300.jpg", badge:"Bono $45,000",  photos:0 },
-  { id:5,  name:"Hyundai HB20 Sedán",   year:2025, version:"GLS TA",           type:"sedan",     km:0, trans:"Automática", fuel:"Gasolina", engine:"1.6L", color:"", price:404900,  img:"https://www.hyundai.com.mx/dA/a12b9263-60ac-4bed-a1c2-df34292ec396/Descripción-HB20-sedan-2023-3cuartos-gltm-625x300.jpg", badge:"Bono $45,000",  photos:0 },
-  { id:6,  name:"Hyundai HB20 HB",      year:2025, version:"GL TM",            type:"hatchback", km:0, trans:"Manual",     fuel:"Gasolina", engine:"1.6L", color:"", price:366600,  img:"https://www.hyundai.com.mx/dA/78aec0de-fafd-4323-a1d2-6662cb89fda6/Descripcion-HB20-GL-TM-2023-3cuartos-glmidym-625X300.jpg", badge:"Bono $10,000",  photos:0 },
-  { id:7,  name:"Hyundai HB20 HB",      year:2025, version:"GL MID TA",        type:"hatchback", km:0, trans:"Automática", fuel:"Gasolina", engine:"1.6L", color:"", price:421600,  img:"https://www.hyundai.com.mx/dA/78aec0de-fafd-4323-a1d2-6662cb89fda6/Descripcion-HB20-GL-TM-2023-3cuartos-glmidym-625X300.jpg", badge:"Bono $30,000",  photos:0 },
-  { id:8,  name:"Hyundai HB20 HB",      year:2025, version:"GLS TA",           type:"hatchback", km:0, trans:"Automática", fuel:"Gasolina", engine:"1.6L", color:"", price:440500,  img:"https://www.hyundai.com.mx/dA/78aec0de-fafd-4323-a1d2-6662cb89fda6/Descripcion-HB20-GL-TM-2023-3cuartos-glmidym-625X300.jpg", badge:"Bono $30,000",  photos:0 },
-  { id:9,  name:"Hyundai IONIQ 5",      year:2025, version:"LIMITED TECH",      type:"electrico", km:0, trans:"Automática", fuel:"Eléctrico",engine:"EV 77.4 kWh", color:"", price:795600,  img:"https://www.hyundai.com.mx/dA/ea658167-79a1-4e31-9f2c-1b3e9876918f/ioniq-modelos1-625x300.png", badge:"Bono $400,000", photos:0 },
-  { id:10, name:"Hyundai Palisade",     year:2025, version:"LIMITED TECH",      type:"suv",       km:0, trans:"Automática", fuel:"Gasolina", engine:"3.8L V6",  color:"", price:1136100, img:"https://www.hyundai.com.mx/dA/fe47b9aa-77f6-4735-b720-1ee70cf8ec85/Descripción-palisade-2023-3cuartos-glmidym-625X300.jpg", badge:"Bono $100,000", photos:0 },
-  // ── MY26 ──
-  { id:11, name:"Hyundai Grand i10 HB", year:2026, version:"GL TM",            type:"hatchback", km:0, trans:"Manual",     fuel:"Gasolina", engine:"1.2L", color:"", price:241600,  img:"https://www.hyundai.com.mx/dA/23bf0b6d-5699-4516-8256-b844e904bd8e/i10_gltm_625x300.png", badge:"Bono $45,000",  photos:0 },
-  { id:12, name:"Hyundai Grand i10 HB", year:2026, version:"GL MID TM",        type:"hatchback", km:0, trans:"Manual",     fuel:"Gasolina", engine:"1.2L", color:"", price:271900,  img:"https://www.hyundai.com.mx/dA/23bf0b6d-5699-4516-8256-b844e904bd8e/i10_gltm_625x300.png", badge:"Bono $45,000",  photos:0 },
-  { id:13, name:"Hyundai Grand i10 HB", year:2026, version:"GL MID TA",        type:"hatchback", km:0, trans:"Automática", fuel:"Gasolina", engine:"1.2L", color:"", price:293800,  img:"https://www.hyundai.com.mx/dA/23bf0b6d-5699-4516-8256-b844e904bd8e/i10_gltm_625x300.png", badge:"Bono $45,000",  photos:0 },
-  { id:14, name:"Hyundai Grand i10 HB", year:2026, version:"GLS TM",           type:"hatchback", km:0, trans:"Manual",     fuel:"Gasolina", engine:"1.2L", color:"", price:297900,  img:"https://www.hyundai.com.mx/dA/23bf0b6d-5699-4516-8256-b844e904bd8e/i10_gltm_625x300.png", badge:"Bono $45,000",  photos:0 },
-  { id:15, name:"Hyundai Grand i10 HB", year:2026, version:"GLS TA",           type:"hatchback", km:0, trans:"Automática", fuel:"Gasolina", engine:"1.2L", color:"", price:319500,  img:"https://www.hyundai.com.mx/dA/23bf0b6d-5699-4516-8256-b844e904bd8e/i10_gltm_625x300.png", badge:"Bono $45,000",  photos:0 },
-  { id:16, name:"Hyundai Grand i10 Sedán", year:2026, version:"GL TM",         type:"sedan",     km:0, trans:"Manual",     fuel:"Gasolina", engine:"1.2L", color:"", price:259000,  img:"https://www.hyundai.com.mx/dA/879cf839-2b8d-4315-9cda-2b3c02d9df40/i10sd_gl-mid-2_625x300.png", badge:"Bono $45,000",  photos:0 },
-  { id:17, name:"Hyundai Grand i10 Sedán", year:2026, version:"GL MID TM",     type:"sedan",     km:0, trans:"Manual",     fuel:"Gasolina", engine:"1.2L", color:"", price:289700,  img:"https://www.hyundai.com.mx/dA/879cf839-2b8d-4315-9cda-2b3c02d9df40/i10sd_gl-mid-2_625x300.png", badge:"Bono $45,000",  photos:0 },
-  { id:18, name:"Hyundai Grand i10 Sedán", year:2026, version:"GL MID TA",     type:"sedan",     km:0, trans:"Automática", fuel:"Gasolina", engine:"1.2L", color:"", price:311600,  img:"https://www.hyundai.com.mx/dA/879cf839-2b8d-4315-9cda-2b3c02d9df40/i10sd_gl-mid-2_625x300.png", badge:"Bono $45,000",  photos:0 },
-  { id:19, name:"Hyundai Grand i10 Sedán", year:2026, version:"GLS TM",        type:"sedan",     km:0, trans:"Manual",     fuel:"Gasolina", engine:"1.2L", color:"", price:314200,  img:"https://www.hyundai.com.mx/dA/879cf839-2b8d-4315-9cda-2b3c02d9df40/i10sd_gl-mid-2_625x300.png", badge:"Bono $45,000",  photos:0 },
-  { id:20, name:"Hyundai Grand i10 Sedán", year:2026, version:"GLS TA",        type:"sedan",     km:0, trans:"Automática", fuel:"Gasolina", engine:"1.2L", color:"", price:336200,  img:"https://www.hyundai.com.mx/dA/879cf839-2b8d-4315-9cda-2b3c02d9df40/i10sd_gl-mid-2_625x300.png", badge:"Bono $45,000",  photos:0 },
-  { id:21, name:"Hyundai Creta",         year:2026, version:"GL TM",            type:"suv",       km:0, trans:"Manual",     fuel:"Gasolina", engine:"1.5L", color:"", price:406400,  img:"https://www.hyundai.com.mx/dA/cad677f1-c3f1-487e-b942-b61676e6da46/creta-gl-625x300.png", badge:"Bono $35,000",  photos:0 },
-  { id:22, name:"Hyundai Creta",         year:2026, version:"GLS IVT",          type:"suv",       km:0, trans:"Automática", fuel:"Gasolina", engine:"1.5L", color:"", price:456600,  img:"https://www.hyundai.com.mx/dA/cad677f1-c3f1-487e-b942-b61676e6da46/creta-gl-625x300.png", badge:"Bono $35,000",  photos:0 },
-  { id:23, name:"Hyundai Creta",         year:2026, version:"GLS PREMIUM",      type:"suv",       km:0, trans:"Automática", fuel:"Gasolina", engine:"1.5L", color:"", price:484000,  img:"https://www.hyundai.com.mx/dA/cad677f1-c3f1-487e-b942-b61676e6da46/creta-gl-625x300.png", badge:"Bono $35,000",  photos:0 },
-  { id:24, name:"Hyundai Creta",         year:2026, version:"LIMITED TURBO",           type:"suv",       km:0, trans:"DCT 7vel", fuel:"Gasolina", engine:"1.5L T-GDI", color:"", price:559600,  img:"https://www.hyundai.com.mx/dA/cad677f1-c3f1-487e-b942-b61676e6da46/creta-gl-625x300.png", badge:"Bono $35,000",  photos:0 },
-  { id:25, name:"Hyundai Creta Grand",   year:2026, version:"GLS PREMIUM",      type:"suv",       km:0, trans:"Automática", fuel:"Gasolina", engine:"2.0L", color:"", price:529100,  img:"https://www.hyundai.com.mx/dA/bc45c876-654b-4e7e-8934-b70e4b6d329d/cretagrand2_625x300.png", badge:"Bono $30,000",  photos:0 },
-  { id:26, name:"Hyundai Creta Grand",   year:2026, version:"LIMITED",           type:"suv",       km:0, trans:"Automática", fuel:"Gasolina", engine:"2.0L", color:"", price:585600,  img:"https://www.hyundai.com.mx/dA/bc45c876-654b-4e7e-8934-b70e4b6d329d/cretagrand2_625x300.png", badge:"Bono $30,000",  photos:0 },
-  { id:27, name:"Hyundai Elantra HEV",   year:2026, version:"GLS",              type:"sedan",     km:0, trans:"Automática", fuel:"Híbrido",  engine:"1.6L HEV", color:"", price:573100,  img:"https://www.hyundai.com.mx/dA/888b6336-5f13-432b-a341-4e1c9202c744/elantrahev2024-3cuartos-1-625x300.jpg", badge:"",             photos:0 },
-  { id:28, name:"Hyundai Elantra HEV",   year:2026, version:"GLS PREMIUM",      type:"sedan",     km:0, trans:"Automática", fuel:"Híbrido",  engine:"1.6L HEV", color:"", price:645500,  img:"https://www.hyundai.com.mx/dA/888b6336-5f13-432b-a341-4e1c9202c744/elantrahev2024-3cuartos-1-625x300.jpg", badge:"",             photos:0 },
-  { id:29, name:"Hyundai Tucson",         year:2026, version:"GLS",              type:"suv",       km:0, trans:"Automática", fuel:"Gasolina", engine:"2.5L", color:"", price:567800,  img:"https://www.hyundai.com.mx/dA/d8c4c4eb-3b20-4abf-bdce-c24b07feddcc/tucson1-625x300.png", badge:"Bono $50,000",  photos:0 },
-  { id:30, name:"Hyundai Tucson",         year:2026, version:"LIMITED",           type:"suv",       km:0, trans:"Automática", fuel:"Gasolina", engine:"2.5L", color:"", price:644600,  img:"https://www.hyundai.com.mx/dA/d8c4c4eb-3b20-4abf-bdce-c24b07feddcc/tucson1-625x300.png", badge:"Bono $50,000",  photos:0 },
-  { id:31, name:"Hyundai Tucson",         year:2026, version:"LIMITED TECH",      type:"suv",       km:0, trans:"Automática", fuel:"Gasolina", engine:"2.5L", color:"", price:748300,  img:"https://www.hyundai.com.mx/dA/d8c4c4eb-3b20-4abf-bdce-c24b07feddcc/tucson1-625x300.png", badge:"Bono $50,000",  photos:0 },
-  { id:32, name:"Hyundai Tucson HEV",     year:2026, version:"LIMITED TECH",      type:"suv",       km:0, trans:"Automática", fuel:"Híbrido",  engine:"1.6L T HEV", color:"", price:838900,  img:"https://www.hyundai.com.mx/dA/b4247799-97d1-4816-9235-a86535c64a00/TRIM - tucson4-625x300.png", badge:"Bono $50,000",  photos:0 },
-  { id:33, name:"Hyundai Santa Fe HEV",   year:2026, version:"GLS PREMIUM",      type:"suv",       km:0, trans:"Automática", fuel:"Híbrido",  engine:"1.6L T HEV", color:"", price:979500,  img:"https://www.hyundai.com.mx/dA/0c71104f-9422-4d01-ad38-d2d053c4d74d/santafe-625x300-4.png", badge:"Bono $100,000", photos:0 },
-  { id:34, name:"Hyundai Santa Fe HEV",   year:2026, version:"LIMITED TECH",      type:"suv",       km:0, trans:"Automática", fuel:"Híbrido",  engine:"1.6L T HEV", color:"", price:1056800, img:"https://www.hyundai.com.mx/dA/0c71104f-9422-4d01-ad38-d2d053c4d74d/santafe-625x300-4.png", badge:"Bono $100,000", photos:0 },
-  { id:35, name:"Hyundai Palisade HEV",   year:2026, version:"LIMITED TECH AWD",  type:"suv",       km:0, trans:"Automática", fuel:"Híbrido",  engine:"2.5L T HEV", color:"", price:1288300, img:"https://www.hyundai.com.mx/dA/2f6fc974-a519-4772-9863-424ba02ef688/deck_palisade625x300.jpg", badge:"",             photos:0 },
-];
+let vehicles = [];
+fetch('catalogo-hyundai.json')
+  .then(r => r.json())
+  .then(data => { vehicles = data; renderCards('all'); })
+  .catch(e => console.error('Error cargando catalogo-hyundai.json:', e));
 
 // ── Enriquecimiento con datos oficiales del tabulador interno ──
 // monthlyFrom: "Mensualidad desde" oficial por modelo (tabulador interno)
@@ -2269,7 +2235,7 @@ function renderCards(filter) {
 
 // Card template unificado — usado por renderCards y por sugerencias en empty state
 function buildVCardHTML(v) {
-    const monthly = v.monthlyFrom || calcMonthly(v.price, 20, 36, v.minRate);
+    const monthly = calcMonthly(v.price, 20, 36, v.tasa);
     const hasImg = v.img && v.img.length > 0;
     return `
     <div class="v-card" onclick="openModal(${v.id})">
@@ -2285,13 +2251,14 @@ function buildVCardHTML(v) {
         }
         <div class="v-card-badge ${v.badge==='Más vendido'?'promo':''}">${v.badge}</div>
         ${v.photos > 0 ? `<div class="v-card-photos">${v.photos} fotos</div>` : ''}
+        <div class="img-ref-chip" style="position:absolute;bottom:6px;left:6px;background:rgba(0,0,0,0.65);color:#fff;font-size:9px;padding:3px 8px;border-radius:4px;font-weight:500;letter-spacing:0.3px;">Imagen referencial</div>
       </div>
       <div class="v-card-body">
         <div class="v-card-brand-row">
           <span class="v-card-type">${{suv:'SUV',sedan:'Sedán',hatchback:'Hatchback',pickup:'Pickup',van:'Van',electrico:'Eléctrico'}[v.type] || v.type}</span>
         </div>
         <div class="v-card-title">${v.name} ${v.year}</div>
-        <div class="v-card-specs">${v.version} &middot; ${v.engine} &middot; ${v.trans}</div>
+        <div class="v-card-specs">${[v.version, v.engine, v.trans].filter(Boolean).join(' · ')}</div>
         <div class="v-card-price-row">
           <div class="v-card-price" title="Precio de lista, incluye IVA. Sujeto a disponibilidad y cambios sin previo aviso.">${fmt(v.price)}</div>
           <div class="v-card-monthly">Desde ${fmt(monthly)}/mes</div>
@@ -3400,7 +3367,7 @@ function submitForm() {
     fbc: getCookie('_fbc'),
     client_ip_address: sessionStorage.getItem('client_ip') || '',
     client_user_agent: navigator.userAgent || '',
-    vendedor_digital: 'ALEJANDRO VAZQUEZ',
+    vendedor_digital: ASESOR_ASIGNADO.nombre,
     tipo_persona: tipoPersona,
     busca_financiamiento: buscaFin,
     comprueba_ingresos: compruebaIng,
