@@ -1604,10 +1604,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="faq-list">
       <details class="faq-item">
-        <summary>¿Tienen promociones vigentes?</summary>
-        <div class="faq-a">El bono es un descuento directo que varía por modelo (desde $10,000 en HB20 HB hasta $400,000 en IONIQ 5). Aplica automáticamente al cerrar tu compra durante abril. Puedes decidir con tu asesor si lo tomas al precio, al enganche, a la tasa o al seguro. Los bonos incluyen IVA y no son retroactivos.</div>
-      </details>
-      <details class="faq-item">
         <summary>¿Cómo funciona la tasa desde 9.49% con Banorte?</summary>
         <div class="faq-a">Es una tasa escalonada: a mayor enganche, mejor tasa. Con 50% de enganche obtienes 9.49% anual, con 40% es 10.49%, con 30% es 11.79%, con 20% es 13.99% y con 10% es 17.99%. La comisión por apertura es del 1%. El plazo va de 12 a 72 meses.</div>
       </details>
@@ -1628,8 +1624,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="faq-a">Si vas a contado: INE y comprobante de domicilio. Si vas a crédito Banorte: además comprobante de ingresos de los últimos 3 meses. Tu asesor te confirma la lista exacta por WhatsApp antes de tu cita.</div>
       </details>
       <details class="faq-item">
-        <summary>¿La oferta aplica en las dos sucursales?</summary>
-        <div class="faq-a">Sí. Los mismos precios, bonos y tasas aplican tanto en Hyundai Plasencia Guadalajara (Av. López Mateos Sur 2600) como en Hyundai Santa Anita (Av. López Mateos Sur 4115). Elige la sucursal más cercana al agendar.</div>
+        <summary>¿Aplican los mismos precios en las dos sucursales?</summary>
+        <div class="faq-a">Sí. Los mismos precios y tasas aplican tanto en Hyundai Plasencia Guadalajara (Av. López Mateos Sur 2600) como en Hyundai Santa Anita (Av. López Mateos Sur 4115). Elige la sucursal más cercana al agendar.</div>
       </details>
     </div>
   </div>
@@ -1763,12 +1759,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="calc-result-amount" id="monthlyAmount">$0</div>
                 <div class="calc-result-sub">Tasa referencial anual: <strong id="rateSubDisplay">13.99%</strong></div>
                 <div style="font-size:10px;color:rgba(255,255,255,0.42);margin-top:6px;line-height:1.35;font-style:italic;position:relative;">Mensualidad estimada. El importe real puede variar al contratar según tasa autorizada, enganche, plazo y esquema elegido. El interés causa IVA.</div>
-                <div style="font-size:9px;color:rgba(255,255,255,0.4);margin-top:6px;line-height:1.4;position:relative;">* Financiamiento con Banorte. Comisión por apertura 1%. Tasa variable según enganche (9.49% a 17.99%). Vigencia abril 2026. Cálculo con fines informativos, no constituye una autorización de crédito.</div>
+                <div style="font-size:9px;color:rgba(255,255,255,0.4);margin-top:6px;line-height:1.4;position:relative;">* Financiamiento con Banorte. Comisión por apertura 1%. Tasa variable según enganche (9.49% a 17.99%). Cálculo con fines informativos, no constituye una autorización de crédito.</div>
               </div>
 
-              <div class="calc-offer-banner" id="offerBanner">
-                <strong>Promoción del mes.</strong> Consulta beneficios exclusivos con tu asesor.
-              </div>
             </div>
 
             <!-- Commitment CTA: ata la cotizacion a la siguiente accion (dar datos) -->
@@ -2119,8 +2112,6 @@ fetch('catalogo-hyundai.json')
     var m = modelMeta[v.name] || {};
     if (m.monthlyFrom != null) v.monthlyFrom = m.monthlyFrom;
     if (m.minRate != null) v.minRate = m.minRate;
-    // Badge fallback para modelos sin bono (Elantra HEV, Palisade HEV)
-    if (!v.badge) v.badge = 'Sin bono · Precio neto';
   });
 })();
 
@@ -2213,7 +2204,7 @@ function renderCards(filter) {
     grid.innerHTML =
       '<div class="inventory-no-results" style="grid-column:1/-1;">' +
         '<div style="font-weight:800;font-size:18px;color:var(--ink-900);margin-bottom:8px;font-family:var(--font-display);">No encontramos autos ' + msgText + '</div>' +
-        '<div style="font-size:14px;color:var(--ink-500);margin-bottom:18px;">Pero te sugerimos estos — con los mejores bonos de abril:</div>' +
+        '<div style="font-size:14px;color:var(--ink-500);margin-bottom:18px;">Pero te sugerimos estos modelos:</div>' +
         '<button onclick="clearAllFilters()" style="padding:10px 20px;background:transparent;border:1.5px solid var(--ink-300);border-radius:9999px;font-size:13px;font-weight:700;cursor:pointer;color:var(--ink-700);font-family:var(--font-body);">↺ Ver todo el inventario</button>' +
       '</div>' +
       suggestions.map(buildVCardHTML).join('');
@@ -2265,7 +2256,6 @@ function buildVCardHTML(v) {
         </div>
         <div class="v-card-price-disclaimer" style="font-size:10px;color:var(--ink-400,#94A3B8);margin-top:4px;line-height:1.3;">Precio de lista, incluye IVA. Sujeto a disponibilidad y cambios sin previo aviso.</div>
         <div style="margin-top:8px;display:flex;gap:6px;position:relative;">
-          ${v.badge ? `<button onclick="event.stopPropagation();this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'" style="flex:1;padding:8px;background:transparent;color:var(--brand-accent,#00AAD2);border:1.5px solid var(--brand-accent,#00AAD2);border-radius:8px;font-family:var(--font-display);font-weight:700;font-size:11px;cursor:pointer;">Ver promoción</button><div style="display:none;position:absolute;left:0;right:0;bottom:42px;background:#002C5F;color:#F7FAFC;padding:12px 14px;border-radius:10px;font-size:12px;line-height:1.5;box-shadow:0 8px 24px rgba(0,0,0,0.3);z-index:5;"><strong style="color:#00AAD2;">${v.badge}</strong> <span style="font-size:10px;color:#A0AEC0;">(incluye IVA)</span><br>Tasa desde 9.49% con Banorte. Enganche desde 10%.<br><span style="font-size:10px;color:#A0AEC0;">Vigencia abril 2026. Oferta sujeta a disponibilidad y cambios sin previo aviso. Crédito sujeto a aprobación.</span></div>` : ''}
           <button onclick="event.stopPropagation();openModal(${v.id})" style="flex:1;padding:8px;background:var(--brand-accent,#00AAD2);color:#fff;border:none;border-radius:8px;font-family:var(--font-display);font-weight:700;font-size:11px;cursor:pointer;">Agendar cita</button>
         </div>
       </div>
