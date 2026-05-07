@@ -531,9 +531,16 @@ button, a, .v-card, .filter-chip, .filter-select, .filter-clear, .calc-term-btn 
 .v-card-img-wrap {
   position: relative; aspect-ratio: 16/10; overflow: hidden;
   background: linear-gradient(135deg, var(--ink-100), var(--ink-200));
+  /* Centrar imagen para que object-fit:contain quede balanceado */
+  display: flex; align-items: center; justify-content: center;
+  padding: 6px;
 }
-.v-card-img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--duration-slow) var(--ease); }
-.v-card:hover .v-card-img { transform: scale(1.06); }
+/* object-fit:contain (no cover) — las imágenes oficiales de Hyundai son side-view
+   con ratio más alto que 16:10. Con cover se corta el techo y parte baja del auto.
+   Director reportó autos cortados 2026-05-07. STL/Sem mantienen cover (sus imágenes
+   encajan bien con 16:10). */
+.v-card-img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; transition: transform var(--duration-slow) var(--ease); }
+.v-card:hover .v-card-img { transform: scale(1.04); }
 .v-card-badge {
   position: absolute; top: 12px; left: 12px;
   background: rgba(255,255,255,0.95);
