@@ -155,16 +155,16 @@ button, a, .v-card, .filter-chip, .filter-select, .filter-clear, .calc-term-btn 
 }
 .header .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .header-left { display: flex; align-items: center; gap: 14px; }
-.header-logo { height: 26px; width: auto; display: block; }
-@media(min-width: 768px) { .header-logo { height: 32px; } }
-.brand-logo { height: 36px; max-width: 180px; width: auto; display: block; background: transparent; padding: 0; border-radius: 0; }
-@media(min-width: 768px) { .brand-logo { height: 44px; max-width: 220px; padding: 0; border-radius: 0; } }
+.header-logo { height: 28px; width: auto; display: block; }
+@media(min-width: 768px) { .header-logo { height: 36px; } }
+.brand-logo { height: 44px; max-width: 180px; width: auto; display: block; background: transparent; padding: 0; border-radius: 0; }
+@media(min-width: 768px) { .brand-logo { height: 56px; max-width: 220px; padding: 0; border-radius: 0; } }
 .header-logo-gp {
-  height: 26px; width: auto; display: block;
+  height: 30px; width: auto; display: block;
   filter: brightness(0) invert(1);
   opacity: 0.95;
 }
-@media(min-width: 768px) { .header-logo-gp { height: 36px; } }
+@media(min-width: 768px) { .header-logo-gp { height: 44px; } }
 .footer-logo-gp {
   filter: brightness(0) invert(1);
   opacity: 0.85;
@@ -1147,9 +1147,9 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   .calc-terms { grid-template-columns: repeat(5, 1fr); gap: 4px; }
   .calc-term-btn { padding: 14px 2px; font-size: 12px; min-height: 48px; }
   .header { padding: 10px 0; }
-  .header-logo { height: 24px; }
-  .brand-logo { height: 36px; }
-  .header-logo-gp { height: 30px; }
+  .header-logo { height: 28px; }
+  .brand-logo { height: 44px; }
+  .header-logo-gp { height: 36px; }
   .filter-chip { padding: 11px 18px; min-height: 44px; }
   .filter-select, .filter-clear { min-height: 44px; }
   .v-card { min-height: 0; }
@@ -1440,7 +1440,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       
       <div class="hero-vp">75 años acercándote al auto de tus sueños</div>
       <h1>Estrena tu <span class="accent">Hyundai</span><br>en Plasencia Guadalajara</h1>
-      <p class="hero-sub">Hyundai Plasencia Guadalajara y Santa Anita. 28 versiones disponibles. Calcula tu mensualidad con tasas Banorte y agenda tu cita en menos de 60 segundos.</p>
+      <p class="hero-sub">Hyundai Plasencia Guadalajara y Santa Anita. 28 versiones disponibles. Calcula tu mensualidad con tasas de referencia Banorte y agenda tu cita en menos de 60 segundos.</p>
       <div class="hero-legacy-strip">
         <span><b>+75</b>años de experiencia</span><span class="leg-sep">·</span>
         <span><b>+15</b>marcas representadas</span><span class="leg-sep">·</span>
@@ -1457,7 +1457,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="hero-stat">
           <div class="hero-stat-num">Desde 9.49%</div>
-          <div class="hero-stat-label">Tasa anual</div>
+          <div class="hero-stat-label">Tasa anual · Referencia</div>
         </div>
       </div>
       <button class="hero-cta" onclick="document.querySelector('.inventory-section').scrollIntoView({behavior:'smooth'})">
@@ -1487,7 +1487,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="step-num">02</div>
         <div class="step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2.5"/><rect x="7" y="6" width="10" height="3.5" rx="0.5"/><circle cx="8.5" cy="13.5" r="0.6" fill="currentColor" stroke="none"/><circle cx="12" cy="13.5" r="0.6" fill="currentColor" stroke="none"/><circle cx="15.5" cy="13.5" r="0.6" fill="currentColor" stroke="none"/><circle cx="8.5" cy="17" r="0.6" fill="currentColor" stroke="none"/><circle cx="12" cy="17" r="0.6" fill="currentColor" stroke="none"/><circle cx="15.5" cy="17" r="0.6" fill="currentColor" stroke="none"/></svg></div>
         <h3 class="step-title">Calcula tu mensualidad</h3>
-        <div class="step-desc">Ajusta enganche y plazo con la calculadora Banorte. Tasa desde 9.49% anual. Sin afectar tu buró.</div>
+        <div class="step-desc">Ajusta enganche y plazo con la calculadora Banorte. Tasa de referencia desde 9.49% anual. Sin afectar tu buró.</div>
       </div>
       <div class="step-card">
         <div class="step-num">03</div>
@@ -1505,7 +1505,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="trust-item"><strong><svg class="trust-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M9 21v-7h6v7"/></svg> +75 años de experiencia · Desde 1947</strong></div>
     <div class="trust-item"><svg class="trust-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> Garantía 5 años / 100,000 km</div>
     <div class="trust-item"><svg class="trust-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Mantenimiento incluido</div>
-    <div class="trust-item"><svg class="trust-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg> Financiamiento Banorte desde 9.49%</div>
+    <div class="trust-item"><svg class="trust-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg> Financiamiento Banorte desde 9.49% (tasa de referencia)</div>
     <div class="trust-item"><svg class="trust-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Distribuidor autorizado</div>
     <div class="trust-item"><svg class="trust-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="4.93" y1="19.07" x2="10.12" y2="13.88"/><line x1="19.07" y1="19.07" x2="13.88" y2="13.88"/></svg> Prueba de manejo</div>
   </div>
@@ -1661,8 +1661,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="faq-list">
       <details class="faq-item">
-        <summary>¿Cómo funciona la tasa desde 9.49% con Banorte?</summary>
-        <div class="faq-a">Es una tasa escalonada: a mayor enganche, mejor tasa. Con 50% de enganche obtienes 9.49% anual, con 40% es 10.49%, con 30% es 11.79%, con 20% es 13.99% y con 10% es 17.99%. La comisión por apertura es del 1%. El plazo va de 12 a 72 meses.</div>
+        <summary>¿Cómo funciona la tasa de referencia desde 9.49% con Banorte?</summary>
+        <div class="faq-a">Es una tasa de referencia escalonada: a mayor enganche, mejor tasa. Con 50% de enganche la referencia es 9.49% anual, con 40% es 10.49%, con 30% es 11.79%, con 20% es 13.99% y con 10% es 17.99%. La comisión por apertura es del 1%. El plazo va de 12 a 72 meses. La tasa autorizada final la confirma tu asesor según el esquema vigente.</div>
       </details>
       <details class="faq-item">
         <summary>¿Reciben mi auto actual a cuenta?</summary>
@@ -1682,7 +1682,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </details>
       <details class="faq-item">
         <summary>¿Aplican los mismos precios en las dos sucursales?</summary>
-        <div class="faq-a">Sí. Los mismos precios y tasas aplican tanto en Hyundai Plasencia Guadalajara (Av. López Mateos Sur 2600) como en Hyundai Santa Anita (Av. López Mateos Sur 4115). Elige la sucursal más cercana al agendar.</div>
+        <div class="faq-a">Sí. Los mismos precios y tasas de referencia aplican tanto en Hyundai Plasencia Guadalajara (Av. López Mateos Sur 2600) como en Hyundai Santa Anita (Av. López Mateos Sur 4115). Elige la sucursal más cercana al agendar.</div>
       </details>
     </div>
   </div>
@@ -1699,7 +1699,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <p><strong>Hyundai Plasencia Guadalajara</strong> &middot; Distribuidor Autorizado &middot; Parte de Grupo Plasencia Automotriz desde 1947<br>Av. Adolfo López Mateos Sur 2600, Jardines del Sol, 45050 Guadalajara, Jal.<br>Lun a Vie 9:00 a 20:00 &middot; Sáb 9:00 a 19:00 &middot; Dom 11:00 a 18:00 &middot; Tel. (33) 3344 4477<br><span style="opacity:0.75;">+75 años acercándote al auto de tus sueños &middot; +15 marcas &middot; +35 agencias &middot; Centro y Pacifico de México</span><br><a href="#" onclick="event.preventDefault();document.getElementById('mapModal').style.display='flex'" style="color:var(--brand-accent,#00AAD2);text-decoration:underline;font-weight:600;font-size:13px;">📍 Ver ubicación en mapa</a></p>
     <div style="margin-top:16px;"><a href="https://grupoplasencia.com/aviso_de_privacidad/" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.6); text-decoration: underline; font-size: 12px;">Aviso de Privacidad</a></div>
-    <p style="margin-top:14px;font-size:11px;opacity:0.65;">Precios de lista en pesos mexicanos, incluyen IVA y están sujetos a disponibilidad y cambios sin previo aviso. Los intereses del financiamiento causan IVA adicional; la mensualidad mostrada es estimada y puede variar al momento de la contratación según tasa autorizada, enganche y esquema elegido. Imágenes referenciales: la unidad real puede tener variaciones de color o acabado. Consulta términos, condiciones y disponibilidad con tu asesor de ventas. Crédito sujeto a aprobación bancaria.</p>
+    <p style="margin-top:14px;font-size:11px;opacity:0.65;">Precios de lista en pesos mexicanos, incluyen IVA y están sujetos a disponibilidad y cambios sin previo aviso. Las tasas mostradas son tasas de referencia Banorte; la tasa autorizada puede variar al momento de la contratación. Los intereses del financiamiento causan IVA adicional; la mensualidad mostrada es estimada y puede variar al momento de la contratación según tasa autorizada, enganche y esquema elegido. Imágenes referenciales: la unidad real puede tener variaciones de color o acabado. Consulta términos, condiciones y disponibilidad con tu asesor de ventas. Crédito sujeto a aprobación bancaria.</p>
     <p style="margin-top:8px;font-size:11px;opacity:0.55;">© 2026 Grupo Plasencia Automotriz. Todos los derechos reservados.</p>
   </div>
 </footer>
@@ -1742,7 +1742,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- ── PROGRESSIVE FORM (5 pasos: Cotiza / Datos / Perfil / Sucursal / Cita) ── -->
         <div class="form-section">
           <div class="form-section-title form-section-head" id="formSectionTitle">Cotiza tu mensualidad</div>
-          <div class="form-section-sub" id="formSectionSub">Ajusta enganche y plazo con la tasa escalonada Banorte.</div>
+          <div class="form-section-sub" id="formSectionSub">Ajusta enganche y plazo con la tasa de referencia escalonada Banorte.</div>
 
           <div class="form-empty-state" id="formGlobalError">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-error)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
@@ -1785,7 +1785,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <!-- ── PASO 1: Cotiza (calculadora = commitment trigger) ── -->
           <div class="form-step active" id="formStep1" data-step="1">
             <div class="calc-section" style="margin:0 0 16px;">
-              <div class="calc-rate-note" style="font-size:11px;color:var(--ink-400);margin-bottom:14px;">Tasa Banorte (escalonada por enganche): <strong id="rateDisplay">13.99% anual</strong></div>
+              <div class="calc-rate-note" style="font-size:11px;color:var(--ink-400);margin-bottom:14px;">Tasa de referencia Banorte (escalonada por enganche): <strong id="rateDisplay">13.99% anual</strong></div>
 
               <div class="calc-row">
                 <div class="calc-label">
@@ -1814,8 +1814,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <div class="calc-result">
                 <div class="calc-result-label">Mensualidad estimada</div>
                 <div class="calc-result-amount" id="monthlyAmount">$0</div>
-                <div class="calc-result-sub">Tasa referencial anual: <strong id="rateSubDisplay">13.99%</strong></div>
-                <div style="font-size:10px;color:rgba(255,255,255,0.42);margin-top:6px;line-height:1.35;font-style:italic;position:relative;">Mensualidad estimada. El importe real puede variar al contratar según tasa autorizada, enganche, plazo y esquema elegido. El interés causa IVA.</div>
+                <div class="calc-result-sub">Tasa de referencia (anual): <strong id="rateSubDisplay">13.99%</strong></div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.42);margin-top:6px;line-height:1.35;font-style:italic;position:relative;">Tasa de referencia. Tu asesor confirma el esquema vigente. Mensualidad estimada. El importe real puede variar al contratar según tasa autorizada, enganche, plazo y esquema elegido. El interés causa IVA.</div>
                 <div style="font-size:9px;color:rgba(255,255,255,0.4);margin-top:6px;line-height:1.4;position:relative;">* Financiamiento con Banorte. Comisión por apertura 1%. Tasa variable según enganche (9.49% a 17.99%). Cálculo con fines informativos, no constituye una autorización de crédito.</div>
               </div>
 
@@ -2456,9 +2456,9 @@ function buildVCardHTML(v) {
         <div class="v-card-specs">${[v.version, v.engine, v.trans].filter(Boolean).join(' · ')}</div>
         <div class="v-card-price-row">
           <div class="v-card-price" title="Precio de lista, incluye IVA. Sujeto a disponibilidad y cambios sin previo aviso.">${fmt(v.price)}</div>
-          <div class="v-card-monthly">Desde ${fmt(monthly)}/mes</div>
+          <div class="v-card-monthly" title="Estimado con tasa de referencia Banorte">Desde ${fmt(monthly)}/mes</div>
         </div>
-        <div class="v-card-price-disclaimer" style="font-size:10px;color:var(--ink-400,#94A3B8);margin-top:4px;line-height:1.3;">Precio de lista, incluye IVA. Sujeto a disponibilidad y cambios sin previo aviso.</div>
+        <div class="v-card-price-disclaimer" style="font-size:10px;color:var(--ink-400,#94A3B8);margin-top:4px;line-height:1.3;">Precio de lista, incluye IVA. Mensualidad estimada con tasa de referencia. Sujeto a disponibilidad y cambios sin previo aviso.</div>
         <div style="margin-top:8px;display:flex;gap:6px;position:relative;">
           <button onclick="event.stopPropagation();openModal(${v.id})" style="flex:1;padding:12px;min-height:44px;background:var(--brand-accent,#00AAD2);color:#fff;border:none;border-radius:8px;font-family:var(--font-display);font-weight:700;font-size:14px;letter-spacing:0.2px;cursor:pointer;">Agendar cita</button>
         </div>
@@ -2996,7 +2996,7 @@ function formatPhone(el) { el.value = el.value.replace(/[^0-9]/g, '').slice(0, 1
 // 5 steps: 1=Cotiza · 2=Datos · 3=Perfil · 4=Sucursal · 5=Cita
 let currentFormStep = 1;
 const FORM_STEP_HEADS = {
-  1: { title: 'Cotiza tu mensualidad',              sub: 'Ajusta enganche y plazo con la tasa escalonada Banorte.' },
+  1: { title: 'Cotiza tu mensualidad',              sub: 'Ajusta enganche y plazo con la tasa de referencia escalonada Banorte.' },
   2: { title: 'Deja tus datos',                      sub: 'Te enviamos la precotización por WhatsApp y correo.' },
   3: { title: 'Completa tu perfil',                  sub: 'Así afinamos el mejor esquema para ti.' },
   4: { title: 'Elige tu sucursal',                   sub: 'Selecciona la agencia Hyundai donde quieres tu cita.' },
@@ -3771,7 +3771,7 @@ function generateQuotePDF() {
   }
   row('Enganche:', `${a.enganche_pct}% - $${downAmount.toLocaleString('es-MX')} MXN`);
   row('Plazo:', `${a.plazo_meses} meses`);
-  row('Tasa referencial:', `${(getTasaAnual(a.enganche_pct, currentCar && currentCar.minRate) * 100).toFixed(2)}% anual (Banorte, escalonada)`);
+  row('Tasa de referencia:', `${(getTasaAnual(a.enganche_pct, currentCar && currentCar.minRate) * 100).toFixed(2)}% anual (Banorte, escalonada)`);
 
   checkOverflow(20);
   doc.setFillColor(...cfg.primaryColor);
