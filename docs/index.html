@@ -1770,323 +1770,100 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="trust-badge-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="4.93" y1="19.07" x2="10.12" y2="13.88"/><line x1="19.07" y1="19.07" x2="13.88" y2="13.88"/></svg> Prueba de manejo</div>
         </div>
 
-        <!-- ── PROGRESSIVE FORM (5 pasos: Cotiza / Datos / Perfil / Sucursal / Cita) ── -->
+        <!-- FORM 1-STEP LITE (pivote 2026-05-13) -->
         <div class="form-section">
-          <div class="form-section-title form-section-head" id="formSectionTitle">Cotiza tu mensualidad</div>
-          <div class="form-section-sub" id="formSectionSub">Ajusta enganche y plazo con la tasa de referencia escalonada Banorte.</div>
-
-          <div class="form-empty-state" id="formGlobalError">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-error)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            <div class="form-empty-state-text" id="formGlobalErrorText">Faltan campos obligatorios. Revisa los marcados en rojo para continuar.</div>
-            <div class="form-empty-state-sub">Los campos marcados necesitan tu atención.</div>
-          </div>
-
-          <!-- Progress bar -->
-          <div class="form-progress" id="formProgress">
-            <div class="form-progress-step active" data-step="1">
-              <div class="form-step-num">1</div>
-              <div class="form-step-label">Cotiza</div>
-            </div>
-            <div class="form-progress-step" data-step="2">
-              <div class="form-step-num">2</div>
-              <div class="form-step-label">Datos</div>
-            </div>
-            <div class="form-progress-step" data-step="3">
-              <div class="form-step-num">3</div>
-              <div class="form-step-label">Perfil</div>
-            </div>
-            <div class="form-progress-step" data-step="4">
-              <div class="form-step-num">4</div>
-              <div class="form-step-label">Sucursal</div>
-            </div>
-            <div class="form-progress-step" data-step="5">
-              <div class="form-step-num">5</div>
-              <div class="form-step-label">Cita</div>
+          <div class="form-section-head" style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <div class="form-section-head-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+            <div>
+              <h3 class="form-section-title" id="formSectionTitle">Solicita información</h3>
+              <div class="form-section-sub" id="formSectionSub">Te contactamos por WhatsApp en menos de 2 horas.</div>
             </div>
           </div>
 
-          <!-- Sticky summary visible en step 2 y 3 -->
-          <div class="step-summary" id="stepSummary">
-            <div class="step-summary-main">
-              <div class="step-summary-title" id="stepSummaryTitle">…</div>
-              <div class="step-summary-meta" id="stepSummaryMeta">…</div>
+          <div class="form-empty-state" id="formGlobalError" role="alert" aria-live="assertive">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <div>
+              <div class="form-empty-state-text" id="formGlobalErrorText">Faltan campos obligatorios. Revisa los marcados en rojo para continuar.</div>
+              <div class="form-empty-state-sub">Los campos marcados necesitan tu atención.</div>
             </div>
           </div>
 
-          <!-- ── PASO 1: Cotiza (calculadora = commitment trigger) ── -->
-          <div class="form-step active" id="formStep1" data-step="1">
-            <div class="calc-section" style="margin:0 0 16px;">
-              <div class="calc-rate-note" style="font-size:11px;color:var(--ink-400);margin-bottom:14px;">Tasa de referencia Banorte (escalonada por enganche): <strong id="rateDisplay">13.99% anual</strong></div>
-
-              <div class="calc-row">
-                <div class="calc-label">
-                  <span>Enganche</span>
-                  <span class="calc-label-value" id="downLabel">20%</span>
-                </div>
-                <input type="range" class="calc-slider" id="downSlider" min="10" max="70" value="20" step="5" oninput="updateCalc(); pushCalcInteraction('enganche');" aria-label="Porcentaje de enganche" aria-valuemin="10" aria-valuemax="70" aria-valuenow="20" aria-valuetext="20% de enganche">
-                <div class="calc-slider-meta"><span>10%</span><span>70%</span></div>
-                <div class="enganche-highlight" id="engancheBox">
-                  <div class="enganche-label">Tu enganche</div>
-                  <div class="enganche-amount" id="engancheAmount">$0</div>
-                </div>
-              </div>
-
-              <div class="calc-row">
-                <div class="calc-label"><span>Plazo</span></div>
-                <div class="calc-terms" id="termBtns">
-                  <button class="calc-term-btn" onclick="setTerm(12,this)">12m</button>
-                  <button class="calc-term-btn" onclick="setTerm(24,this)">24m</button>
-                  <button class="calc-term-btn active" onclick="setTerm(36,this)">36m</button>
-                  <button class="calc-term-btn" onclick="setTerm(48,this)">48m</button>
-                  <button class="calc-term-btn" onclick="setTerm(60,this)">60m</button>
-                </div>
-              </div>
-
-              <div class="calc-result">
-                <div class="calc-result-label">Mensualidad estimada</div>
-                <div class="calc-result-amount" id="monthlyAmount">$0</div>
-                <div class="calc-result-sub">Tasa de referencia (anual): <strong id="rateSubDisplay">13.99%</strong></div>
-                <div style="font-size:10px;color:rgba(255,255,255,0.42);margin-top:6px;line-height:1.35;font-style:italic;position:relative;">Tasa de referencia. Tu asesor confirma el esquema vigente. Mensualidad estimada. El importe real puede variar al contratar según tasa autorizada, enganche, plazo y esquema elegido. El interés causa IVA.</div>
-                <div style="font-size:9px;color:rgba(255,255,255,0.4);margin-top:6px;line-height:1.4;position:relative;">* Financiamiento con Banorte. Comisión por apertura 1%. Tasa variable según enganche (9.49% a 17.99%). Cálculo con fines informativos, no constituye una autorización de crédito.</div>
-              </div>
-
+          <!-- STEP 1 LITE: unico step — datos de contacto -->
+          <div class="form-step active" id="formStep2">
+          <div class="form-grid">
+            <div class="form-group full">
+              <label class="form-label" for="fName">Nombre(s) <span class="label-req">Obligatorio</span></label>
+              <input class="form-input uppercase-field" id="fName" type="text" placeholder="JUAN CARLOS" oninput="sanitizeOnInput(this); validateField(this)" autocomplete="given-name" required aria-required="true" aria-describedby="fName-error">
+              <div class="form-error-msg" id="fName-error" role="alert">Necesitamos tu nombre para la precotización</div>
             </div>
-
-            <!-- Commitment CTA: ata la cotizacion a la siguiente accion (dar datos) -->
-            <div class="form-step-nav" style="margin-top:4px;">
-              <button type="button" class="btn-step-next" id="btnCommitCalc" onclick="goToFormStep(2)" style="width:100%; justify-content:center; font-size:15px; padding:14px 20px;">
-                Agendar mi cita con esta cotización
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polyline points="9 18 15 12 9 6"/></svg>
-              </button>
+            <div class="form-group">
+              <label class="form-label" for="fLastName1">Apellido paterno <span class="label-req">Obligatorio</span></label>
+              <input class="form-input uppercase-field" id="fLastName1" type="text" placeholder="PEREZ" oninput="sanitizeOnInput(this); validateField(this)" autocomplete="family-name" required aria-required="true" aria-describedby="fLastName1-error">
+              <div class="form-error-msg" id="fLastName1-error" role="alert">Necesitamos tu apellido paterno</div>
             </div>
-            <!-- Disclaimer transparente: baja ansiedad + resetea expectativa (LIFT anxiety reducer) -->
-            <div style="margin:12px 0 0; padding:12px 14px; background:var(--ink-50,#F8FAFC); border:1px solid var(--ink-200,#E2E8F0); border-left:3px solid var(--brand-accent,#00AAD2); border-radius:8px;">
-              <div style="display:flex; align-items:flex-start; gap:10px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--brand-accent,#00AAD2)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="flex-shrink:0; margin-top:1px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                <div style="font-size:12.5px; color:var(--ink-600,#475569); line-height:1.5;">
-                  <strong style="color:var(--ink-800,#1E293B);">Esto es una estimación, no una cotización final.</strong>
-                  En tu visita, el asesor te arma planes de pago a tu medida, revisa otros esquemas y te confirma el precio exacto según tu perfil.
-                </div>
-              </div>
+            <div class="form-group">
+              <label class="form-label" for="fLastName2">Apellido materno <span class="label-req">Obligatorio</span></label>
+              <input class="form-input uppercase-field" id="fLastName2" type="text" placeholder="GARCIA" oninput="sanitizeOnInput(this); validateField(this)" autocomplete="additional-name" required aria-required="true" aria-describedby="fLastName2-error">
+              <div class="form-error-msg" id="fLastName2-error" role="alert">Necesitamos tu apellido materno</div>
             </div>
-            <p style="text-align:center; font-size:12px; color:var(--ink-500,#64748B); margin:10px 0 0; line-height:1.5;">
-              Llevamos tu cotización a la cita · Respuesta por WhatsApp en minutos
-            </p>
-          </div>
-
-          <!-- ── PASO 2: Tus datos ── -->
-          <div class="form-step" id="formStep2" data-step="2">
-            <div class="form-grid">
-              <div class="form-group full">
-                <label class="form-label" for="fName">Nombre(s) <span class="label-req">Obligatorio</span></label>
-                <input class="form-input uppercase-field" id="fName" type="text" placeholder="JUAN CARLOS" oninput="sanitizeOnInput(this); validateField(this)" autocomplete="given-name">
-                <div class="form-error-msg" id="fName-error">Necesitamos tu nombre para la precotización</div>
+            <div class="form-group">
+              <label class="form-label" for="fPhone">WhatsApp (10 digitos) <span class="label-req">Obligatorio</span></label>
+              <div class="phone-row">
+                <div class="phone-prefix">MX +52</div>
+                <input class="form-input" id="fPhone" type="tel" placeholder="3312345678" maxlength="10" pattern="[0-9]{10}" oninput="formatPhone(this); validateField(this)" onkeypress="return /[0-9]/.test(event.key)" autocomplete="tel-national" inputmode="numeric" required aria-required="true" aria-describedby="fPhone-error" style="flex:1;">
               </div>
-              <div class="form-group">
-                <label class="form-label" for="fLastName1">Apellido paterno <span class="label-req">Obligatorio</span></label>
-                <input class="form-input uppercase-field" id="fLastName1" type="text" placeholder="PEREZ" oninput="sanitizeOnInput(this); validateField(this)" autocomplete="family-name">
-                <div class="form-error-msg" id="fLastName1-error">Necesitamos tu apellido paterno</div>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="fLastName2">Apellido materno <span class="label-req">Obligatorio</span></label>
-                <input class="form-input uppercase-field" id="fLastName2" type="text" placeholder="GARCIA" oninput="sanitizeOnInput(this); validateField(this)" autocomplete="additional-name">
-                <div class="form-error-msg" id="fLastName2-error">Necesitamos tu apellido materno</div>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="fPhone">Celular / WhatsApp <span class="label-req">Obligatorio</span></label>
-                <div class="phone-row">
-                  <div class="phone-prefix">MX +52</div>
-                  <input class="form-input" id="fPhone" type="tel" placeholder="3312345678" maxlength="10" pattern="[0-9]{10}" oninput="formatPhone(this); validateField(this)" onkeypress="return /[0-9]/.test(event.key)" autocomplete="tel-national" inputmode="numeric" style="flex:1;">
-                </div>
-                <div class="field-help">10 dígitos sin espacios</div>
-                <div class="form-error-msg" id="fPhone-error">Necesitamos 10 dígitos para contactarte por WhatsApp</div>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="fEmail">Correo electrónico <span class="label-req">Obligatorio</span></label>
-                <input class="form-input" id="fEmail" type="email" placeholder="tu@email.com" oninput="validateField(this)" autocomplete="email">
-                <div class="form-error-msg" id="fEmail-error">Revisa tu correo: te enviaremos la precotización ahí</div>
-              </div>
+              <div class="field-help">10 dígitos sin espacios</div>
+              <div class="form-error-msg" id="fPhone-error" role="alert">Necesitamos 10 dígitos para contactarte por WhatsApp</div>
             </div>
-            <div class="form-step-nav">
-              <button type="button" class="btn-step-prev" onclick="goToFormStep(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg> Volver a cotizar</button>
-              <button type="button" class="btn-step-next" onclick="goToFormStep(3)">Siguiente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="form-group">
+              <label class="form-label" for="fEmail">Correo electrónico <span class="label-req">Obligatorio</span></label>
+              <input class="form-input" id="fEmail" type="email" placeholder="tu@email.com" oninput="validateField(this)" autocomplete="email" required aria-required="true" aria-describedby="fEmail-error">
+              <div class="form-error-msg" id="fEmail-error" role="alert">Revisa tu correo: te enviaremos la precotización ahí</div>
             </div>
           </div>
 
-          <!-- ── PASO 3: Perfil (financiamiento + trade-in) ── -->
-          <div class="form-step" id="formStep3" data-step="3">
-            <div class="form-grid">
-              <div class="form-group full">
-                <label class="form-label">Tipo de persona <span class="label-opt">Opcional</span></label>
-                <select class="form-input" id="fTipoPersona" onchange="onTipoPersonaChange()">
-                  <option value="">Selecciona una opción</option>
-                  <option value="PERSONA FISICA">Persona física</option>
-                  <option value="PERSONA FISICA CON ACTIVIDAD EMPRESARIAL">Persona física con actividad empresarial</option>
-                  <option value="PERSONA MORAL">Persona moral</option>
-                </select>
-                <div class="iva-banner" id="ivaBanner" style="display:none;">
-                  <div class="iva-banner-icon">💰</div>
-                  <div class="iva-banner-text">
-                    <strong>Beneficio fiscal disponible</strong>
-                    <span>Como persona con actividad empresarial o moral, puedes acreditar el IVA y deducir este vehículo. Te preparamos el mejor esquema en tu cita.</span>
-                  </div>
-                </div>
-                <div class="field-help" id="ivaFieldHelp">Personas físicas con actividad empresarial y morales pueden acreditar el IVA y deducir el vehículo si lo destinan a su actividad. Nos sirve para ofrecerte el mejor esquema (factura, leasing, crédito empresarial).</div>
-              </div>
-              <div class="form-group">
-                <label class="form-label">¿Necesitas financiamiento? <span class="label-req">Obligatorio</span></label>
-                <select class="form-input" id="fBuscaFinanciamiento" onchange="toggleIngresos()" required aria-required="true" aria-describedby="fBuscaFinanciamiento-error">
-                  <option value="">Selecciona una opción</option>
-                  <option value="SI">Sí, necesito financiamiento</option>
-                  <option value="NO (CONTADO)">No, pago de contado</option>
-                </select>
-                <div class="form-error-msg" id="fBuscaFinanciamiento-error" role="alert">Indica si buscas financiamiento o pago de contado</div>
-              </div>
-              <div class="form-group" id="ingresosGroup" style="display:none;">
-                <label class="form-label">¿Puedes comprobar ingresos? <span class="label-req">Obligatorio</span></label>
-                <select class="form-input" id="fCompruebaIngresos" onchange="toggleIngresosFeedback(this)" aria-describedby="fCompruebaIngresos-error">
-                  <option value="">Selecciona una opción</option>
-                  <option value="SI">Sí</option>
-                  <option value="NO">No</option>
-                </select>
-                <div class="form-error-msg" id="fCompruebaIngresos-error" role="alert">Indica si puedes comprobar ingresos</div>
-                <div class="field-help">Si no puedes comprobarlos, no te preocupes: no es restricción para la compra. Solo puede implicar un enganche mayor (desde 25%).</div>
-              </div>
-              <div class="form-group full">
-                <label class="form-label">¿Tienes auto a cuenta? <span class="label-opt">Opcional</span></label>
-                <select class="form-input" id="fTradeIn">
-                  <option value="">No, compra directa</option>
-                  <option value="si">Sí, quiero que lo evalúen</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-step-nav">
-              <button type="button" class="btn-step-prev" onclick="goToFormStep(2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg> Anterior</button>
-              <button type="button" class="btn-step-next" onclick="goToFormStep(4)">Siguiente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></button>
-            </div>
+          <label for="fPrivacy" style="display:flex; align-items:flex-start; gap:8px; margin:16px 0 8px; font-size:13px; color:var(--ink-500, #64748b); line-height:1.4; cursor:pointer;">
+            <input type="checkbox" id="fPrivacy" required style="margin-top:3px; min-width:18px; min-height:18px; accent-color:var(--brand-accent, #00AAD2);">
+            <span>He leído y acepto el <a href="https://grupoplasencia.com/aviso_de_privacidad/" target="_blank" rel="noopener" style="color:var(--brand-accent, #00AAD2); text-decoration:underline;">Aviso de Privacidad</a> de Grupo Plasencia Automotriz.</span>
+          </label>
+          <div class="form-error-msg" id="fPrivacy-error" role="alert">Acepta el aviso de privacidad para continuar</div>
+
+          <label for="fMarketing" style="display:flex; align-items:flex-start; gap:8px; margin:4px 0 16px; font-size:13px; color:var(--ink-500, #64748b); line-height:1.4; cursor:pointer;">
+            <input type="checkbox" id="fMarketing" style="margin-top:3px; min-width:18px; min-height:18px; accent-color:var(--brand-accent, #00AAD2);">
+            <span>Acepto que mis datos sean utilizados con fines promocionales y de contacto comercial.</span>
+          </label>
+
+          <button class="btn-conversion" onclick="submitForm()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Quiero información
+          </button>
+          <p class="form-privacy">Tus datos solo se usan para contactarte. Protegidos conforme a ley (LFPDPPP).</p>
           </div>
 
-          <!-- ── PASO 4: Sucursal (selector visual + mapa dinamico) ── -->
-          <div class="form-step" id="formStep4" data-step="4">
-            <label class="form-label" style="margin-bottom:10px;">¿En cuál sucursal te gustaría tu cita? <span class="label-req">Obligatorio</span></label>
-            <div class="sucursal-cards" role="radiogroup" aria-label="Sucursal">
-              <div class="sucursal-card" id="sucCardPlasencia" role="radio" tabindex="0" aria-checked="false" onclick="selectSucursal('HYUNDAI PLASENCIA')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectSucursal('HYUNDAI PLASENCIA');}">
-                <span class="sucursal-card-radio" aria-hidden="true"></span>
-                <div class="sucursal-card-title">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="color:var(--brand-accent);"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                  Hyundai Plasencia
-                </div>
-                <div class="sucursal-card-addr">Av. López Mateos Sur 2600, Jardines del Sol, 45050 Guadalajara, Jal.</div>
-                <div class="sucursal-card-hours">Lun–Vie 9:00–20:00 · Sáb 9:00–19:00 · Dom 11:00–18:00</div>
-              </div>
-              <div class="sucursal-card" id="sucCardSantaAnita" role="radio" tabindex="0" aria-checked="false" onclick="selectSucursal('HYUNDAI SANTA ANITA')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectSucursal('HYUNDAI SANTA ANITA');}">
-                <span class="sucursal-card-radio" aria-hidden="true"></span>
-                <div class="sucursal-card-title">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="color:var(--brand-accent);"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                  Hyundai Santa Anita
-                </div>
-                <div class="sucursal-card-addr">Av. López Mateos Sur 4115, Los Gavilanes, Tlajomulco, Jal.</div>
-                <div class="sucursal-card-hours">Lun–Vie 9:00–20:00 · Sáb 9:00–19:00 · Dom 11:00–18:00</div>
-              </div>
-            </div>
-            <input type="hidden" id="fSucursal" value="">
-            <div class="form-error-msg" id="fSucursal-error" role="alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Selecciona una sucursal para tu cita</div>
-
-            <!-- Mapa dinamico segun seleccion -->
-            <div id="sedeMapWrap" style="display:none; margin-top:14px; border-radius:10px; overflow:hidden; border:1px solid var(--ink-200); aspect-ratio:16/10; background:var(--ink-100);">
-              <iframe id="sedeMapIframe" src="" width="100%" height="100%" style="border:0; display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de la sucursal"></iframe>
-            </div>
-
-            <div class="form-step-nav">
-              <button type="button" class="btn-step-prev" onclick="goToFormStep(3)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg> Anterior</button>
-              <button type="button" class="btn-step-next" onclick="goToFormStep(5)">Confirmar sucursal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></button>
-            </div>
-          </div>
-
-          <!-- ── PASO 5: Cita (calendario primero, warning debajo) ── -->
-          <div class="form-step" id="formStep5" data-step="5">
-            <!-- Badge compacto de sucursal ya confirmada -->
-            <div id="citaSedeBadge" style="display:flex; align-items:center; gap:8px; padding:10px 12px; background:var(--ink-50,#F8FAFC); border:1px solid var(--ink-200,#E2E8F0); border-radius:8px; margin-bottom:14px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="var(--brand-accent,#00AAD2)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <div style="flex:1; min-width:0;">
-                <div style="font-size:11px; color:var(--ink-500,#64748B); font-weight:600; text-transform:uppercase; letter-spacing:0.3px; line-height:1;">Tu cita en</div>
-                <div id="citaSedeBadgeName" style="font-size:14px; font-weight:700; color:var(--ink-900,#0F172A); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">…</div>
-              </div>
-            </div>
-
-            <div class="cita-picker">
-              <div class="cita-picker-label">Fecha y hora de cita <span class="label-req">Obligatorio</span></div>
-              <input type="hidden" id="fDate" value="">
-              <input type="hidden" id="fTime" value="">
-              <!-- CALENDARIO PRIMERO -->
-              <div class="cal-wrap" id="calWrap">
-                <div class="cal-header">
-                  <button type="button" class="cal-nav" id="calPrev" onclick="calNavigate(-1)">&#8249;</button>
-                  <span class="cal-header-title" id="calTitle"></span>
-                  <button type="button" class="cal-nav" id="calNext" onclick="calNavigate(1)">&#8250;</button>
-                </div>
-                <div class="cal-weekdays">
-                  <span class="cal-weekday">Lun</span><span class="cal-weekday">Mar</span><span class="cal-weekday">Mié</span>
-                  <span class="cal-weekday">Jue</span><span class="cal-weekday">Vie</span><span class="cal-weekday">Sáb</span>
-                  <span class="cal-weekday" style="color:var(--ink-300);">Dom</span>
-                </div>
-                <div class="cal-days" id="calDays"></div>
-              </div>
-              <!-- WARNING DEBAJO del calendario -->
-              <div class="cal-warning" id="calWarning" role="status" aria-live="polite" style="margin-top:10px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                <span>Mínimo 24 h de anticipación. No agendamos citas el mismo día.</span>
-              </div>
-              <div class="time-slots-wrap" id="timeSlotsWrap">
-                <div class="time-slots-label">Selecciona horario</div>
-                <div class="time-slots" id="timeSlots"></div>
-              </div>
-              <div class="cita-summary" id="citaSummary"></div>
-              <div class="form-error-msg" id="fDate-error">Selecciona una fecha y hora para tu cita</div>
-              <div class="form-error-msg" id="fTime-error">Selecciona un horario</div>
-            </div>
-
-            <label style="display:flex; align-items:flex-start; gap:8px; margin:16px 0 8px; font-size:13px; color:var(--ink-500, #64748b); line-height:1.4; cursor:pointer;">
-              <input type="checkbox" id="fPrivacy" required style="margin-top:3px; min-width:18px; min-height:18px; accent-color:var(--brand-accent, #00AAD2);">
-              <span>He leído y acepto el <a href="https://grupoplasencia.com/aviso_de_privacidad/" target="_blank" rel="noopener" style="color:var(--brand-accent, #00AAD2); text-decoration:underline;">Aviso de Privacidad</a> de Grupo Plasencia Automotriz.</span>
-            </label>
-            <div class="form-error-msg" id="fPrivacy-error">Acepta el aviso de privacidad para continuar</div>
-
-            <label style="display:flex; align-items:flex-start; gap:8px; margin:0 0 16px; font-size:13px; color:var(--ink-500, #64748b); line-height:1.4; cursor:pointer;">
-              <input type="checkbox" id="fMarketing" style="margin-top:3px; min-width:18px; min-height:18px; accent-color:var(--brand-accent, #00AAD2);">
-              <span>Acepto que mis datos sean utilizados con fines promocionales y de contacto comercial.</span>
-            </label>
-
-            <div class="form-step-nav" style="margin-bottom:12px;">
-              <button type="button" class="btn-step-prev" onclick="goToFormStep(4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg> Anterior</button>
-            </div>
-            <button class="btn-conversion" onclick="submitForm()">Agendar mi cita</button>
-            <p class="form-privacy">Tus datos se usan únicamente para coordinar tu visita a la agencia conforme a la LFPDPPP.</p>
-          </div>
+          <!-- STEPS 3-5 ELIMINADOS (versión lite) -->
         </div>
       </div>
-
       <!-- ── CONFIRMATION ── -->
       <div class="confirmation" id="confirmState">
         <div class="confirmation-icon-wrap">
           <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="var(--color-success-dark)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <div class="confirmation-title">Listo, tu cita está agendada</div>
-        <p class="confirmation-subtitle" id="confirmSubtitle">Guarda tu folio y descarga tu precotización.</p>
+        <div class="confirmation-title">Listo, te llamamos en menos de 2 horas</div>
+        <p class="confirmation-subtitle" id="confirmSubtitle">Te contactamos por WhatsApp para confirmar tu visita a la agencia.</p>
 
         <!-- QUE SIGUE -->
         <div class="next-steps">
           <div class="next-step-item">
             <div class="next-step-num">1</div>
-            <div class="next-step-text">Descarga tu precotización y guárdala como referencia.</div>
+            <div class="next-step-text">Guarda tu folio — lo usarás cuando llegues a la agencia.</div>
           </div>
           <div class="next-step-item">
             <div class="next-step-num">2</div>
-            <div class="next-step-text">Tu asesor te contactara por WhatsApp para confirmar tu cita.</div>
+            <div class="next-step-text">Te llamamos por WhatsApp en menos de 2 horas para coordinar tu visita.</div>
           </div>
           <div class="next-step-item">
             <div class="next-step-num">3</div>
-            <div class="next-step-text">Llega a la agencia con tu folio. Tu asesor ya tiene tus datos.</div>
+            <div class="next-step-text">Llega a la agencia con tu folio. El asesor ya tiene tus datos y el auto listo.</div>
           </div>
         </div>
         <div class="confirmation-folio" id="confirmFolio">GP-HYU-000000</div>
@@ -2491,7 +2268,7 @@ function buildVCardHTML(v) {
         </div>
         <div class="v-card-price-disclaimer" style="font-size:10px;color:var(--ink-400,#94A3B8);margin-top:4px;line-height:1.3;">Precio de lista, incluye IVA. Mensualidad estimada con tasa de referencia. Sujeto a disponibilidad y cambios sin previo aviso.</div>
         <div style="margin-top:8px;display:flex;gap:6px;position:relative;">
-          <button onclick="event.stopPropagation();openModal(${v.id})" style="flex:1;padding:12px;min-height:44px;background:var(--brand-accent,#00AAD2);color:#fff;border:none;border-radius:8px;font-family:var(--font-display);font-weight:700;font-size:14px;letter-spacing:0.2px;cursor:pointer;">Agendar cita</button>
+          <button onclick="event.stopPropagation();openModal(${v.id})" style="flex:1;padding:12px;min-height:44px;background:var(--brand-accent,#00AAD2);color:#fff;border:none;border-radius:8px;font-family:var(--font-display);font-weight:700;font-size:14px;letter-spacing:0.2px;cursor:pointer;">Quiero información</button>
         </div>
       </div>
     </div>`;
@@ -2575,25 +2352,9 @@ function setTerm(months, el) {
   updateCalc();
 }
 
-function onTipoPersonaChange() {
-  const val = document.getElementById('fTipoPersona').value;
-  const banner = document.getElementById('ivaBanner');
-  const help = document.getElementById('ivaFieldHelp');
-  const show = val === 'PERSONA FISICA CON ACTIVIDAD EMPRESARIAL' || val === 'PERSONA MORAL';
-  banner.style.display = show ? 'flex' : 'none';
-  if (help) help.style.display = show ? 'none' : '';
-}
 
-function toggleIngresos() {
-  const v = document.getElementById('fBuscaFinanciamiento').value;
-  const grp = document.getElementById('ingresosGroup');
-  if (v === 'SI') {
-    grp.style.display = 'flex';
-  } else {
-    grp.style.display = 'none';
-    document.getElementById('fCompruebaIngresos').value = '';
-  }
-}
+
+
 
 // ── INLINE CALENDAR + TIME SLOT PICKER ──
 // Reglas: +24h min, 30 días max, Lun-Sáb, 9:00-18:30 slots de 30 min
@@ -2635,235 +2396,17 @@ function isDayEnabled(d) {
 const MONTH_NAMES_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const DAY_NAMES_ES = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 
-function setupDateInput() {
-  const min = getMinDate();
-  calViewYear = min.getFullYear();
-  calViewMonth = min.getMonth();
-  calSelectedDate = null;
-  calSelectedTime = '';
-  document.getElementById('fDate').value = '';
-  document.getElementById('fTime').value = '';
-  document.getElementById('timeSlotsWrap').classList.remove('show');
-  document.getElementById('citaSummary').classList.remove('show');
-  document.getElementById('calWrap').classList.remove('error');
-  showSameDayWarning(true); // visible al abrir, sin shake
-  renderCalendar();
-}
+
 
 let _calWarnTimer = null;
-function showSameDayWarning(initial) {
-  const w = document.getElementById('calWarning'); if (!w) return;
-  w.classList.remove('hidden');
-  if (initial) return; // primera vez: solo mostrar, sin shake
-  w.classList.remove('shake');
-  void w.offsetWidth; // reflow para reiniciar la animacion
-  w.classList.add('shake');
-  if (_calWarnTimer) clearTimeout(_calWarnTimer);
-  _calWarnTimer = setTimeout(function(){ w.classList.remove('shake'); }, 500);
-}
-function hideSameDayWarning() {
-  const w = document.getElementById('calWarning'); if (!w) return;
-  w.classList.add('hidden');
-}
 
-function renderCalendar() {
-  const container = document.getElementById('calDays');
-  const titleEl = document.getElementById('calTitle');
-  titleEl.textContent = `${MONTH_NAMES_ES[calViewMonth]} ${calViewYear}`;
 
-  // Nav button states
-  const min = getMinDate();
-  const max = getMaxDate();
-  const prevBtn = document.getElementById('calPrev');
-  const nextBtn = document.getElementById('calNext');
-  // disable prev if current view is min's month or earlier
-  if (calViewYear < min.getFullYear() || (calViewYear === min.getFullYear() && calViewMonth <= min.getMonth())) {
-    prevBtn.classList.add('disabled');
-  } else {
-    prevBtn.classList.remove('disabled');
-  }
-  if (calViewYear > max.getFullYear() || (calViewYear === max.getFullYear() && calViewMonth >= max.getMonth())) {
-    nextBtn.classList.add('disabled');
-  } else {
-    nextBtn.classList.remove('disabled');
-  }
-
-  const firstDay = new Date(calViewYear, calViewMonth, 1);
-  const lastDay = new Date(calViewYear, calViewMonth + 1, 0);
-  // Monday=0 offset (JS getDay: 0=Sun, 1=Mon... we want Mon=0)
-  let startDow = firstDay.getDay() - 1;
-  if (startDow < 0) startDow = 6;
-
-  const today = new Date(); today.setHours(0,0,0,0);
-  let html = '';
-  // empty cells before first day
-  for (let i = 0; i < startDow; i++) {
-    html += '<span class="cal-day empty"></span>';
-  }
-  for (let d = 1; d <= lastDay.getDate(); d++) {
-    const dt = new Date(calViewYear, calViewMonth, d);
-    const enabled = isDayEnabled(dt);
-    const isSun = dt.getDay() === 0;
-    const isToday = dt.getTime() === today.getTime();
-    const isSelected = calSelectedDate && dt.getTime() === calSelectedDate.getTime();
-    let cls = 'cal-day';
-    if (!enabled) cls += ' disabled';
-    if (isSun) cls += ' sunday';
-    if (isToday) cls += ' today';
-    if (isSelected) cls += ' selected';
-    const isoStr = toISO(dt);
-    const onclickAttr = enabled ? `onclick="selectCalDay('${isoStr}')"` : (isToday ? `onclick="showSameDayWarning()"` : '');
-    html += `<button type="button" class="${cls}" data-date="${isoStr}" ${onclickAttr}>${d}</button>`;
-  }
-  container.innerHTML = html;
-}
-
-function calNavigate(dir) {
-  calViewMonth += dir;
-  if (calViewMonth > 11) { calViewMonth = 0; calViewYear++; }
-  if (calViewMonth < 0) { calViewMonth = 11; calViewYear--; }
-  renderCalendar();
-}
-
-function selectCalDay(isoStr) {
-  const [y, m, d] = isoStr.split('-').map(Number);
-  calSelectedDate = new Date(y, m - 1, d);
-  calSelectedDate.setHours(0,0,0,0);
-  document.getElementById('fDate').value = isoStr;
-  calSelectedTime = '';
-  document.getElementById('fTime').value = '';
-  document.getElementById('citaSummary').classList.remove('show');
-  document.getElementById('calWrap').classList.remove('error');
-  hideSameDayWarning();
-  // Clear date error
-  const errEl = document.getElementById('fDate-error');
-  if (errEl) { errEl.classList.remove('show'); }
-
-  try {
-    dataLayer.push({
-      event: 'calendar_day_selected',
-      selected_date: isoStr,
-      day_of_week: calSelectedDate.getDay(),
-      item_name: currentCar ? (currentCar.name + ' ' + currentCar.year) : ''
-    });
-  } catch (e) {}
-
-  renderCalendar();
-  renderTimeSlots();
-}
-
-function renderTimeSlots() {
-  const wrap = document.getElementById('timeSlotsWrap');
-  const container = document.getElementById('timeSlots');
-  if (!calSelectedDate) { wrap.classList.remove('show'); return; }
-
-  // Ventana +24h: no permitir slots cuyo momento exacto sea < ahora+24h
-  const now = new Date();
-  const minMoment = new Date(now.getTime() + 24 * 60 * 60 * 1000);
-  // calSelectedDate es un Date object (no string). Extraer componentes directamente.
-  const y = calSelectedDate.getFullYear();
-  const mo = calSelectedDate.getMonth();
-  const dy = calSelectedDate.getDate();
-
-  const slots = [];
-  for (let h = 9; h <= 18; h++) {
-    for (let m = 0; m < 60; m += 30) {
-      if (h === 18 && m > 30) continue;
-      const slotDate = new Date(y, mo, dy, h, m, 0);
-      if (slotDate < minMoment) continue;
-      const val = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
-      const hour12 = h > 12 ? h - 12 : h;
-      const ampm = h >= 12 ? 'PM' : 'AM';
-      const label = `${hour12}:${String(m).padStart(2,'0')} ${ampm}`;
-      slots.push({ val, label });
-    }
-  }
-
-  let html = '';
-  slots.forEach(s => {
-    const sel = calSelectedTime === s.val ? ' selected' : '';
-    html += `<button type="button" class="time-pill${sel}" onclick="selectTimeSlot('${s.val}', this)">${s.label}</button>`;
-  });
-  if (!html) {
-    html = '<div style="font-size:13px;color:var(--ink-400);padding:8px 0;">No hay horarios disponibles para este día.</div>';
-  }
-  container.innerHTML = html;
-  wrap.classList.add('show');
-}
-
-function selectTimeSlot(val, el) {
-  calSelectedTime = val;
-  document.getElementById('fTime').value = val;
-  // Clear time error
-  const errEl = document.getElementById('fTime-error');
-  if (errEl) { errEl.classList.remove('show'); }
-
-  document.querySelectorAll('.time-pill').forEach(p => p.classList.remove('selected'));
-  el.classList.add('selected');
-  updateCitaSummary();
-
-  try {
-    var fullIso = '';
-    if (calSelectedDate) {
-      var y = calSelectedDate.getFullYear();
-      var m = String(calSelectedDate.getMonth()+1).padStart(2,'0');
-      var d = String(calSelectedDate.getDate()).padStart(2,'0');
-      fullIso = y + '-' + m + '-' + d + 'T' + val;
-    }
-    dataLayer.push({
-      event: 'calendar_time_selected',
-      selected_time: val,
-      selected_datetime: fullIso,
-      item_name: currentCar ? (currentCar.name + ' ' + currentCar.year) : ''
-    });
-  } catch (e) {}
-}
-
-function updateCitaSummary() {
-  const summary = document.getElementById('citaSummary');
-  if (!calSelectedDate || !calSelectedTime) { summary.classList.remove('show'); return; }
-  const dayName = DAY_NAMES_ES[calSelectedDate.getDay()];
-  const d = calSelectedDate.getDate();
-  const monthName = MONTH_NAMES_ES[calSelectedDate.getMonth()];
-  const [hh, mm] = calSelectedTime.split(':').map(Number);
-  const hour12 = hh > 12 ? hh - 12 : hh;
-  const ampm = hh >= 12 ? 'PM' : 'AM';
-  summary.textContent = `Tu cita: ${dayName} ${d} de ${monthName}, ${hour12}:${String(mm).padStart(2,'0')} ${ampm}`;
-  summary.classList.add('show');
-}
-
-function validateDate() {
-  const dateVal = document.getElementById('fDate').value;
-  const timeVal = document.getElementById('fTime').value;
-  const dateErr = document.getElementById('fDate-error');
-  const timeErr = document.getElementById('fTime-error');
-  const calWrap = document.getElementById('calWrap');
-  let valid = true;
-
-  if (!dateVal) {
-    if (dateErr) { dateErr.textContent = 'Selecciona una fecha para tu cita'; dateErr.classList.add('show'); }
-    if (calWrap) calWrap.classList.add('error');
-    valid = false;
-  } else {
-    if (dateErr) { dateErr.classList.remove('show'); }
-    if (calWrap) calWrap.classList.remove('error');
-  }
-
-  if (!timeVal) {
-    if (timeErr) { timeErr.textContent = 'Selecciona un horario'; timeErr.classList.add('show'); }
-    valid = false;
-  } else {
-    if (timeErr) { timeErr.classList.remove('show'); }
-  }
-
-  return valid;
-}
 
 function resetSubmitState() {
   submitting = false;
   window._submitCompleted = false;
   const b = document.querySelector('.btn-conversion');
-  if (b) { b.disabled = false; b.style.opacity = ''; b.style.cursor = ''; b.textContent = 'Agendar mi cita'; }
+  if (b) { b.disabled = false; b.style.opacity = ''; b.style.cursor = ''; b.textContent = 'Quiero información'; }
 }
 // SPA Virtual Pageviews (Clarity + GA4 heatmaps por pantalla)
 let _spaNavigating = false;
@@ -2925,40 +2468,31 @@ function openModal(id) {
     currentCar.version
   ].map(s => `<span class="spec-chip">${s}</span>`).join('');
 
-  document.getElementById('downSlider').value = 20;
+  // Calculadora eliminada (versión lite) — solo reset selectedTerm por compatibilidad
   selectedTerm = 36;
-  document.querySelectorAll('.calc-term-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.calc-term-btn')[2].classList.add('active');
-  updateCalc();
 
-  document.getElementById('fDate').value = '';
-  document.getElementById('fTime').value = '';
-  setupDateInput();
-
+  // Reset form fields (versión lite — solo datos de contacto)
   document.getElementById('fName').value = '';
   document.getElementById('fLastName1').value = '';
   document.getElementById('fLastName2').value = '';
   document.getElementById('fPhone').value = '';
   document.getElementById('fEmail').value = '';
-  document.getElementById('fTipoPersona').value = '';
-  document.getElementById('ivaBanner').style.display = 'none';
-  document.getElementById('fBuscaFinanciamiento').value = '';
-  document.getElementById('fCompruebaIngresos').value = '';
-  document.getElementById('ingresosGroup').style.display = 'none';
-  // Reset sucursal selection (Step 4)
-  var sucInput = document.getElementById('fSucursal'); if (sucInput) sucInput.value = '';
-  var sucCardP = document.getElementById('sucCardPlasencia');
-  var sucCardS = document.getElementById('sucCardSantaAnita');
-  if (sucCardP) { sucCardP.classList.remove('selected'); sucCardP.setAttribute('aria-checked','false'); }
-  if (sucCardS) { sucCardS.classList.remove('selected'); sucCardS.setAttribute('aria-checked','false'); }
-  var sedeMapWrap = document.getElementById('sedeMapWrap'); if (sedeMapWrap) sedeMapWrap.style.display = 'none';
-  var sedeBadgeName = document.getElementById('citaSedeBadgeName'); if (sedeBadgeName) sedeBadgeName.textContent = '…';
-  // Reset tradeIn
-  var tradeInEl = document.getElementById('fTradeIn'); if (tradeInEl) tradeInEl.value = '';
+  var privBox = document.getElementById('fPrivacy'); if (privBox) privBox.checked = false;
+  var mktBox = document.getElementById('fMarketing'); if (mktBox) mktBox.checked = false;
   // Reset submit completion flag so modal_close_before_submit funciona en proxima sesion
   window._submitCompleted = false;
   clearValidation();
   if (typeof goToFormStep === 'function') goToFormStep(1);
+
+  // form_start: dispara al abrir el modal (versión lite — 1 step)
+  try {
+    dataLayer.push({
+      event: 'form_start',
+      item_name: currentCar ? (currentCar.name + ' ' + currentCar.year) : '',
+      item_price: currentCar ? currentCar.price : 0,
+      vehicle_brand: currentCar ? (currentCar.brand || '') : ''
+    });
+  } catch(e) {}
 
   document.getElementById('detailState').style.display = 'block';
   document.getElementById('confirmState').classList.remove('show');
@@ -2986,11 +2520,9 @@ function openModal(id) {
 function closeModal() {
   // modal_close_before_submit: dropoff tracker si el usuario avanzo pero no completo submit
   try {
-    if (!window._submitCompleted && typeof currentFormStep !== 'undefined' && currentFormStep > 1 && currentCar) {
+    if (!window._submitCompleted && currentCar) {
       dataLayer.push({
         event: 'modal_close_before_submit',
-        last_step_reached: currentFormStep,
-        last_step_name: (FORM_STEP_HEADS[currentFormStep]||{}).title || '',
         item_name: currentCar.name + ' ' + currentCar.year,
         item_price: currentCar.price
       });
@@ -3027,11 +2559,7 @@ function formatPhone(el) { el.value = el.value.replace(/[^0-9]/g, '').slice(0, 1
 // 5 steps: 1=Cotiza · 2=Datos · 3=Perfil · 4=Sucursal · 5=Cita
 let currentFormStep = 1;
 const FORM_STEP_HEADS = {
-  1: { title: 'Cotiza tu mensualidad',              sub: 'Ajusta enganche y plazo con la tasa de referencia escalonada Banorte.' },
-  2: { title: 'Deja tus datos',                      sub: 'Te enviamos la precotización por WhatsApp y correo.' },
-  3: { title: 'Completa tu perfil',                  sub: 'Así afinamos el mejor esquema para ti.' },
-  4: { title: 'Elige tu sucursal',                   sub: 'Selecciona la agencia Hyundai donde quieres tu cita.' },
-  5: { title: 'Elige fecha y hora',                  sub: 'Selecciona el día que te acomode para visitar el auto.' }
+  1: { title: 'Solicita información', sub: 'Te contactamos por WhatsApp en menos de 2 horas.' }
 };
 function hideFieldError(id) {
   var el = document.getElementById(id);
@@ -3040,131 +2568,8 @@ function hideFieldError(id) {
   if (errorEl) errorEl.classList.remove('show');
 }
 function goToFormStep(step) {
-  var stepFrom = currentFormStep;
-  // Validate current step before advancing
-  if (step > currentFormStep) {
-    // Step 1 (calc) → Step 2 : no validation required (slider siempre valido)
-    if (currentFormStep === 2) {
-      var stepFields = ['fName','fLastName1','fLastName2','fPhone','fEmail'];
-      var allValid = true;
-      var firstErrorField = null;
-      stepFields.forEach(function(id) {
-        var el = document.getElementById(id);
-        if (!el) return;
-        var v = el.value.trim();
-        var valid = v.length > 0;
-        if (id === 'fPhone') valid = /^[0-9]{10}$/.test(v);
-        else if (id === 'fEmail') valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-        if (!valid) { showFieldError(id); el.classList.add('error'); el.classList.remove('valid'); allValid = false; if (!firstErrorField) firstErrorField = id; }
-        else { hideFieldError(id); el.classList.remove('error'); el.classList.add('valid'); }
-      });
-      if (!allValid) {
-        try { dataLayer.push({ event: 'form_step_error', step: stepFrom, step_name: (FORM_STEP_HEADS[stepFrom]||{}).title || '', first_error_field: firstErrorField, item_name: currentCar ? (currentCar.name + ' ' + currentCar.year) : '' }); } catch (e) {}
-        if (typeof scrollToFirstError === 'function') scrollToFirstError();
-        return;
-      }
-    }
-    if (currentFormStep === 3) {
-      var stepFields3 = ['fBuscaFinanciamiento'];
-      if (document.getElementById('fBuscaFinanciamiento').value === 'SI') stepFields3.push('fCompruebaIngresos');
-      var allValid3 = true;
-      var firstErrorField3 = null;
-      stepFields3.forEach(function(id) {
-        var el = document.getElementById(id);
-        if (!el) return;
-        var v = el.value.trim();
-        if (v.length === 0) { showFieldError(id); el.classList.add('error'); el.classList.remove('valid'); allValid3 = false; if (!firstErrorField3) firstErrorField3 = id; }
-        else { hideFieldError(id); el.classList.remove('error'); el.classList.add('valid'); }
-      });
-      if (!allValid3) {
-        try { dataLayer.push({ event: 'form_step_error', step: stepFrom, step_name: (FORM_STEP_HEADS[stepFrom]||{}).title || '', first_error_field: firstErrorField3, item_name: currentCar ? (currentCar.name + ' ' + currentCar.year) : '' }); } catch (e) {}
-        if (typeof scrollToFirstError === 'function') scrollToFirstError();
-        return;
-      }
-    }
-    if (currentFormStep === 4) {
-      // Validar que el usuario eligio sucursal antes de pasar a cita
-      var sucVal = (document.getElementById('fSucursal') || {}).value || '';
-      if (!sucVal) {
-        showFieldError('fSucursal');
-        try { dataLayer.push({ event: 'form_step_error', step: stepFrom, step_name: (FORM_STEP_HEADS[stepFrom]||{}).title || '', first_error_field: 'fSucursal', item_name: currentCar ? (currentCar.name + ' ' + currentCar.year) : '' }); } catch (e) {}
-        if (typeof scrollToFirstError === 'function') scrollToFirstError();
-        return;
-      }
-    }
-  }
-  // form_start + commitment_cta_click cuando pasa de calc → datos (engagement real)
-  if (step === 2 && stepFrom === 1 && currentCar) {
-    var downPct = parseInt((document.getElementById('downSlider')||{}).value || 20);
-    var term = (typeof selectedTerm !== 'undefined') ? selectedTerm : 36;
-    var monthly = (typeof calcMonthly === 'function') ? calcMonthly(currentCar.price, downPct, term, currentCar.minRate) : 0;
-    try {
-      dataLayer.push({
-        event: 'form_start',
-        item_name: currentCar.name + ' ' + currentCar.year,
-        item_price: currentCar.price,
-        down_pct: downPct,
-        term_months: term,
-        monthly_estimate: monthly
-      });
-    } catch (e) {}
-    try {
-      dataLayer.push({
-        event: 'commitment_cta_click',
-        item_name: currentCar.name + ' ' + currentCar.year,
-        item_price: currentCar.price,
-        monthly_estimate: monthly,
-        down_pct: downPct,
-        term_months: term
-      });
-    } catch (e) {}
-  }
-  // form_step_complete: todos los forward-advances exitosos
-  if (step > stepFrom && currentCar) {
-    try {
-      var downPctFSC = parseInt((document.getElementById('downSlider')||{}).value || 20);
-      var termFSC = (typeof selectedTerm !== 'undefined') ? selectedTerm : 36;
-      var monthlyFSC = (typeof calcMonthly === 'function') ? calcMonthly(currentCar.price, downPctFSC, termFSC, currentCar.minRate) : 0;
-      dataLayer.push({
-        event: 'form_step_complete',
-        step_from: stepFrom,
-        step_to: step,
-        step_from_name: (FORM_STEP_HEADS[stepFrom]||{}).title || '',
-        step_to_name: (FORM_STEP_HEADS[step]||{}).title || '',
-        item_name: currentCar.name + ' ' + currentCar.year,
-        item_price: currentCar.price,
-        monthly_estimate: monthlyFSC
-      });
-    } catch (e) {}
-  }
-  // Al entrar a step 5, poblar badge de sucursal elegida
-  if (step === 5 && typeof updateCitaSedeBadge === 'function') updateCitaSedeBadge();
-  updateStepSummary(step);
   currentFormStep = step;
-  // Update headline per step
-  var headTitle = document.getElementById('formSectionTitle');
-  var headSub = document.getElementById('formSectionSub');
-  if (headTitle && FORM_STEP_HEADS[step]) headTitle.textContent = FORM_STEP_HEADS[step].title;
-  if (headSub && FORM_STEP_HEADS[step]) headSub.textContent = FORM_STEP_HEADS[step].sub;
-  if (step >= 2 && step <= 5) setView('agendar-paso-' + step);
-  document.querySelectorAll('.form-step').forEach(function(s) { s.classList.remove('active'); });
-  var target = document.getElementById('formStep' + step);
-  if (target) target.classList.add('active');
-  // Update progress bar
-  document.querySelectorAll('.form-progress-step').forEach(function(s) {
-    var sNum = parseInt(s.dataset.step);
-    s.classList.remove('active','completed');
-    if (sNum === step) s.classList.add('active');
-    else if (sNum < step) s.classList.add('completed');
-  });
-  // Auto-focus sobre el primer campo del nuevo step
-  setTimeout(function(){
-    var stepEl = document.getElementById('formStep' + step);
-    if (!stepEl) return;
-    var firstField = stepEl.querySelector('.cita-picker, .sucursal-card, select:not([type=hidden]), input:not([type=hidden]):not([type=checkbox]):not([type=range]), textarea');
-    var target = firstField || stepEl;
-    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }, 120);
+  // En versión lite no hay pasos — esta función es no-op para compatibilidad
 }
 
 // ── Mapa + datos por sucursal Hyundai (2 sucursales reales) ──
@@ -3187,84 +2592,17 @@ function getSucursalMap(key) {
 }
 
 // ── Step 4: seleccion de sucursal (radio card) ──
-function selectSucursal(key) {
-  var input = document.getElementById('fSucursal');
-  if (input) input.value = key;
-  // Update visual selection
-  var cardP = document.getElementById('sucCardPlasencia');
-  var cardS = document.getElementById('sucCardSantaAnita');
-  if (cardP) { cardP.classList.remove('selected'); cardP.setAttribute('aria-checked','false'); }
-  if (cardS) { cardS.classList.remove('selected'); cardS.setAttribute('aria-checked','false'); }
-  if (key === 'HYUNDAI PLASENCIA' && cardP) { cardP.classList.add('selected'); cardP.setAttribute('aria-checked','true'); }
-  if (key === 'HYUNDAI SANTA ANITA' && cardS) { cardS.classList.add('selected'); cardS.setAttribute('aria-checked','true'); }
-  hideFieldError('fSucursal');
-  // Update map
-  var cfg = getSucursalMap(key);
-  var iframe = document.getElementById('sedeMapIframe');
-  var wrap = document.getElementById('sedeMapWrap');
-  if (iframe && cfg.src && iframe.src !== cfg.src) iframe.src = cfg.src;
-  if (wrap) wrap.style.display = 'block';
-  // GA4 event
-  try {
-    dataLayer.push({
-      event: 'sucursal_selected',
-      sucursal: key,
-      item_name: currentCar ? (currentCar.name + ' ' + currentCar.year) : '',
-      item_price: currentCar ? currentCar.price : 0
-    });
-  } catch (e) {}
-}
+
+
 
 // ── Step 5: badge compacto con la sucursal ya confirmada ──
-function updateCitaSedeBadge() {
-  var key = (document.getElementById('fSucursal') || {}).value || '';
-  if (!key) return;
-  var cfg = getSucursalMap(key);
-  var el = document.getElementById('citaSedeBadgeName');
-  if (el) el.textContent = cfg.name;
-}
+
+
 
 // ── Calc interaction (debounced 600ms) ──
 var _calcInteractionTimer = null;
-function pushCalcInteraction(type) {
-  if (!currentCar) return;
-  if (_calcInteractionTimer) clearTimeout(_calcInteractionTimer);
-  _calcInteractionTimer = setTimeout(function(){
-    try {
-      var downPct = parseInt((document.getElementById('downSlider')||{}).value || 20);
-      var term = (typeof selectedTerm !== 'undefined') ? selectedTerm : 36;
-      var monthly = (typeof calcMonthly === 'function') ? calcMonthly(currentCar.price, downPct, term, currentCar.minRate) : 0;
-      dataLayer.push({
-        event: 'calc_interaction',
-        interaction_type: type,
-        down_pct: downPct,
-        term_months: term,
-        monthly_estimate: monthly,
-        item_name: currentCar.name + ' ' + currentCar.year,
-        item_price: currentCar.price
-      });
-    } catch (e) {}
-  }, 600);
-}
 
-function updateStepSummary(step) {
-  var bar = document.getElementById('stepSummary'); if (!bar) return;
-  // Step 1 = calculadora (no se muestra sticky summary, la calc ya es el foco)
-  if (step === 1 || !currentCar) { bar.classList.remove('show'); return; }
-  var t = document.getElementById('stepSummaryTitle');
-  var m = document.getElementById('stepSummaryMeta');
-  if (t) t.textContent = (currentCar.name || '') + ' ' + (currentCar.year || '') + (currentCar.version ? ' · ' + currentCar.version : '');
-  // Usa el estado real de la calc que el usuario acaba de cerrar
-  var sliderEl = document.getElementById('downSlider');
-  var downPct = sliderEl ? parseInt(sliderEl.value) || 20 : 20;
-  var term = (typeof selectedTerm !== 'undefined') ? selectedTerm : 36;
-  var monthly = (typeof calcMonthly === 'function') ? calcMonthly(currentCar.price, downPct, term, currentCar.minRate) : 0;
-  var downAmount = Math.round(currentCar.price * downPct / 100);
-  if (m) {
-    m.textContent = (monthly ? fmt(monthly) + '/mes · ' : '') + downPct + '% enganche (' + fmt(downAmount) + ') · ' + term + 'm';
-  }
-  bar.classList.add('show');
-}
+
 
 function validateField(el) {
   const errorEl = document.getElementById(el.id + '-error');
@@ -3477,85 +2815,55 @@ function scrollToFirstError() {
 
 function submitForm() {
   if (submitting) return;
-  // Guard: si currentCar se perdió (cierre de modal accidental, navegación SPA, etc.) no crashear silencioso
   if (!currentCar) {
     try { dataLayer.push({ event: 'form_submit_no_vehicle', error: 'currentCar_null' }); } catch (e) {}
     var ge = document.getElementById('formGlobalError');
-    if (ge) { ge.textContent = 'Se perdió el auto seleccionado. Cierra esta ventana y vuelve a tocar "Agendar cita".'; ge.classList.add('show'); }
+    if (ge) { ge.textContent = 'Se perdió el auto seleccionado. Cierra esta ventana y vuelve a tocar "Quiero información".'; ge.classList.add('show'); }
     if (typeof closeModal === 'function') setTimeout(closeModal, 2500);
     return;
   }
-  clearValidation(); // limpia errores stale de intentos previos
-  const nombre = document.getElementById('fName').value.trim().toUpperCase();
-  const ap1 = document.getElementById('fLastName1').value.trim().toUpperCase();
-  const ap2 = document.getElementById('fLastName2').value.trim().toUpperCase();
-  const phone = document.getElementById('fPhone').value.trim();
-  const email = document.getElementById('fEmail').value.trim().toUpperCase();
-
-  const buscaFinVal = document.getElementById('fBuscaFinanciamiento').value;
-  const required = [
-    { id: 'fName', val: nombre },
-    { id: 'fLastName1', val: ap1 },
-    { id: 'fLastName2', val: ap2 },
-    { id: 'fPhone', val: phone, check: v => /^[0-9]{10}$/.test(v) },
-    { id: 'fEmail', val: email, check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
-    { id: 'fSucursal', val: document.getElementById('fSucursal').value },
-    { id: 'fDate', val: document.getElementById('fDate').value },
-    { id: 'fTime', val: document.getElementById('fTime').value },
-    { id: 'fBuscaFinanciamiento', val: buscaFinVal }
-  ];
-  if (buscaFinVal === 'SI') {
-    required.push({ id: 'fCompruebaIngresos', val: document.getElementById('fCompruebaIngresos').value });
-  }
-
-  let hasErrors = false;
-  required.forEach(f => {
-    const valid = f.check ? f.check(f.val) : f.val.length > 0;
-    if (!valid) { showFieldError(f.id); hasErrors = true; }
-    else { hideFieldError(f.id); } // limpiar error stale del intento previo
+  clearValidation();
+  const fields = ['fName','fLastName1','fLastName2','fPhone','fEmail'];
+  let firstError = null;
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    let valid = false;
+    const v = el.value.trim();
+    if (id === 'fPhone') valid = /^[0-9]{10}$/.test(v);
+    else if (id === 'fEmail') valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    else valid = v.length > 0;
+    if (!valid) {
+      showFieldError(id);
+      if (!firstError) firstError = el;
+    }
   });
 
-  if (!validateDate()) hasErrors = true;
-
-  const privacy = document.getElementById('fPrivacy');
-  const privErr = document.getElementById('fPrivacy-error');
-  if (privacy && !privacy.checked) {
-    privacy.classList.add('error');
-    if (privErr) privErr.classList.add('show');
-    hasErrors = true;
-  } else if (privacy) {
-    privacy.classList.remove('error');
-    if (privErr) privErr.classList.remove('show');
+  const privacyBox = document.getElementById('fPrivacy');
+  if (!privacyBox.checked) {
+    showFieldError('fPrivacy');
+    if (!firstError) firstError = privacyBox;
   }
 
-  if (hasErrors) {
+  if (firstError) {
     document.getElementById('formGlobalError').classList.add('show');
-    scrollToFirstError();
+    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
   }
 
   submitting = true;
   const submitBtn = document.querySelector('.btn-conversion');
-  if (submitBtn) { submitBtn.disabled = true; submitBtn.style.opacity = '0.6'; submitBtn.style.cursor = 'wait'; submitBtn.textContent = 'Procesando...'; }
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.style.opacity = '0.6'; submitBtn.style.cursor = 'wait'; }
 
+  const nombre = document.getElementById('fName').value.trim().toUpperCase();
+  const ap1 = document.getElementById('fLastName1').value.trim().toUpperCase();
+  const ap2 = document.getElementById('fLastName2').value.trim().toUpperCase();
+  const phone = document.getElementById('fPhone').value.trim();
+  const email = document.getElementById('fEmail').value.trim().toUpperCase();
   const name = [nombre, ap1, ap2].join(' ');
-  const tradeIn = document.getElementById('fTradeIn').value === 'si' ? 'SI' : 'NO';
-  const dateVal = document.getElementById('fDate').value;
-  const timeVal = document.getElementById('fTime').value;
-  const timeLabel = (function() {
-    if (!timeVal) return '';
-    const [hh, mm] = timeVal.split(':').map(Number);
-    const h12 = hh > 12 ? hh - 12 : hh;
-    const ampm = hh >= 12 ? 'PM' : 'AM';
-    return `${h12}:${String(mm).padStart(2,'0')} ${ampm}`;
-  })();
-  const downPct = parseInt(document.getElementById('downSlider').value);
-  const monthly = calcMonthly(currentCar.price, downPct, selectedTerm, currentCar.minRate);
   const folio = generateFolio('GP-HYU');
 
-  const tipoPersona = document.getElementById('fTipoPersona').value || 'NO ESPECIFICADO';
-  const buscaFin = document.getElementById('fBuscaFinanciamiento').value || 'NO ESPECIFICADO';
-  const compruebaIng = document.getElementById('fCompruebaIngresos').value || 'N/A';
+  const downPct = 20;
+  const monthly = (typeof calcMonthly === 'function') ? calcMonthly(currentCar.price, downPct, selectedTerm, currentCar.minRate) : 0;
 
   const payload = {
     folio: folio,
@@ -3567,16 +2875,19 @@ function submitForm() {
     email: email,
     vehiculo: `${currentCar.name} ${currentCar.year} ${currentCar.version}`.toUpperCase(),
     precio: currentCar.price,
-    sucursal: document.getElementById('fSucursal').value,
-    agencia: document.getElementById('fSucursal').value,
-    fecha_cita: dateVal,
-    hora_cita: timeVal,
-    auto_a_cuenta: tradeIn,
-    enganche_pct: downPct,
-    plazo_meses: selectedTerm,
-    mensualidad: monthly,
+    sucursal: agenciaFija,
+    agencia: agenciaFija,
+    fecha_cita: '',
+    hora_cita: '',
+    auto_a_cuenta: '',
+    busca_financiamiento: '',
+    comprueba_ingresos: '',
+    enganche_pct: '',
+    plazo_meses: '',
+    mensualidad: '',
+    tipo_persona: '',
     fuente: 'LANDING PAGE',
-    etapa: 'CITA AGENDADA',
+    etapa: 'POR CONTACTAR',
     fbclid: sessionStorage.getItem('fbclid') || '',
     gclid: sessionStorage.getItem('gclid') || '',
     gbraid: sessionStorage.getItem('gbraid') || '',
@@ -3593,32 +2904,18 @@ function submitForm() {
     client_ip_address: sessionStorage.getItem('client_ip') || '',
     client_user_agent: navigator.userAgent || '',
     vendedor_digital: ASESOR_ASIGNADO.nombre,
-    tipo_persona: tipoPersona,
-    busca_financiamiento: buscaFin,
-    comprueba_ingresos: compruebaIng,
     acepta_aviso_privacidad: document.getElementById('fPrivacy').checked,
     acepta_marketing: document.getElementById('fMarketing').checked
   };
 
-  lastAppointment = { ...payload, vehiculoObj: currentCar, dateLabel: '', timeLabel };
+  lastAppointment = { ...payload, vehiculoObj: currentCar, dateLabel: '', timeLabel: '' };
 
-  const _dlDownPct   = (typeof downPctVal !== 'undefined' ? downPctVal : (typeof downPct !== 'undefined' ? downPct : 0));
-  const _dlMonthly   = (typeof monthlyVal !== 'undefined' ? monthlyVal : (typeof monthly !== 'undefined' ? monthly : 0));
-  const _dlSede      = (document.getElementById('fSucursal')?.value) || (currentCar.loc || '') || '';
-  const _dlTipo      = document.getElementById('fTipoPersona')?.value || '';
-  const _dlBuscaFin  = document.getElementById('fBuscaFinanciamiento')?.value || '';
-  const _dlCompIng   = document.getElementById('fCompruebaIngresos')?.value || '';
-  const _dlTradeIn   = (document.getElementById('fTradeIn')?.value === 'si');
-  const _dlCashOnly  = (_dlBuscaFin === 'NO (CONTADO)');
   const _dlPromoLabel = currentCar.badge || '';
   const _dlPromoValue = (function(){
     if (typeof currentCar.descFinanc === 'number' && currentCar.descFinanc > 0) return currentCar.descFinanc;
     const m = _dlPromoLabel.match(/\$\s*([\d,]+)/);
     return m ? parseInt(m[1].replace(/,/g,''), 10) : 0;
   })();
-  const _dlPromoType = (typeof currentCar.descFinanc !== 'undefined')
-    ? (currentCar.msi > 0 ? 'bono_msi' : (currentCar.mantAnios > 0 ? 'bono_mantenimiento' : 'bono_nuevo'))
-    : ((currentCar.km || 0) > 0 ? 'bono_seminuevo' : 'bono_nuevo');
 
   sendToWebhook(payload);
   dataLayer.push({
@@ -3630,54 +2927,28 @@ function submitForm() {
     vehicle_brand: currentCar.brand || '',
     vehicle_year: currentCar.year,
     vehicle_version: currentCar.version || '',
-    cash_only: _dlCashOnly,
-    down_pct: _dlDownPct,
-    term_months: selectedTerm,
-    monthly_payment: _dlMonthly,
-    sede: _dlSede,
-    tipo_persona: _dlTipo,
-    busca_financiamiento: _dlBuscaFin,
-    comprueba_ingresos: _dlCompIng,
-    auto_a_cuenta: _dlTradeIn,
-    appointment_date: (document.getElementById('hFechaCita')?.value) || (document.getElementById('fDate')?.value) || '',
-    appointment_time: (document.getElementById('hHoraCita')?.value) || (document.getElementById('fTime')?.value) || '',
     accept_marketing: document.getElementById('fMarketing').checked,
     promo_id: (currentCar.id || '').toString(),
     promo_label: _dlPromoLabel,
     promo_value: _dlPromoValue,
-    promo_type: _dlPromoType,
     fbclid: sessionStorage.getItem('fbclid') || '',
     meta_ad_id: sessionStorage.getItem('meta_ad_id') || '',
     meta_placement: sessionStorage.getItem('meta_placement') || ''
   });
   window._submitCompleted = true;
 
-  let dateLabel = dateVal;
-  if (dateVal) {
-    const dateParts = dateVal.split('-');
-    const months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-    dateLabel = `${parseInt(dateParts[2])} de ${months[parseInt(dateParts[1])-1]} ${dateParts[0]}`;
-  }
-  if (lastAppointment) lastAppointment.dateLabel = dateLabel;
-
   document.getElementById('detailState').style.display = 'none';
   document.getElementById('confirmFolio').textContent = folio;
   const waPhone = ASESOR_ASIGNADO.telefono.replace(/[^0-9]/g, '');
-  const waMsg = `Hola, soy ${nombre} ${ap1}. Acabo de agendar mi cita en Hyundai Plasencia para el ${dateLabel} a las ${timeLabel}. Vengo por ${currentCar.name} ${currentCar.year} (${currentCar.version}). Mi folio es ${folio}.`;
+  const waMsg = `Hola, vi el ${currentCar.name} ${currentCar.year} en hyundai.grupoplasencia.com y me interesa más información. Soy ${nombre}.`;
   document.getElementById('waAsesor').href = `https://api.whatsapp.com/send/?phone=${waPhone}&text=${encodeURIComponent(waMsg)}&type=phone_number&app_absent=0`;
   document.getElementById('confirmDetails').innerHTML = `
     <p><strong>Vehículo:</strong> ${currentCar.name} ${currentCar.year} ${currentCar.version}</p>
     <p><strong>Precio:</strong> ${fmt(currentCar.price)}</p>
-    <p><strong>Agencia:</strong> ${(typeof getSucursalMap === 'function' && payload.sucursal ? getSucursalMap(payload.sucursal).name : (payload.sucursal || agenciaFija))}</p>
-    <p><strong>Fecha:</strong> ${dateLabel}</p>
-    <p><strong>Hora:</strong> ${timeLabel}</p>
+    <p><strong>Agencia:</strong> ${agenciaFija}</p>
     <p><strong>Nombre:</strong> ${name}</p>
     <p><strong>Teléfono:</strong> +52 ${phone}</p>
     <p><strong>Email:</strong> ${email}</p>
-    <p><strong>Tipo de persona:</strong> ${tipoPersona}</p>
-    <p><strong>Busca financiamiento:</strong> ${buscaFin}</p>
-    ${buscaFin === 'SI' ? `<p><strong>Comprueba ingresos:</strong> ${compruebaIng}</p>` : ''}
-    ${tradeIn === 'NO' ? '' : `<p><strong>Auto a cuenta:</strong> ${tradeIn}</p>`}
   `;
   document.getElementById('confirmState').classList.add('show');
   setView('confirmacion');
@@ -4068,20 +3339,8 @@ function stickyCtaBrowse() {
 })();
 
 // Feedback amistoso cuando el usuario indica que no puede comprobar ingresos
-function toggleIngresosFeedback(sel) {
-  var existing = document.getElementById('ingresosFeedback');
-  if (sel.value === 'NO') {
-    if (!existing) {
-      var feedback = document.createElement('div');
-      feedback.id = 'ingresosFeedback';
-      feedback.style.cssText = 'margin-top:8px;padding:10px 12px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:8px;font-size:12px;color:var(--color-success-dark,#065F46);line-height:1.45;';
-      feedback.innerHTML = '<strong>Tranquilo, no es restricción para comprar.</strong> Tu asesor te mostrará opciones con un enganche mayor (desde 25%) o esquemas alternativos. Lo vemos juntos en la cita.';
-      sel.parentNode.appendChild(feedback);
-    }
-  } else if (existing) {
-    existing.remove();
-  }
-}
+
+
 
 </script>
 
