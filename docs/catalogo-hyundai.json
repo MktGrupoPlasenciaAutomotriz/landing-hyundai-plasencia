@@ -14,14 +14,14 @@
     "locs": [
       {
         "nombre": "Hyundai Guadalajara",
-        "unidades": 7
+        "unidades": 16
       },
       {
         "nombre": "Hyundai Santa Anita",
-        "unidades": 3
+        "unidades": 14
       }
     ],
-    "unidades_disponibles": 10,
+    "unidades_disponibles": 30,
     "colores_disponibles": [
       "Blanco",
       "Gris",
@@ -31,7 +31,7 @@
     "gallery": [
       "/imagenes/oficial/hyundai/creta.png"
     ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -75,10 +75,14 @@
     "locs": [
       {
         "nombre": "Hyundai Guadalajara",
-        "unidades": 15
+        "unidades": 40
+      },
+      {
+        "nombre": "Hyundai Santa Anita",
+        "unidades": 4
       }
     ],
-    "unidades_disponibles": 15,
+    "unidades_disponibles": 44,
     "colores_disponibles": [
       "Azul",
       "Blanco",
@@ -90,7 +94,7 @@
     "gallery": [
       "/imagenes/oficial/hyundai/creta.png"
     ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -134,25 +138,83 @@
     "locs": [
       {
         "nombre": "Hyundai Guadalajara",
-        "unidades": 16
+        "unidades": 42
       },
       {
         "nombre": "Hyundai Santa Anita",
-        "unidades": 7
+        "unidades": 17
       }
     ],
-    "unidades_disponibles": 23,
+    "unidades_disponibles": 59,
     "colores_disponibles": [
+      "Azul",
       "Blanco",
       "Gris",
       "Plata",
+      "Plata Mate",
+      "Plata/Mate",
       "Rojo"
     ],
     "img": "/imagenes/oficial/hyundai/creta.png",
     "gallery": [
       "/imagenes/oficial/hyundai/creta.png"
     ],
-    "photos": 1,
+    "photos": 0,
+    "color": "",
+    "color_int": "",
+    "km": 0,
+    "engine": "",
+    "trans": "",
+    "fuel": "",
+    "cilindros": 0,
+    "hp": 0,
+    "puertas": 0,
+    "pasajeros": 0,
+    "velocidades": 0,
+    "traccion": "",
+    "tanque_l": 0,
+    "rines": 0,
+    "consumo_combinado": 0,
+    "consumo_ciudad": 0,
+    "consumo_carretera": 0,
+    "equipamiento": {},
+    "tasa": 0.1049,
+    "cxa": 0,
+    "descContado": 0,
+    "descFinanc": 0,
+    "msi": 0,
+    "mantAnios": 0,
+    "programas": [],
+    "vigDesde": "",
+    "vigHasta": ""
+  },
+  {
+    "id": 3563412029,
+    "name": "Hyundai Creta",
+    "brand": "Hyundai",
+    "submarca": null,
+    "year": 2022,
+    "version": "CRETA 5 PUERTAS GLS PREMIUM IVT 4CIL 1.5",
+    "type": "suv",
+    "price": 392974,
+    "priceType": "msrp",
+    "badge": "",
+    "loc": "Hyundai Santa Anita",
+    "locs": [
+      {
+        "nombre": "Hyundai Santa Anita",
+        "unidades": 1
+      }
+    ],
+    "unidades_disponibles": 1,
+    "colores_disponibles": [
+      "Blanco"
+    ],
+    "img": "/imagenes/oficial/hyundai/creta.png",
+    "gallery": [
+      "/imagenes/oficial/hyundai/creta.png"
+    ],
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -196,26 +258,28 @@
     "locs": [
       {
         "nombre": "Hyundai Guadalajara",
-        "unidades": 6
+        "unidades": 12
       },
       {
         "nombre": "Hyundai Santa Anita",
-        "unidades": 2
+        "unidades": 6
       }
     ],
-    "unidades_disponibles": 8,
+    "unidades_disponibles": 18,
     "colores_disponibles": [
       "Azul",
       "Blanco",
-      "Blanco/Negro",
+      "Gris",
       "Negro",
-      "Plata/Negro"
+      "Plata/Mate",
+      "Plata/Negro",
+      "Rojo/Negro"
     ],
     "img": "/imagenes/oficial/hyundai/creta.png",
     "gallery": [
       "/imagenes/oficial/hyundai/creta.png"
     ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -259,10 +323,14 @@
     "locs": [
       {
         "nombre": "Hyundai Guadalajara",
-        "unidades": 1
+        "unidades": 2
+      },
+      {
+        "nombre": "Hyundai Santa Anita",
+        "unidades": 2
       }
     ],
-    "unidades_disponibles": 1,
+    "unidades_disponibles": 4,
     "colores_disponibles": [
       "Blanco"
     ],
@@ -270,7 +338,7 @@
     "gallery": [
       "/imagenes/oficial/hyundai/creta-grand.jpg"
     ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -314,14 +382,14 @@
     "locs": [
       {
         "nombre": "Hyundai Guadalajara",
-        "unidades": 5
+        "unidades": 10
       },
       {
         "nombre": "Hyundai Santa Anita",
-        "unidades": 2
+        "unidades": 8
       }
     ],
-    "unidades_disponibles": 7,
+    "unidades_disponibles": 18,
     "colores_disponibles": [
       "Azul",
       "Blanco",
@@ -331,7 +399,7 @@
     "gallery": [
       "/imagenes/oficial/hyundai/creta-grand.jpg"
     ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -368,21 +436,21 @@
     "year": 2026,
     "version": "ELANTRA HIBRIDO 4 PUERTAS HIBRIDO GLS DCT 4",
     "type": "sedan",
-    "price": 431297,
+    "price": 432052,
     "priceType": "msrp",
     "badge": "",
     "loc": "Hyundai Guadalajara",
     "locs": [
       {
         "nombre": "Hyundai Guadalajara",
-        "unidades": 3
+        "unidades": 6
       },
       {
         "nombre": "Hyundai Santa Anita",
         "unidades": 2
       }
     ],
-    "unidades_disponibles": 5,
+    "unidades_disponibles": 8,
     "colores_disponibles": [
       "Azul",
       "Blanco",
@@ -392,67 +460,7 @@
     "gallery": [
       "/imagenes/oficial/hyundai/elantra-hev.jpg"
     ],
-    "photos": 1,
-    "color": "",
-    "color_int": "",
-    "km": 0,
-    "engine": "",
-    "trans": "",
-    "fuel": "",
-    "cilindros": 0,
-    "hp": 0,
-    "puertas": 0,
-    "pasajeros": 0,
-    "velocidades": 0,
-    "traccion": "",
-    "tanque_l": 0,
-    "rines": 0,
-    "consumo_combinado": 0,
-    "consumo_ciudad": 0,
-    "consumo_carretera": 0,
-    "equipamiento": {},
-    "tasa": 0.1049,
-    "cxa": 0,
-    "descContado": 0,
-    "descFinanc": 0,
-    "msi": 0,
-    "mantAnios": 0,
-    "programas": [],
-    "vigDesde": "",
-    "vigHasta": ""
-  },
-  {
-    "id": 440174767,
-    "name": "Hyundai Elantra",
-    "brand": "Hyundai",
-    "submarca": null,
-    "year": 2026,
-    "version": "ELANTRA HIBRIDO 4 PUERTAS HIBRIDO GLS PREMIUM DCT 4 CIL.",
-    "type": "sedan",
-    "price": 486369,
-    "priceType": "msrp",
-    "badge": "",
-    "loc": "Hyundai Guadalajara",
-    "locs": [
-      {
-        "nombre": "Hyundai Guadalajara",
-        "unidades": 1
-      },
-      {
-        "nombre": "Hyundai Santa Anita",
-        "unidades": 1
-      }
-    ],
-    "unidades_disponibles": 2,
-    "colores_disponibles": [
-      "Blanco",
-      "Negro"
-    ],
-    "img": "/imagenes/oficial/hyundai/elantra-hev.jpg",
-    "gallery": [
-      "/imagenes/oficial/hyundai/elantra-hev.jpg"
-    ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -489,25 +497,31 @@
     "year": 2026,
     "version": "GRAND I10 4DR GL MID TA",
     "type": "sedan",
-    "price": 277758,
+    "price": 273978,
     "priceType": "msrp",
     "badge": "",
-    "loc": "Hyundai Santa Anita",
+    "loc": "Hyundai Guadalajara",
     "locs": [
       {
+        "nombre": "Hyundai Guadalajara",
+        "unidades": 6
+      },
+      {
         "nombre": "Hyundai Santa Anita",
-        "unidades": 1
+        "unidades": 6
       }
     ],
-    "unidades_disponibles": 1,
+    "unidades_disponibles": 12,
     "colores_disponibles": [
-      "Azul"
+      "Gris",
+      "Plata",
+      "Rojo Tornado"
     ],
     "img": "/imagenes/oficial/hyundai/grand-i10-sedan.jpg",
     "gallery": [
       "/imagenes/oficial/hyundai/grand-i10-sedan.jpg"
     ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -551,14 +565,14 @@
     "locs": [
       {
         "nombre": "Hyundai Guadalajara",
-        "unidades": 6
+        "unidades": 14
       },
       {
         "nombre": "Hyundai Santa Anita",
-        "unidades": 1
+        "unidades": 2
       }
     ],
-    "unidades_disponibles": 7,
+    "unidades_disponibles": 16,
     "colores_disponibles": [
       "Azul",
       "Blanco",
@@ -569,7 +583,7 @@
     "gallery": [
       "/imagenes/oficial/hyundai/grand-i10-sedan.jpg"
     ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -606,145 +620,26 @@
     "year": 2026,
     "version": "GRAND I10 4DR GL TM",
     "type": "sedan",
-    "price": 232054,
+    "price": 237175,
     "priceType": "msrp",
     "badge": "",
     "loc": "Hyundai Guadalajara",
     "locs": [
       {
         "nombre": "Hyundai Guadalajara",
-        "unidades": 3
+        "unidades": 4
       }
     ],
-    "unidades_disponibles": 3,
+    "unidades_disponibles": 4,
     "colores_disponibles": [
       "Blanco",
-      "Plata",
-      "Rojo"
+      "Plata"
     ],
     "img": "/imagenes/oficial/hyundai/grand-i10-sedan.jpg",
     "gallery": [
       "/imagenes/oficial/hyundai/grand-i10-sedan.jpg"
     ],
-    "photos": 1,
-    "color": "",
-    "color_int": "",
-    "km": 0,
-    "engine": "",
-    "trans": "",
-    "fuel": "",
-    "cilindros": 0,
-    "hp": 0,
-    "puertas": 0,
-    "pasajeros": 0,
-    "velocidades": 0,
-    "traccion": "",
-    "tanque_l": 0,
-    "rines": 0,
-    "consumo_combinado": 0,
-    "consumo_ciudad": 0,
-    "consumo_carretera": 0,
-    "equipamiento": {},
-    "tasa": 0.1049,
-    "cxa": 0,
-    "descContado": 0,
-    "descFinanc": 0,
-    "msi": 0,
-    "mantAnios": 0,
-    "programas": [],
-    "vigDesde": "",
-    "vigHasta": ""
-  },
-  {
-    "id": 1615255233,
-    "name": "Hyundai Grand i10 Sedan",
-    "brand": "Hyundai",
-    "submarca": null,
-    "year": 2026,
-    "version": "GRAND I10 4DR GLS AT",
-    "type": "sedan",
-    "price": 290306,
-    "priceType": "msrp",
-    "badge": "",
-    "loc": "Hyundai Santa Anita",
-    "locs": [
-      {
-        "nombre": "Hyundai Santa Anita",
-        "unidades": 1
-      }
-    ],
-    "unidades_disponibles": 1,
-    "colores_disponibles": [
-      "Negro"
-    ],
-    "img": "/imagenes/oficial/hyundai/grand-i10-sedan.jpg",
-    "gallery": [
-      "/imagenes/oficial/hyundai/grand-i10-sedan.jpg"
-    ],
-    "photos": 1,
-    "color": "",
-    "color_int": "",
-    "km": 0,
-    "engine": "",
-    "trans": "",
-    "fuel": "",
-    "cilindros": 0,
-    "hp": 0,
-    "puertas": 0,
-    "pasajeros": 0,
-    "velocidades": 0,
-    "traccion": "",
-    "tanque_l": 0,
-    "rines": 0,
-    "consumo_combinado": 0,
-    "consumo_ciudad": 0,
-    "consumo_carretera": 0,
-    "equipamiento": {},
-    "tasa": 0.1049,
-    "cxa": 0,
-    "descContado": 0,
-    "descFinanc": 0,
-    "msi": 0,
-    "mantAnios": 0,
-    "programas": [],
-    "vigDesde": "",
-    "vigHasta": ""
-  },
-  {
-    "id": 3192624694,
-    "name": "Hyundai Grand i10 HB",
-    "brand": "Hyundai",
-    "submarca": null,
-    "year": 2026,
-    "version": "GRAND I10 5DR GL MID TM",
-    "type": "hatchback",
-    "price": 243810,
-    "priceType": "msrp",
-    "badge": "",
-    "loc": "Hyundai Guadalajara",
-    "locs": [
-      {
-        "nombre": "Hyundai Guadalajara",
-        "unidades": 7
-      },
-      {
-        "nombre": "Hyundai Santa Anita",
-        "unidades": 3
-      }
-    ],
-    "unidades_disponibles": 10,
-    "colores_disponibles": [
-      "Azul",
-      "Blanco",
-      "Gris",
-      "Plata",
-      "Rojo"
-    ],
-    "img": "/imagenes/oficial/hyundai/grand-i10-hb.jpg",
-    "gallery": [
-      "/imagenes/oficial/hyundai/grand-i10-hb.jpg"
-    ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -788,20 +683,18 @@
     "locs": [
       {
         "nombre": "Hyundai Guadalajara",
-        "unidades": 5
+        "unidades": 2
       }
     ],
-    "unidades_disponibles": 5,
+    "unidades_disponibles": 2,
     "colores_disponibles": [
-      "Azul",
-      "Gris",
-      "Plata"
+      "Blanco"
     ],
     "img": "/imagenes/oficial/hyundai/grand-i10-hb.jpg",
     "gallery": [
       "/imagenes/oficial/hyundai/grand-i10-hb.jpg"
     ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -845,10 +738,10 @@
     "locs": [
       {
         "nombre": "Hyundai Santa Anita",
-        "unidades": 1
+        "unidades": 2
       }
     ],
-    "unidades_disponibles": 1,
+    "unidades_disponibles": 2,
     "colores_disponibles": [
       "Blanco/Negro"
     ],
@@ -856,7 +749,62 @@
     "gallery": [
       "/imagenes/oficial/hyundai/grand-i10-hb.jpg"
     ],
-    "photos": 1,
+    "photos": 0,
+    "color": "",
+    "color_int": "",
+    "km": 0,
+    "engine": "",
+    "trans": "",
+    "fuel": "",
+    "cilindros": 0,
+    "hp": 0,
+    "puertas": 0,
+    "pasajeros": 0,
+    "velocidades": 0,
+    "traccion": "",
+    "tanque_l": 0,
+    "rines": 0,
+    "consumo_combinado": 0,
+    "consumo_ciudad": 0,
+    "consumo_carretera": 0,
+    "equipamiento": {},
+    "tasa": 0.1049,
+    "cxa": 0,
+    "descContado": 0,
+    "descFinanc": 0,
+    "msi": 0,
+    "mantAnios": 0,
+    "programas": [],
+    "vigDesde": "",
+    "vigHasta": ""
+  },
+  {
+    "id": 2151679843,
+    "name": "Hyundai Grand i10 HB",
+    "brand": "Hyundai",
+    "submarca": null,
+    "year": 2026,
+    "version": "GRAND I10 5DR GLS TA",
+    "type": "hatchback",
+    "price": 283854,
+    "priceType": "msrp",
+    "badge": "",
+    "loc": "Hyundai Santa Anita",
+    "locs": [
+      {
+        "nombre": "Hyundai Santa Anita",
+        "unidades": 2
+      }
+    ],
+    "unidades_disponibles": 2,
+    "colores_disponibles": [
+      "Rojo/Negro"
+    ],
+    "img": "/imagenes/oficial/hyundai/grand-i10-hb.jpg",
+    "gallery": [
+      "/imagenes/oficial/hyundai/grand-i10-hb.jpg"
+    ],
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -900,18 +848,19 @@
     "locs": [
       {
         "nombre": "Hyundai Santa Anita",
-        "unidades": 1
+        "unidades": 4
       }
     ],
-    "unidades_disponibles": 1,
+    "unidades_disponibles": 4,
     "colores_disponibles": [
-      "Negro"
+      "Blanco",
+      "Plata"
     ],
     "img": "/imagenes/oficial/hyundai/hb20-hb.jpg",
     "gallery": [
       "/imagenes/oficial/hyundai/hb20-hb.jpg"
     ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -948,27 +897,30 @@
     "year": 2025,
     "version": "HB20 4 PUERTAS GL MID AUTOMATICO 6 VEL. 1.6 L 4 CIL",
     "type": "sedan",
-    "price": 325656,
+    "price": 331714,
     "priceType": "msrp",
     "badge": "",
     "loc": "Hyundai Guadalajara",
     "locs": [
       {
         "nombre": "Hyundai Guadalajara",
-        "unidades": 3
+        "unidades": 2
+      },
+      {
+        "nombre": "Hyundai Santa Anita",
+        "unidades": 2
       }
     ],
-    "unidades_disponibles": 3,
+    "unidades_disponibles": 4,
     "colores_disponibles": [
-      "Beige",
-      "Gris",
-      "Plata"
+      "Blanco",
+      "Gris"
     ],
     "img": "/imagenes/oficial/hyundai/hb20-hb.jpg",
     "gallery": [
       "/imagenes/oficial/hyundai/hb20-hb.jpg"
     ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -1008,145 +960,24 @@
     "price": 313751,
     "priceType": "msrp",
     "badge": "",
-    "loc": "Hyundai Guadalajara",
+    "loc": "Hyundai Santa Anita",
     "locs": [
-      {
-        "nombre": "Hyundai Guadalajara",
-        "unidades": 1
-      },
       {
         "nombre": "Hyundai Santa Anita",
         "unidades": 6
       }
     ],
-    "unidades_disponibles": 7,
+    "unidades_disponibles": 6,
     "colores_disponibles": [
       "Azul",
       "Beige",
-      "Blanco",
-      "Plata"
+      "Blanco"
     ],
     "img": "/imagenes/oficial/hyundai/hb20-hb.jpg",
     "gallery": [
       "/imagenes/oficial/hyundai/hb20-hb.jpg"
     ],
-    "photos": 1,
-    "color": "",
-    "color_int": "",
-    "km": 0,
-    "engine": "",
-    "trans": "",
-    "fuel": "",
-    "cilindros": 0,
-    "hp": 0,
-    "puertas": 0,
-    "pasajeros": 0,
-    "velocidades": 0,
-    "traccion": "",
-    "tanque_l": 0,
-    "rines": 0,
-    "consumo_combinado": 0,
-    "consumo_ciudad": 0,
-    "consumo_carretera": 0,
-    "equipamiento": {},
-    "tasa": 0.1049,
-    "cxa": 0,
-    "descContado": 0,
-    "descFinanc": 0,
-    "msi": 0,
-    "mantAnios": 0,
-    "programas": [],
-    "vigDesde": "",
-    "vigHasta": ""
-  },
-  {
-    "id": 4108936721,
-    "name": "Hyundai Hb20",
-    "brand": "Hyundai",
-    "submarca": null,
-    "year": 2025,
-    "version": "HB20 4 PUERTAS GLS AUTOMATICO 6 VEL. 1.6L 4 CIL",
-    "type": "sedan",
-    "price": 348690,
-    "priceType": "msrp",
-    "badge": "",
-    "loc": "Hyundai Guadalajara",
-    "locs": [
-      {
-        "nombre": "Hyundai Guadalajara",
-        "unidades": 1
-      }
-    ],
-    "unidades_disponibles": 1,
-    "colores_disponibles": [
-      "Plata"
-    ],
-    "img": "/imagenes/oficial/hyundai/hb20-hb.jpg",
-    "gallery": [
-      "/imagenes/oficial/hyundai/hb20-hb.jpg"
-    ],
-    "photos": 1,
-    "color": "",
-    "color_int": "",
-    "km": 0,
-    "engine": "",
-    "trans": "",
-    "fuel": "",
-    "cilindros": 0,
-    "hp": 0,
-    "puertas": 0,
-    "pasajeros": 0,
-    "velocidades": 0,
-    "traccion": "",
-    "tanque_l": 0,
-    "rines": 0,
-    "consumo_combinado": 0,
-    "consumo_ciudad": 0,
-    "consumo_carretera": 0,
-    "equipamiento": {},
-    "tasa": 0.1049,
-    "cxa": 0,
-    "descContado": 0,
-    "descFinanc": 0,
-    "msi": 0,
-    "mantAnios": 0,
-    "programas": [],
-    "vigDesde": "",
-    "vigHasta": ""
-  },
-  {
-    "id": 1300832613,
-    "name": "Hyundai Hb20",
-    "brand": "Hyundai",
-    "submarca": null,
-    "year": 2025,
-    "version": "HB20 5PUERTAS GL MANUAL 6VEL. 1.6 4 CIL.",
-    "type": "sedan",
-    "price": 288780,
-    "priceType": "msrp",
-    "badge": "",
-    "loc": "Hyundai Guadalajara",
-    "locs": [
-      {
-        "nombre": "Hyundai Guadalajara",
-        "unidades": 3
-      },
-      {
-        "nombre": "Hyundai Santa Anita",
-        "unidades": 2
-      }
-    ],
-    "unidades_disponibles": 5,
-    "colores_disponibles": [
-      "Blanco",
-      "Gris",
-      "Negro"
-    ],
-    "img": "/imagenes/oficial/hyundai/hb20-hb.jpg",
-    "gallery": [
-      "/imagenes/oficial/hyundai/hb20-hb.jpg"
-    ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -1190,14 +1021,14 @@
     "locs": [
       {
         "nombre": "Hyundai Guadalajara",
-        "unidades": 2
+        "unidades": 4
       },
       {
         "nombre": "Hyundai Santa Anita",
-        "unidades": 1
+        "unidades": 2
       }
     ],
-    "unidades_disponibles": 3,
+    "unidades_disponibles": 6,
     "colores_disponibles": [
       "Blanco",
       "Gris",
@@ -1207,7 +1038,7 @@
     "gallery": [
       "/imagenes/oficial/hyundai/palisade.jpg"
     ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -1247,22 +1078,23 @@
     "price": 980929,
     "priceType": "msrp",
     "badge": "",
-    "loc": "Hyundai Guadalajara",
+    "loc": "Hyundai Santa Anita",
     "locs": [
       {
-        "nombre": "Hyundai Guadalajara",
-        "unidades": 1
+        "nombre": "Hyundai Santa Anita",
+        "unidades": 4
       }
     ],
-    "unidades_disponibles": 1,
+    "unidades_disponibles": 4,
     "colores_disponibles": [
-      "Blanco"
+      "Blanco",
+      "Gris"
     ],
     "img": "/imagenes/oficial/hyundai/palisade-hev.jpg",
     "gallery": [
       "/imagenes/oficial/hyundai/palisade-hev.jpg"
     ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -1306,10 +1138,10 @@
     "locs": [
       {
         "nombre": "Hyundai Guadalajara",
-        "unidades": 1
+        "unidades": 2
       }
     ],
-    "unidades_disponibles": 1,
+    "unidades_disponibles": 2,
     "colores_disponibles": [
       "Naranja"
     ],
@@ -1317,7 +1149,7 @@
     "gallery": [
       "/imagenes/oficial/hyundai/santa-fe-hev.jpg"
     ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -1354,7 +1186,7 @@
     "year": 2026,
     "version": "SANTA FE HIBRIDO 5 PUERTAS LIMITED TECH T/A",
     "type": "suv",
-    "price": 860371,
+    "price": 886517,
     "priceType": "msrp",
     "badge": "",
     "loc": "Hyundai Guadalajara",
@@ -1362,23 +1194,17 @@
       {
         "nombre": "Hyundai Guadalajara",
         "unidades": 2
-      },
-      {
-        "nombre": "Hyundai Santa Anita",
-        "unidades": 1
       }
     ],
-    "unidades_disponibles": 3,
+    "unidades_disponibles": 2,
     "colores_disponibles": [
-      "Azul/Cobalto",
-      "Blanco",
-      "Bronce/Mate"
+      "Azul/Cobalto"
     ],
     "img": "/imagenes/oficial/hyundai/santa-fe-hev.jpg",
     "gallery": [
       "/imagenes/oficial/hyundai/santa-fe-hev.jpg"
     ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -1422,22 +1248,23 @@
     "locs": [
       {
         "nombre": "Hyundai Guadalajara",
-        "unidades": 2
+        "unidades": 6
       },
       {
         "nombre": "Hyundai Santa Anita",
-        "unidades": 1
+        "unidades": 2
       }
     ],
-    "unidades_disponibles": 3,
+    "unidades_disponibles": 8,
     "colores_disponibles": [
-      "Azul"
+      "Azul",
+      "Gris"
     ],
     "img": "/imagenes/oficial/hyundai/tucson-hev.jpg",
     "gallery": [
       "/imagenes/oficial/hyundai/tucson-hev.jpg"
     ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -1481,14 +1308,14 @@
     "locs": [
       {
         "nombre": "Hyundai Guadalajara",
-        "unidades": 4
+        "unidades": 14
       },
       {
         "nombre": "Hyundai Santa Anita",
-        "unidades": 6
+        "unidades": 8
       }
     ],
-    "unidades_disponibles": 10,
+    "unidades_disponibles": 22,
     "colores_disponibles": [
       "Blanco",
       "Gris",
@@ -1499,7 +1326,7 @@
     "gallery": [
       "/imagenes/oficial/hyundai/tucson.jpg"
     ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -1543,17 +1370,16 @@
     "locs": [
       {
         "nombre": "Hyundai Guadalajara",
-        "unidades": 2
+        "unidades": 6
       },
       {
         "nombre": "Hyundai Santa Anita",
         "unidades": 2
       }
     ],
-    "unidades_disponibles": 4,
+    "unidades_disponibles": 8,
     "colores_disponibles": [
       "Blanco",
-      "Gris",
       "Plata",
       "Rojo"
     ],
@@ -1561,7 +1387,7 @@
     "gallery": [
       "/imagenes/oficial/hyundai/tucson.jpg"
     ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
@@ -1605,10 +1431,10 @@
     "locs": [
       {
         "nombre": "Hyundai Santa Anita",
-        "unidades": 2
+        "unidades": 4
       }
     ],
-    "unidades_disponibles": 2,
+    "unidades_disponibles": 4,
     "colores_disponibles": [
       "Blanco",
       "Gris"
@@ -1617,7 +1443,7 @@
     "gallery": [
       "/imagenes/oficial/hyundai/tucson.jpg"
     ],
-    "photos": 1,
+    "photos": 0,
     "color": "",
     "color_int": "",
     "km": 0,
