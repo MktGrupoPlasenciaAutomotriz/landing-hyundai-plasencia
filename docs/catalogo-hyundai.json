@@ -34,16 +34,16 @@
     "engancheDesde": 219990,
     "enganche_pct": 50,
     "plazo_meses": 72,
-    "oferta_disclaimer": "Bono Flexible aplica modelos AM 2026. Incluye apertura de crédito, seguro 1 año, garantía 7 años y protección llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
+    "vigDesde": "2026-06-01",
+    "vigHasta": "2026-06-30",
+    "oferta_disclaimer": "Términos y condiciones con tu asesor Hyundai. Vigencia 1 al 30 de junio 2026. Cotización incluye enganche, apertura de crédito y seguro 1 año. Mensualidad a 72 meses con Extensión de Garantía 7 años (sólo modelos 2026) y Protección Llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
     "intent": "familia",
     "badge": "OFERTA VIGENTE",
     "programas": [
       "Bono Flexible",
       "Garantía 7 años",
       "All-Inclusive"
-    ],
-    "vigDesde": "",
-    "vigHasta": ""
+    ]
   },
   {
     "id": 285046908,
@@ -80,16 +80,16 @@
     "engancheDesde": 72899,
     "enganche_pct": 25,
     "plazo_meses": 72,
-    "oferta_disclaimer": "Bono Flexible aplica modelos AM 2026. Incluye apertura de crédito, seguro 1 año, garantía 7 años y protección llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
+    "vigDesde": "2026-06-01",
+    "vigHasta": "2026-06-30",
+    "oferta_disclaimer": "Términos y condiciones con tu asesor Hyundai. Vigencia 1 al 30 de junio 2026. Cotización incluye enganche, apertura de crédito y seguro 1 año. Mensualidad a 72 meses con Extensión de Garantía 7 años (sólo modelos 2026) y Protección Llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
     "intent": "lifestyle",
     "badge": "OFERTA VIGENTE",
     "programas": [
       "Bono Flexible",
       "Garantía 7 años",
       "All-Inclusive"
-    ],
-    "vigDesde": "",
-    "vigHasta": ""
+    ]
   },
   {
     "id": 3502334097,
@@ -126,15 +126,15 @@
     "engancheDesde": 61665,
     "enganche_pct": 25,
     "plazo_meses": 72,
-    "oferta_disclaimer": "Bono Flexible aplica modelos AM 2026. Incluye apertura de crédito, seguro 1 año, garantía 7 años y protección llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
+    "vigDesde": "2026-06-01",
+    "vigHasta": "2026-06-30",
+    "oferta_disclaimer": "Términos y condiciones con tu asesor Hyundai. Vigencia 1 al 30 de junio 2026. Cotización incluye enganche, apertura de crédito y seguro 1 año. Mensualidad a 72 meses con Extensión de Garantía 7 años (sólo modelos 2026) y Protección Llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
     "intent": "lifestyle",
     "badge": "OFERTA VIGENTE",
     "programas": [
       "Bono Flexible",
       "Garantía 7 años",
       "All-Inclusive"
-    ],
-    "vigDesde": "",
-    "vigHasta": ""
+    ]
   }
 ]
