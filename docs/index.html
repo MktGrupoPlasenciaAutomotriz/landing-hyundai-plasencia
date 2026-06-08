@@ -3912,7 +3912,7 @@ function generateRegistrationPDF() {
 
   sectionTitle('VEHÍCULO DE INTERÉS');
   row('Modelo:', a.vehiculo, true);
-  row('Precio de lista:', '$' + (a.precio || 0).toLocaleString('es-MX') + ' MXN', true);
+  row('Estrena desde:', '$' + (a.precio || 0).toLocaleString('es-MX') + ' MXN (ancla comercial — apertura + seguro + protección)', true);
   y += 4;
 
   // Bloque de oferta solo si el modelo trae oferta_vigente (4 modelos Vero — Pivote 2)
