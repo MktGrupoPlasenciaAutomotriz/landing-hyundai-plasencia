@@ -58,7 +58,9 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "familia"
   },
   {
     "id": 2998964664,
@@ -121,7 +123,9 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "familia"
   },
   {
     "id": 3650383539,
@@ -133,7 +137,7 @@
     "type": "suv",
     "price": 389273,
     "priceType": "msrp",
-    "badge": "",
+    "badge": "BONO $65,000",
     "loc": "Hyundai Guadalajara",
     "locs": [
       {
@@ -186,7 +190,17 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": true,
+    "oferta_titulo": "Bono Flexible $65,000 en Creta GLS Premium",
+    "oferta_hook": "Creta GLS Premium desde $5,225 al mes",
+    "bono_pesos": 65000,
+    "mensualidad_oferta": 5225,
+    "enganche_desde": 219990,
+    "enganche_pct": 50,
+    "plazo_meses": 72,
+    "oferta_disclaimer": "Bono Flexible aplica modelos AM 2026. Incluye apertura de crédito, seguro 1 año, garantía 7 años y protección llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
+    "intent": "familia"
   },
   {
     "id": 3563412029,
@@ -198,7 +212,7 @@
     "type": "suv",
     "price": 392974,
     "priceType": "msrp",
-    "badge": "",
+    "badge": "BONO $65,000",
     "loc": "Hyundai Santa Anita",
     "locs": [
       {
@@ -241,7 +255,17 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": true,
+    "oferta_titulo": "Bono Flexible $65,000 en Creta GLS Premium",
+    "oferta_hook": "Creta GLS Premium desde $5,225 al mes",
+    "bono_pesos": 65000,
+    "mensualidad_oferta": 5225,
+    "enganche_desde": 219990,
+    "enganche_pct": 50,
+    "plazo_meses": 72,
+    "oferta_disclaimer": "Bono Flexible aplica modelos AM 2026. Incluye apertura de crédito, seguro 1 año, garantía 7 años y protección llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
+    "intent": "familia"
   },
   {
     "id": 4049873315,
@@ -306,7 +330,9 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "familia"
   },
   {
     "id": 3926899709,
@@ -365,7 +391,9 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "familia"
   },
   {
     "id": 1248905745,
@@ -426,7 +454,9 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "familia"
   },
   {
     "id": 3538757776,
@@ -487,7 +517,9 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "familia"
   },
   {
     "id": 285046908,
@@ -499,7 +531,7 @@
     "type": "sedan",
     "price": 273978,
     "priceType": "msrp",
-    "badge": "",
+    "badge": "BONO $35,000",
     "loc": "Hyundai Guadalajara",
     "locs": [
       {
@@ -548,7 +580,17 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": true,
+    "oferta_titulo": "Bono Flexible $35,000 en Grand i10 Sedán",
+    "oferta_hook": "Estrena tu Grand i10 Sedán Auto desde $5,980 al mes",
+    "bono_pesos": 35000,
+    "mensualidad_oferta": 5980,
+    "enganche_desde": 72899,
+    "enganche_pct": 25,
+    "plazo_meses": 72,
+    "oferta_disclaimer": "Bono Flexible aplica modelos AM 2026. Incluye apertura de crédito, seguro 1 año, garantía 7 años y protección llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
+    "intent": "lifestyle"
   },
   {
     "id": 2914754981,
@@ -610,7 +652,9 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "lifestyle"
   },
   {
     "id": 472103955,
@@ -666,7 +710,9 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "lifestyle"
   },
   {
     "id": 3502334097,
@@ -678,7 +724,7 @@
     "type": "hatchback",
     "price": 223750,
     "priceType": "msrp",
-    "badge": "",
+    "badge": "BONO $35,000",
     "loc": "Hyundai Guadalajara",
     "locs": [
       {
@@ -721,7 +767,17 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": true,
+    "oferta_titulo": "Bono Flexible $35,000 en Grand i10 HB",
+    "oferta_hook": "Estrena tu Grand i10 HB desde $5,350 al mes",
+    "bono_pesos": 35000,
+    "mensualidad_oferta": 5350,
+    "enganche_desde": 61665,
+    "enganche_pct": 25,
+    "plazo_meses": 72,
+    "oferta_disclaimer": "Bono Flexible aplica modelos AM 2026. Incluye apertura de crédito, seguro 1 año, garantía 7 años y protección llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
+    "intent": "lifestyle"
   },
   {
     "id": 610242905,
@@ -776,7 +832,9 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "lifestyle"
   },
   {
     "id": 2151679843,
@@ -831,7 +889,9 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "lifestyle"
   },
   {
     "id": 1629655791,
@@ -887,7 +947,9 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "lifestyle"
   },
   {
     "id": 2262490638,
@@ -947,7 +1009,9 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "lifestyle"
   },
   {
     "id": 1974702071,
@@ -1004,7 +1068,9 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "lifestyle"
   },
   {
     "id": 789313507,
@@ -1065,7 +1131,9 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "familia"
   },
   {
     "id": 1630699935,
@@ -1121,7 +1189,9 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "familia"
   },
   {
     "id": 3993654449,
@@ -1176,7 +1246,9 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "familia"
   },
   {
     "id": 3719453602,
@@ -1231,7 +1303,9 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "familia"
   },
   {
     "id": 1797513479,
@@ -1291,7 +1365,9 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "familia"
   },
   {
     "id": 22478239,
@@ -1353,7 +1429,9 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "familia"
   },
   {
     "id": 1583844204,
@@ -1414,7 +1492,9 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "familia"
   },
   {
     "id": 2489307786,
@@ -1470,6 +1550,8 @@
     "mantAnios": 0,
     "programas": [],
     "vigDesde": "",
-    "vigHasta": ""
+    "vigHasta": "",
+    "oferta_vigente": false,
+    "intent": "familia"
   }
 ]
