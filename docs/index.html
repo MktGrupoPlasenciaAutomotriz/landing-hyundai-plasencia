@@ -238,6 +238,8 @@ button, a, .v-card, .filter-chip, .filter-select, .filter-clear, .calc-term-btn 
 }
 .hero-tagline-dot { width: 6px; height: 6px; border-radius: 50%; background: #00E5FF; box-shadow: 0 0 10px #00E5FF; animation: pulse 2.4s ease-in-out infinite; }
 @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.4); } }
+/* @keyframes spin: requerido por spinners SVG en submit/PDF (paridad STL Pivote 2) */
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
 .hero h1 {
   font-family: var(--font-display);
@@ -2006,7 +2008,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 <!-- ════ MODAL ════ -->
-<div class="modal-overlay" id="vehicleModal" role="dialog" aria-modal="true">
+<!-- aria-labelledby="modalName" — paridad STL Pivote 2 (a11y: SR anuncia nombre del vehiculo al abrir modal) -->
+<div class="modal-overlay" id="vehicleModal" role="dialog" aria-modal="true" aria-labelledby="modalName">
   <div class="modal-content">
     <div class="modal-gallery" id="modalGallery">
       <button class="modal-close" onclick="closeModal()" aria-label="Cerrar">&times;</button>
@@ -2033,10 +2036,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="modal-specs" id="modalSpecs"></div>
 
-        <div class="modal-trust">
+        <div class="modal-trust" id="modalTrust">
           <div class="trust-badge-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> Garantía 7 años</div>
           <div class="trust-badge-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Mantenimiento incluido</div>
           <div class="trust-badge-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="4.93" y1="19.07" x2="10.12" y2="13.88"/><line x1="19.07" y1="19.07" x2="13.88" y2="13.88"/></svg> Prueba de manejo</div>
+          <!-- Paridad STL Pivote 2: badge "Esquema empresarial" se muestra cuando el usuario elige Flotilla. Habla a B2B sin saturar a B2C. -->
+          <div class="trust-badge-item" id="trustBadgeEmpresarial" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> Esquema empresarial</div>
         </div>
 
         <!-- FORM 1-STEP LITE (pivote 2026-05-13) -->
@@ -2143,12 +2148,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
       <!-- ── CONFIRMATION ── -->
-      <div class="confirmation" id="confirmState">
+      <!-- role/aria-live/atomic — paridad STL Pivote 2 (SR anuncia confirmacion completa) -->
+      <div class="confirmation" id="confirmState" role="status" aria-live="polite" aria-atomic="true">
         <div class="confirmation-icon-wrap">
           <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="var(--color-success-dark)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <div class="confirmation-title">Listo, te llamamos en menos de 2 horas</div>
+        <div class="confirmation-title" tabindex="-1">Listo, te llamamos en menos de 2 horas</div>
         <p class="confirmation-subtitle" id="confirmSubtitle">Te contactamos por WhatsApp para confirmar tu visita a la agencia.</p>
+
+        <!-- Paridad STL Pivote 2 (Peak-End Rule): folio + boton Copiar arriba de los next-steps.
+             El ancla emocional positiva (folio = "ya quedo registrado") debe ser inmediatamente
+             post-titulo para maximizar memoria positiva del flow. -->
+        <div class="confirmation-folio" id="confirmFolio">GP-HYU-000000</div>
+        <button type="button" id="copyFolioBtn" onclick="copyFolio()" style="margin:-6px auto 16px;display:flex;align-items:center;gap:6px;padding:6px 12px;background:transparent;color:var(--ink-600);border:1px solid var(--ink-200);border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font-body);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span id="copyFolioLabel">Copiar folio</span>
+        </button>
 
         <!-- QUE SIGUE -->
         <div class="next-steps">
@@ -2165,7 +2180,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="next-step-text">Llega a la agencia con tu folio. El asesor ya tiene tus datos y el auto listo.</div>
           </div>
         </div>
-        <div class="confirmation-folio" id="confirmFolio">GP-HYU-000000</div>
 
         <div class="confirmation-details" id="confirmDetails"></div>
 
@@ -2258,6 +2272,9 @@ function onUsoChange(radio) {
   // Si Flotilla → ocultar selector de sucursal (Chucho atiende ambas vía mesa de flotillas).
   var sucGroup = document.getElementById('fSucursalGroup');
   if (sucGroup) sucGroup.style.display = (radio.value === 'flotilla') ? 'none' : '';
+  // Paridad STL Pivote 2: toggle trust badge "Esquema empresarial" cuando Flotilla.
+  var _empBadge = document.getElementById('trustBadgeEmpresarial');
+  if (_empBadge) _empBadge.style.display = (radio.value === 'flotilla') ? 'inline-flex' : 'none';
   // GTM signal
   if (window.dataLayer) dataLayer.push({ event: 'select_content', content_type: 'form_uso', content_id: radio.value });
 }
@@ -2863,10 +2880,14 @@ let _calWarnTimer = null;
 
 
 function resetSubmitState() {
+  // Paridad STL Pivote 2: restaurar innerHTML original (no textContent que pierde el SVG del check).
   submitting = false;
   window._submitCompleted = false;
   const b = document.querySelector('.btn-conversion');
-  if (b) { b.disabled = false; b.style.opacity = ''; b.style.cursor = ''; b.textContent = 'Sí, contáctenme'; }
+  if (b) {
+    b.disabled = false; b.style.opacity = ''; b.style.cursor = '';
+    if (b.dataset.originalHtml) { b.innerHTML = b.dataset.originalHtml; delete b.dataset.originalHtml; }
+  }
 }
 // SPA Virtual Pageviews (Clarity + GA4 heatmaps por pantalla)
 let _spaNavigating = false;
@@ -2891,7 +2912,25 @@ window.addEventListener('popstate', function() {
     const h = window.location.hash;
     const modal = document.getElementById('vehicleModal');
     const isOpen = modal && modal.classList.contains('open');
-    if ((!h || h === '#catalogo') && isOpen) closeModal();
+    // Paridad STL Pivote 2 B.P0.1: handler robusto para back/forward Android.
+    // Casos:
+    //  - hash vacio o #catalogo: cerrar modal si esta abierto.
+    //  - #vehiculo-N: abrir modal del vehiculo N (forward despues de un back previo).
+    //  - #confirmacion: mantener confirmState visible (no cerrar, confirmacion vive dentro del modal).
+    if (h && h.indexOf('#vehiculo-') === 0) {
+      var idStr = h.slice('#vehiculo-'.length);
+      var id = parseInt(idStr, 10);
+      if (!isNaN(id) && (!currentCar || currentCar.id !== id)) {
+        if (typeof openModal === 'function') {
+          try { openModal(id); } catch(e){ console.warn('popstate openModal fail', e); }
+        }
+      }
+    } else if (h === '#confirmacion' && isOpen) {
+      var cs = document.getElementById('confirmState');
+      if (cs && !cs.classList.contains('show')) cs.classList.add('show');
+    } else if ((!h || h === '#catalogo') && isOpen) {
+      closeModal();
+    }
   } finally { _spaNavigating = false; }
 });
 
@@ -3045,7 +3084,16 @@ function closeModal() {
   document.body.style.width = '';
   document.body.style.top = '';
   document.documentElement.style.overflow = '';
-  window.scrollTo(0, parseInt(savedScrollY, 10));
+  // Paridad STL Pivote 2: behavior:'instant' evita salto animado raro post-close
+  // cuando html tiene scroll-behavior:smooth (mobile).
+  window.scrollTo({ top: parseInt(savedScrollY, 10), behavior: 'instant' });
+  // Liberar submit state + restaurar detailState para proxima apertura (paridad STL).
+  if (typeof resetSubmitState === 'function') resetSubmitState();
+  const detail = document.getElementById('detailState');
+  const confirm = document.getElementById('confirmState');
+  if (detail) detail.style.display = 'block';
+  if (confirm) confirm.classList.remove('show');
+  currentCar = null;
   if (!_spaNavigating) setView('catalogo');
 }
 
@@ -3221,24 +3269,50 @@ function normalizePayload(data) {
 }
 
 function sendToWebhook(data) {
-  if (!WEBHOOK_URL) return;
+  // Paridad STL Pivote 2 B.P0.3: ahora retorna Promise + deteccion offline explicita.
+  if (!WEBHOOK_URL) return Promise.resolve({ ok: false, reason: 'no_webhook' });
   var folio = data && data.folio ? String(data.folio) : '';
   if (folio && _sentFolios.has(folio)) {
     console.warn('[lead] dedup skip (folio ya enviado)', folio);
-    return;
+    return Promise.resolve({ ok: true, deduped: true });
   }
   const payload = normalizePayload(data);
   const body = JSON.stringify(payload);
   var sent = false;
+  var deliveryPromise;
+
+  // Paridad STL: si navigator reporta offline, encolar directo y avisar al UI
+  // (banner sticky honest CRO en vez de avanzar a confirmacion con promesa rota).
+  if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+    try {
+      const queue = JSON.parse(localStorage.getItem('gp_pending_leads') || '[]');
+      queue.push({ url: WEBHOOK_URL, data: payload, ts: Date.now(), folio: folio });
+      localStorage.setItem('gp_pending_leads', JSON.stringify(queue.slice(-20)));
+    } catch(e) { console.error('[lead] queue offline fail', e); }
+    return Promise.resolve({ ok: false, reason: 'offline', queued: true });
+  }
 
   // Primary: fetch keepalive. Sobrevive navigation/tab-close. Worker tiene CORS abierto.
   try {
-    fetch(WEBHOOK_URL, {
+    deliveryPromise = fetch(WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: body,
       keepalive: true
-    }).catch(function(e){ console.error('[lead] fetch rejected async', e); });
+    }).then(function(r){
+      if (r && r.ok) { markFolioSent(folio); return { ok: true, status: r.status }; }
+      console.error('[lead] worker non-ok', r && r.status);
+      return { ok: false, reason: 'worker_error', status: r && r.status };
+    }).catch(function(e){
+      console.error('[lead] fetch rejected async', e);
+      // Paridad STL: encolar para retry tambien al fallo async (no solo sync).
+      try {
+        const queue = JSON.parse(localStorage.getItem('gp_pending_leads') || '[]');
+        queue.push({ url: WEBHOOK_URL, data: payload, ts: Date.now(), folio: folio });
+        localStorage.setItem('gp_pending_leads', JSON.stringify(queue.slice(-20)));
+      } catch(qe) {}
+      return { ok: false, reason: 'fetch_failed', error: String(e && e.message || e) };
+    });
     sent = true;
   } catch(e) {
     console.error('[lead] fetch threw sync, trying beacon fallback', e);
@@ -3250,23 +3324,24 @@ function sendToWebhook(data) {
       if (navigator.sendBeacon) {
         const blob = new Blob([body], { type: 'application/json' });
         sent = navigator.sendBeacon(WEBHOOK_URL, blob) === true;
+        deliveryPromise = Promise.resolve({ ok: sent, via: 'beacon' });
+        if (sent) markFolioSent(folio);
       }
     } catch(e) { console.error('[lead] beacon fail', e); }
   }
 
   console.log('[lead] submit', folio, { sent: sent });
 
-  if (sent) {
-    markFolioSent(folio);
-  } else {
-    // Fallo sincronicamente, encolar para retry en proxima visita
+  if (!sent) {
     try {
       const queue = JSON.parse(localStorage.getItem('gp_pending_leads') || '[]');
       queue.push({ url: WEBHOOK_URL, data: payload, ts: Date.now(), folio: folio });
       localStorage.setItem('gp_pending_leads', JSON.stringify(queue.slice(-20)));
       console.warn('[lead] queued for retry', folio);
     } catch(e) { console.error('[lead] queue fail', e); }
+    return Promise.resolve({ ok: false, reason: 'sync_fail', queued: true });
   }
+  return deliveryPromise || Promise.resolve({ ok: true });
 }
 
 // Al cargar la pagina, reintenta leads encolados (max 7 dias de antiguedad)
@@ -3361,8 +3436,15 @@ function submitForm() {
   }
 
   submitting = true;
+  // Paridad STL Pivote 2: spinner SVG + label "Enviando…" (peak-end + feedback inmediato; reduce doble-tap).
   const submitBtn = document.querySelector('.btn-conversion');
-  if (submitBtn) { submitBtn.disabled = true; submitBtn.style.opacity = '0.6'; submitBtn.style.cursor = 'wait'; }
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = '0.85';
+    submitBtn.style.cursor = 'wait';
+    submitBtn.dataset.originalHtml = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" style="animation:spin 0.8s linear infinite;flex-shrink:0;"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="14 42" stroke-linecap="round"/></svg> Enviando…';
+  }
 
   const nombre = document.getElementById('fName').value.trim().toUpperCase();
   const ap1 = document.getElementById('fLastName1').value.trim().toUpperCase();
@@ -4002,6 +4084,217 @@ function stickyCtaBrowse() {
     </div>
   </div>
 </div>
+
+<!-- ════════════════════════════════════════════════════════════════════════════════
+     Paridad STL Pivote 2 — Post-init UX/a11y/CRO IIFE (2026-06-08)
+     Bloque clonado de landing-stellantis-plasencia/docs/index.html L4030-4260.
+     Adaptado a HYU: drawer usa .is-open (no .open), boton PDF usa .btn-secondary.
+     Cubre: scrollIntoView focus modal, focus-trap modal, restore opener focus,
+     focus confirmation title, copyFolio clipboard, PDF spinner wrapper, tap
+     feedback v-card mobile, debounce onSearch, aria-invalid dinamico, drawer
+     focus mgmt, online/offline banner sticky.
+     ════════════════════════════════════════════════════════════════════════════════ -->
+<script>
+(function(){
+  'use strict';
+
+  // 1. scrollIntoView en focus de inputs del modal (iOS keyboard fix).
+  document.addEventListener('focusin', function(ev){
+    var el = ev.target;
+    if (!el || !el.closest) return;
+    var modal = el.closest('.modal-overlay.open');
+    if (!modal) return;
+    var isFormField = el.matches('input, textarea, select');
+    if (!isFormField) return;
+    setTimeout(function(){
+      try { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e){}
+    }, 280);
+  });
+
+  // 2. Focus management modal: opener guardado + focus al close al abrir + Tab trap.
+  var _modalOpener = null;
+  var _modalObserver = new MutationObserver(function(mutations){
+    mutations.forEach(function(m){
+      if (m.attributeName !== 'class') return;
+      var modal = m.target;
+      if (!modal.classList.contains('open')) return;
+      _modalOpener = document.activeElement;
+      var focusable = modal.querySelector('.modal-close') || modal.querySelector('button, [tabindex="0"], input, select, textarea, a[href]');
+      if (focusable) {
+        setTimeout(function(){ try { focusable.focus({ preventScroll: true }); } catch(e){} }, 80);
+      }
+    });
+  });
+  document.querySelectorAll('.modal-overlay').forEach(function(m){ _modalObserver.observe(m, { attributes: true, attributeFilter: ['class'] }); });
+
+  document.addEventListener('keydown', function(ev){
+    if (ev.key !== 'Tab') return;
+    var modal = document.querySelector('.modal-overlay.open');
+    if (!modal) return;
+    var focusables = Array.from(modal.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'))
+      .filter(function(el){ return el.offsetParent !== null; });
+    if (!focusables.length) return;
+    var first = focusables[0], last = focusables[focusables.length - 1];
+    if (ev.shiftKey && document.activeElement === first) {
+      last.focus(); ev.preventDefault();
+    } else if (!ev.shiftKey && document.activeElement === last) {
+      first.focus(); ev.preventDefault();
+    }
+  });
+
+  var _restoreObserver = new MutationObserver(function(mutations){
+    mutations.forEach(function(m){
+      if (m.attributeName !== 'class') return;
+      var modal = m.target;
+      if (modal.classList.contains('open')) return;
+      if (_modalOpener && document.body.contains(_modalOpener)) {
+        try { _modalOpener.focus({ preventScroll: true }); } catch(e){}
+      }
+      _modalOpener = null;
+    });
+  });
+  document.querySelectorAll('.modal-overlay').forEach(function(m){ _restoreObserver.observe(m, { attributes: true, attributeFilter: ['class'] }); });
+
+  // 3. Focus al confirmation title (SR anuncia "Listo, te llamamos en menos de 2 horas" + folio).
+  var _confirmObserver = new MutationObserver(function(){
+    var cs = document.getElementById('confirmState');
+    if (cs && cs.classList.contains('show')) {
+      var title = cs.querySelector('.confirmation-title');
+      if (title) setTimeout(function(){ try { title.focus(); } catch(e){} }, 120);
+    }
+  });
+  var csInit = document.getElementById('confirmState');
+  if (csInit) _confirmObserver.observe(csInit, { attributes: true, attributeFilter: ['class'] });
+
+  // 4. Copiar folio al clipboard (peak-end micro-interaction).
+  window.copyFolio = function(){
+    var folio = (document.getElementById('confirmFolio') || {}).textContent || '';
+    folio = folio.trim();
+    if (!folio || folio === 'GP-HYU-000000') return;
+    var label = document.getElementById('copyFolioLabel');
+    var ok = function(){ if (label) { label.textContent = '¡Copiado!'; setTimeout(function(){ label.textContent = 'Copiar folio'; }, 1800); } };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(folio).then(ok).catch(function(){
+          var ta = document.createElement('textarea'); ta.value = folio; document.body.appendChild(ta); ta.select();
+          try { document.execCommand('copy'); ok(); } catch(e){}
+          document.body.removeChild(ta);
+        });
+      } else {
+        var ta = document.createElement('textarea'); ta.value = folio; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); ok(); } catch(e){}
+        document.body.removeChild(ta);
+      }
+    } catch(e){}
+  };
+
+  // 5. PDF spinner wrapper. jsPDF + addImage tarda 1-3s en mobile gama media;
+  // sin feedback el usuario doble-tappea (descargas duplicadas) o cree que fallo.
+  // HYU usa .btn-secondary (no .confirm-action-btn.primary como STL).
+  var _origGenPDF = window.generateRegistrationPDF;
+  if (typeof _origGenPDF === 'function') {
+    window.generateRegistrationPDF = function(){
+      var btn = document.querySelector('#confirmState .btn-secondary');
+      if (btn) {
+        btn.disabled = true;
+        btn.dataset.origHtml = btn.innerHTML;
+        btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" style="animation:spin 0.8s linear infinite;flex-shrink:0;"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="14 42" stroke-linecap="round"/></svg> Generando PDF…';
+      }
+      setTimeout(function(){
+        try { _origGenPDF.apply(window, arguments); } catch(e){ console.error('PDF gen error', e); }
+        if (btn) {
+          btn.disabled = false;
+          if (btn.dataset.origHtml) { btn.innerHTML = btn.dataset.origHtml; delete btn.dataset.origHtml; }
+        }
+      }, 50);
+    };
+  }
+
+  // 6. Active feedback en .v-card tap mobile.
+  var _tapStyle = document.createElement('style');
+  _tapStyle.textContent = '@media (hover: none) { .v-card:active { transform: scale(0.985); transition: transform 80ms ease-out; } }';
+  document.head.appendChild(_tapStyle);
+
+  // 7. Debounce renderCards en onSearch (INP guard >200ms para mobile).
+  if (typeof window.onSearch === 'function' && !window._onSearchDebounced) {
+    var _origOnSearch = window.onSearch;
+    var _searchTimer;
+    window.onSearch = function(val) {
+      clearTimeout(_searchTimer);
+      _searchTimer = setTimeout(function(){ try { _origOnSearch(val); } catch(e){ console.error('onSearch', e); } }, 180);
+    };
+    window._onSearchDebounced = true;
+  }
+
+  // 8. aria-invalid dinamico en inputs con error (WCAG 3.3.1).
+  var _errObserver = new MutationObserver(function(mutations){
+    mutations.forEach(function(m){
+      if (m.attributeName !== 'class') return;
+      var errEl = m.target;
+      if (!errEl.classList || !errEl.id || !errEl.id.endsWith('-error')) return;
+      var inputId = errEl.id.replace(/-error$/, '');
+      var input = document.getElementById(inputId);
+      if (!input) return;
+      if (errEl.classList.contains('show')) {
+        input.setAttribute('aria-invalid', 'true');
+      } else {
+        input.removeAttribute('aria-invalid');
+      }
+    });
+  });
+  document.querySelectorAll('.form-error-msg[id$="-error"]').forEach(function(el){
+    _errObserver.observe(el, { attributes: true, attributeFilter: ['class'] });
+  });
+
+  // 9. Focus management filter drawer mobile. HYU usa .is-open (no .open como STL).
+  var _drawerToggleBtn = document.getElementById('filtersToggle');
+  var _drawerEl = document.getElementById('filterSidebar');
+  if (_drawerToggleBtn && _drawerEl) {
+    var _drawerObs = new MutationObserver(function(mutations){
+      mutations.forEach(function(m){
+        if (m.attributeName !== 'aria-expanded' && m.attributeName !== 'class') return;
+        var open = _drawerToggleBtn.getAttribute('aria-expanded') === 'true' || _drawerEl.classList.contains('is-open');
+        if (open) {
+          var closeBtn = _drawerEl.querySelector('.filter-sidebar-close') || _drawerEl.querySelector('button');
+          if (closeBtn) setTimeout(function(){ try { closeBtn.focus({ preventScroll: true }); } catch(e){} }, 60);
+        } else {
+          try { _drawerToggleBtn.focus({ preventScroll: true }); } catch(e){}
+        }
+      });
+    });
+    _drawerObs.observe(_drawerToggleBtn, { attributes: true, attributeFilter: ['aria-expanded'] });
+    _drawerObs.observe(_drawerEl, { attributes: true, attributeFilter: ['class'] });
+
+    document.addEventListener('keydown', function(ev){
+      if (ev.key !== 'Tab') return;
+      var open = _drawerEl.classList.contains('is-open') || _drawerToggleBtn.getAttribute('aria-expanded') === 'true';
+      if (!open) return;
+      var focusables = Array.from(_drawerEl.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'))
+        .filter(function(el){ return el.offsetParent !== null; });
+      if (!focusables.length) return;
+      var first = focusables[0], last = focusables[focusables.length - 1];
+      if (ev.shiftKey && document.activeElement === first) { last.focus(); ev.preventDefault(); }
+      else if (!ev.shiftKey && document.activeElement === last) { first.focus(); ev.preventDefault(); }
+    });
+  }
+
+  // 10. Online/offline banner sticky (honest CRO). Si el usuario pierde conexion
+  // durante el flow, le decimos que su lead se guarda local y se envia al reconectar.
+  var _offlineBanner = null;
+  function _ensureOfflineBanner() {
+    if (_offlineBanner) return _offlineBanner;
+    _offlineBanner = document.createElement('div');
+    _offlineBanner.setAttribute('role', 'status');
+    _offlineBanner.setAttribute('aria-live', 'polite');
+    _offlineBanner.style.cssText = 'position:fixed;left:0;right:0;bottom:0;background:#7c2d12;color:#fff;padding:12px 16px;font-size:13px;font-weight:600;text-align:center;z-index:9999;display:none;font-family:var(--font-body, system-ui);';
+    _offlineBanner.textContent = 'Sin conexión: tu registro se guarda local y se envía cuando vuelvas a tener red.';
+    document.body.appendChild(_offlineBanner);
+    return _offlineBanner;
+  }
+  window.addEventListener('offline', function(){ _ensureOfflineBanner().style.display = 'block'; });
+  window.addEventListener('online',  function(){ if (_offlineBanner) _offlineBanner.style.display = 'none'; });
+})();
+</script>
 
 </body>
 </html>
