@@ -1908,9 +1908,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div id="locInfo" class="loc-info-card" style="display:none;" role="region" aria-live="polite"></div>
       </details>
 
-      <!-- Precio -->
-      <details class="filter-group">
-        <summary>Precio</summary>
+      <!-- Precio — director 2026-06-08: visible desde el principio, no colapsable. -->
+      <div class="filter-group">
+        <h3 class="filter-group-title">Precio</h3>
         <div class="filter-dropdown-wrap">
           <select onchange="filterByPriceSelect(this.value)" id="filterPrice" class="filter-select" aria-label="Precio">
             <option value="all">Cualquier precio</option>
@@ -1920,7 +1920,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <option value="750+">$750K+</option>
           </select>
         </div>
-      </details>
+      </div>
 
       <!-- Select de tipo oculto: compat con activePills/clearAllFilters/updateFilterUI -->
       <select onchange="filterByType(this.value)" id="filterType" class="filter-select" aria-hidden="true" tabindex="-1" style="display:none;">
