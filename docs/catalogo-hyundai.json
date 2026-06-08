@@ -1,11 +1,11 @@
 [
   {
     "id": 3650383539,
-    "name": "Hyundai Creta",
+    "name": "Hyundai Creta GLS Premium",
     "brand": "Hyundai",
     "submarca": null,
     "year": 2026,
-    "version": "GLS Premium IVT 4CIL 1.5",
+    "version": "2026",
     "type": "suv",
     "priceType": "evergreen",
     "loc": "2 sucursales",
@@ -34,15 +34,39 @@
     "engancheDesde": 219990,
     "enganche_pct": 50,
     "plazo_meses": 72,
-    "vigDesde": "2026-06-01",
-    "vigHasta": "2026-06-30",
-    "oferta_disclaimer": "Términos y condiciones con tu asesor Hyundai. Vigencia 1 al 30 de junio 2026. Cotización incluye enganche, apertura de crédito y seguro 1 año. Mensualidad a 72 meses con Extensión de Garantía 7 años (sólo modelos 2026) y Protección Llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
+    "oferta_disclaimer": "Bono Flexible aplica modelos AM 2026. Incluye apertura de crédito, seguro 1 año, garantía 7 años y protección llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
     "intent": "familia",
     "badge": "OFERTA VIGENTE",
     "programas": [
       "Bono Flexible",
       "Garantía 7 años",
       "All-Inclusive"
+    ],
+    "vigDesde": "2026-06-01",
+    "vigHasta": "2026-06-30",
+    "variantes_pago": [
+      {
+        "esquema": "Mensualidad baja (50% eng)",
+        "mensualidad": 5225,
+        "enganche_desde": 219990,
+        "enganche_pct": 50,
+        "plazo_meses": 72
+      },
+      {
+        "esquema": "Enganche bajo (30%)",
+        "mensualidad": 7750,
+        "enganche_desde": 120830,
+        "enganche_pct": 30,
+        "plazo_meses": 72
+      },
+      {
+        "esquema": "48 MSI (subsidia tasa)",
+        "mensualidad": 6299,
+        "enganche_desde": 223560,
+        "enganche_pct": 43,
+        "plazo_meses": 48,
+        "msi": true
+      }
     ]
   },
   {
@@ -51,7 +75,7 @@
     "brand": "Hyundai",
     "submarca": null,
     "year": 2026,
-    "version": "MID Automático",
+    "version": "MID Automático 2026",
     "type": "sedan",
     "priceType": "evergreen",
     "loc": "2 sucursales",
@@ -80,16 +104,17 @@
     "engancheDesde": 72899,
     "enganche_pct": 25,
     "plazo_meses": 72,
-    "vigDesde": "2026-06-01",
-    "vigHasta": "2026-06-30",
-    "oferta_disclaimer": "Términos y condiciones con tu asesor Hyundai. Vigencia 1 al 30 de junio 2026. Cotización incluye enganche, apertura de crédito y seguro 1 año. Mensualidad a 72 meses con Extensión de Garantía 7 años (sólo modelos 2026) y Protección Llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
+    "oferta_disclaimer": "Bono Flexible aplica modelos AM 2026. Incluye apertura de crédito, seguro 1 año, garantía 7 años y protección llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
     "intent": "lifestyle",
     "badge": "OFERTA VIGENTE",
     "programas": [
       "Bono Flexible",
       "Garantía 7 años",
       "All-Inclusive"
-    ]
+    ],
+    "vigDesde": "2026-06-01",
+    "vigHasta": "2026-06-30",
+    "variantes_pago": []
   },
   {
     "id": 3502334097,
@@ -97,7 +122,7 @@
     "brand": "Hyundai",
     "submarca": null,
     "year": 2026,
-    "version": "MID Manual",
+    "version": "MID Manual 2026",
     "type": "hatchback",
     "priceType": "evergreen",
     "loc": "2 sucursales",
@@ -126,15 +151,319 @@
     "engancheDesde": 61665,
     "enganche_pct": 25,
     "plazo_meses": 72,
-    "vigDesde": "2026-06-01",
-    "vigHasta": "2026-06-30",
-    "oferta_disclaimer": "Términos y condiciones con tu asesor Hyundai. Vigencia 1 al 30 de junio 2026. Cotización incluye enganche, apertura de crédito y seguro 1 año. Mensualidad a 72 meses con Extensión de Garantía 7 años (sólo modelos 2026) y Protección Llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
+    "oferta_disclaimer": "Bono Flexible aplica modelos AM 2026. Incluye apertura de crédito, seguro 1 año, garantía 7 años y protección llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
     "intent": "lifestyle",
     "badge": "OFERTA VIGENTE",
     "programas": [
       "Bono Flexible",
       "Garantía 7 años",
       "All-Inclusive"
+    ],
+    "vigDesde": "2026-06-01",
+    "vigHasta": "2026-06-30",
+    "variantes_pago": []
+  },
+  {
+    "id": 7100000001,
+    "name": "Hyundai Creta Grand Limited",
+    "brand": "Hyundai",
+    "submarca": null,
+    "year": 2026,
+    "version": "7 Pasajeros 2026",
+    "type": "suv",
+    "priceType": "evergreen",
+    "loc": "2 sucursales",
+    "locs": [
+      {
+        "nombre": "Hyundai Plasencia Guadalajara",
+        "unidades": 1
+      },
+      {
+        "nombre": "Hyundai Santa Anita",
+        "unidades": 1
+      }
+    ],
+    "unidades_disponibles": 2,
+    "colores_disponibles": [],
+    "img": "/imagenes/oficial/hyundai/creta-grand.png",
+    "gallery": [
+      "/imagenes/oficial/hyundai/creta-grand.png"
+    ],
+    "photos": 0,
+    "oferta_vigente": true,
+    "oferta_titulo": "Bono Flexible $30,000 en Creta Grand Limited",
+    "oferta_hook": "Desde $6,140 al mes",
+    "bono_pesos": 30000,
+    "mensualidad_oferta": 6140,
+    "engancheDesde": 306450,
+    "enganche_pct": 50,
+    "plazo_meses": 72,
+    "oferta_disclaimer": "Bono Flexible aplica modelos AM 2026. Incluye apertura de crédito, seguro 1 año, garantía 7 años y protección llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
+    "intent": "familia",
+    "badge": "OFERTA VIGENTE",
+    "programas": [
+      "Bono Flexible",
+      "Garantía 7 años",
+      "All-Inclusive"
+    ],
+    "vigDesde": "2026-06-01",
+    "vigHasta": "2026-06-30",
+    "variantes_pago": [
+      {
+        "esquema": "Mensualidad baja (50% eng)",
+        "mensualidad": 6140,
+        "enganche_desde": 306450,
+        "enganche_pct": 50,
+        "plazo_meses": 72
+      },
+      {
+        "esquema": "Enganche bajo (30%)",
+        "mensualidad": 9120,
+        "enganche_desde": 188740,
+        "enganche_pct": 30,
+        "plazo_meses": 72
+      }
     ]
+  },
+  {
+    "id": 7100000002,
+    "name": "Hyundai Elantra GLS Híbrido",
+    "brand": "Hyundai",
+    "submarca": null,
+    "year": 2026,
+    "version": "2026",
+    "type": "sedan",
+    "priceType": "evergreen",
+    "loc": "2 sucursales",
+    "locs": [
+      {
+        "nombre": "Hyundai Plasencia Guadalajara",
+        "unidades": 1
+      },
+      {
+        "nombre": "Hyundai Santa Anita",
+        "unidades": 1
+      }
+    ],
+    "unidades_disponibles": 2,
+    "colores_disponibles": [],
+    "img": "/imagenes/oficial/hyundai/elantra-hev.png",
+    "gallery": [
+      "/imagenes/oficial/hyundai/elantra-hev.png"
+    ],
+    "photos": 0,
+    "oferta_vigente": true,
+    "oferta_titulo": "Bono Flexible $80,000 en Elantra GLS Híbrido",
+    "oferta_hook": "Desde $5,645 al mes",
+    "bono_pesos": 80000,
+    "mensualidad_oferta": 5645,
+    "engancheDesde": 234170,
+    "enganche_pct": 50,
+    "plazo_meses": 72,
+    "oferta_disclaimer": "Bono Flexible aplica modelos AM 2026. Incluye apertura de crédito, seguro 1 año, garantía 7 años y protección llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
+    "intent": "lifestyle",
+    "badge": "OFERTA VIGENTE",
+    "programas": [
+      "Bono Flexible",
+      "Garantía 7 años",
+      "All-Inclusive"
+    ],
+    "vigDesde": "2026-06-01",
+    "vigHasta": "2026-06-30",
+    "variantes_pago": [
+      {
+        "esquema": "Mensualidad baja (50% eng)",
+        "mensualidad": 5645,
+        "enganche_desde": 234170,
+        "enganche_pct": 50,
+        "plazo_meses": 72
+      },
+      {
+        "esquema": "Enganche bajo (30%)",
+        "mensualidad": 8510,
+        "enganche_desde": 124540,
+        "enganche_pct": 30,
+        "plazo_meses": 72
+      },
+      {
+        "esquema": "48 MSI (subsidia tasa)",
+        "mensualidad": 7289,
+        "enganche_desde": 229240,
+        "enganche_pct": 40,
+        "plazo_meses": 48,
+        "msi": true
+      }
+    ]
+  },
+  {
+    "id": 7100000003,
+    "name": "Hyundai Tucson Limited Tech",
+    "brand": "Hyundai",
+    "submarca": null,
+    "year": 2026,
+    "version": "Híbrida 2026",
+    "type": "suv",
+    "priceType": "evergreen",
+    "loc": "2 sucursales",
+    "locs": [
+      {
+        "nombre": "Hyundai Plasencia Guadalajara",
+        "unidades": 1
+      },
+      {
+        "nombre": "Hyundai Santa Anita",
+        "unidades": 1
+      }
+    ],
+    "unidades_disponibles": 2,
+    "colores_disponibles": [],
+    "img": "/imagenes/oficial/hyundai/tucson-hev.png",
+    "gallery": [
+      "/imagenes/oficial/hyundai/tucson-hev.png"
+    ],
+    "photos": 0,
+    "oferta_vigente": true,
+    "oferta_titulo": "Bono Flexible $50,000 en Tucson Limited Tech",
+    "oferta_hook": "Desde $7,730 al mes",
+    "bono_pesos": 50000,
+    "mensualidad_oferta": 7730,
+    "engancheDesde": 485070,
+    "enganche_pct": 55,
+    "plazo_meses": 72,
+    "oferta_disclaimer": "Bono Flexible aplica modelos AM 2026. Incluye apertura de crédito, seguro 1 año, garantía 7 años y protección llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
+    "intent": "familia",
+    "badge": "OFERTA VIGENTE",
+    "programas": [
+      "Bono Flexible",
+      "Garantía 7 años",
+      "All-Inclusive"
+    ],
+    "vigDesde": "2026-06-01",
+    "vigHasta": "2026-06-30",
+    "variantes_pago": [
+      {
+        "esquema": "Mensualidad baja (55% eng)",
+        "mensualidad": 7730,
+        "enganche_desde": 485070,
+        "enganche_pct": 55,
+        "plazo_meses": 72
+      },
+      {
+        "esquema": "Enganche bajo (35%)",
+        "mensualidad": 12140,
+        "enganche_desde": 305120,
+        "enganche_pct": 35,
+        "plazo_meses": 72
+      }
+    ]
+  },
+  {
+    "id": 7100000004,
+    "name": "Hyundai Tucson GLS",
+    "brand": "Hyundai",
+    "submarca": null,
+    "year": 2026,
+    "version": "Gasolina 2026",
+    "type": "suv",
+    "priceType": "evergreen",
+    "loc": "2 sucursales",
+    "locs": [
+      {
+        "nombre": "Hyundai Plasencia Guadalajara",
+        "unidades": 1
+      },
+      {
+        "nombre": "Hyundai Santa Anita",
+        "unidades": 1
+      }
+    ],
+    "unidades_disponibles": 2,
+    "colores_disponibles": [],
+    "img": "/imagenes/oficial/hyundai/tucson.png",
+    "gallery": [
+      "/imagenes/oficial/hyundai/tucson.png"
+    ],
+    "photos": 0,
+    "oferta_vigente": true,
+    "oferta_titulo": "Bono Flexible $75,000 en Tucson GLS",
+    "oferta_hook": "Desde $6,160 al mes",
+    "bono_pesos": 75000,
+    "mensualidad_oferta": 6160,
+    "engancheDesde": 264210,
+    "enganche_pct": 50,
+    "plazo_meses": 72,
+    "oferta_disclaimer": "Bono Flexible aplica modelos AM 2026. Incluye apertura de crédito, seguro 1 año, garantía 7 años y protección llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
+    "intent": "familia",
+    "badge": "OFERTA VIGENTE",
+    "programas": [
+      "Bono Flexible",
+      "Garantía 7 años",
+      "All-Inclusive"
+    ],
+    "vigDesde": "2026-06-01",
+    "vigHasta": "2026-06-30",
+    "variantes_pago": [
+      {
+        "esquema": "Mensualidad baja (50% eng)",
+        "mensualidad": 6160,
+        "enganche_desde": 264210,
+        "enganche_pct": 50,
+        "plazo_meses": 72
+      },
+      {
+        "esquema": "Enganche bajo (30%)",
+        "mensualidad": 9160,
+        "enganche_desde": 146015,
+        "enganche_pct": 30,
+        "plazo_meses": 72
+      }
+    ]
+  },
+  {
+    "id": 7100000005,
+    "name": "Hyundai Santa Fe Híbrida Limited Tech",
+    "brand": "Hyundai",
+    "submarca": null,
+    "year": 2026,
+    "version": "2026",
+    "type": "suv",
+    "priceType": "evergreen",
+    "loc": "2 sucursales",
+    "locs": [
+      {
+        "nombre": "Hyundai Plasencia Guadalajara",
+        "unidades": 1
+      },
+      {
+        "nombre": "Hyundai Santa Anita",
+        "unidades": 1
+      }
+    ],
+    "unidades_disponibles": 2,
+    "colores_disponibles": [],
+    "img": "/imagenes/oficial/hyundai/santa-fe-hev.png",
+    "gallery": [
+      "/imagenes/oficial/hyundai/santa-fe-hev.png"
+    ],
+    "photos": 0,
+    "oferta_vigente": true,
+    "oferta_titulo": "Bono Flexible $100,000 en Santa Fe Híbrida Limited Tech",
+    "oferta_hook": "Desde $15,720 al mes",
+    "bono_pesos": 100000,
+    "mensualidad_oferta": 15720,
+    "engancheDesde": 360510,
+    "enganche_pct": 35,
+    "plazo_meses": 72,
+    "oferta_disclaimer": "Bono Flexible aplica modelos AM 2026. Incluye apertura de crédito, seguro 1 año, garantía 7 años y protección llantas 5 años. Aplica Hyundai Plasencia y Santa Anita.",
+    "intent": "familia",
+    "badge": "OFERTA VIGENTE",
+    "programas": [
+      "Bono Flexible",
+      "Garantía 7 años",
+      "All-Inclusive"
+    ],
+    "vigDesde": "2026-06-01",
+    "vigHasta": "2026-06-30",
+    "variantes_pago": []
   }
 ]
