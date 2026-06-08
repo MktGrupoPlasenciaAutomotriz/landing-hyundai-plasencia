@@ -10,15 +10,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Hyundai Plasencia Guadalajara y Santa Anita | 25 versiones Hyundai 2025-2026</title>
+<title>Hyundai Plasencia y Santa Anita · Catálogo Hyundai 2026 con Bono Flexible</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
 <link rel="apple-touch-icon" sizes="192x192" href="favicon-192.png">
 <link rel="shortcut icon" href="favicon.ico">
-<meta name="description" content="Hyundai nuevos en Guadalajara. 25 versiones disponibles entre Hyundai Plasencia Guadalajara y Santa Anita. Déjanos tus datos y tu asesor te llama en menos de 2 horas.">
+<meta name="description" content="Hyundai nuevos en Guadalajara. Catálogo 2026 con Bono Flexible entre Hyundai Plasencia Guadalajara y Santa Anita. Déjanos tus datos y tu asesor te llama en menos de 2 horas.">
 <link rel="canonical" href="https://hyundai.grupoplasencia.com/">
-<meta property="og:title" content="Hyundai Plasencia Guadalajara y Santa Anita | 25 versiones Hyundai">
-<meta property="og:description" content="Tu próximo Hyundai en Plasencia Guadalajara o Santa Anita. 25 versiones disponibles. Regístrate y tu asesor te contacta por WhatsApp en menos de 2 horas.">
+<meta property="og:title" content="Hyundai Plasencia y Santa Anita · Catálogo Hyundai 2026 con Bono Flexible">
+<meta property="og:description" content="Tu próximo Hyundai en Plasencia Guadalajara o Santa Anita. Catálogo 2026 con Bono Flexible. Regístrate y tu asesor te contacta por WhatsApp en menos de 2 horas.">
 <meta property="og:image" content="https://hyundai.grupoplasencia.com/og-hyundai.jpg">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://hyundai.grupoplasencia.com/">
@@ -1063,6 +1063,8 @@ select.form-input {
 }
 .btn-conversion:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(0,137,176,0.46); }
 .btn-conversion:active { transform: translateY(0); }
+/* Fix P0 2026-06-08 — SVG sin width/height heredaba tamaño del flex parent y renderizaba gigantesco (189px mobile / 814px desktop). Paridad STL línea 1064. */
+.btn-conversion svg { width: 18px; height: 18px; flex-shrink: 0; }
 
 .btn-wa-asesor {
   display: flex; align-items: center; justify-content: center; gap: 10px;
@@ -1673,16 +1675,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="hero-stats">
         <div class="hero-stat">
-          <div class="hero-stat-num">25</div>
-          <div class="hero-stat-label">Versiones</div>
+          <div class="hero-stat-num" id="heroStatVersiones">—</div>
+          <div class="hero-stat-label">Modelos disponibles</div>
         </div>
         <div class="hero-stat">
-          <div class="hero-stat-num">Desde $5,225</div>
-          <div class="hero-stat-label">Mensualidad · Creta GLS Premium</div>
+          <div class="hero-stat-num" id="heroStatMensualidad">—</div>
+          <div class="hero-stat-label" id="heroStatMensualidadLabel">Mensualidad</div>
         </div>
         <div class="hero-stat">
-          <div class="hero-stat-num">Hasta $65K</div>
-          <div class="hero-stat-label">Bono Flexible · AM 2026</div>
+          <div class="hero-stat-num" id="heroStatBono">—</div>
+          <div class="hero-stat-label">Bono Flexible máximo</div>
         </div>
       </div>
       <button class="hero-cta" onclick="document.getElementById('inventoryGrid').scrollIntoView({behavior:'smooth'})">
@@ -2268,9 +2270,12 @@ function _highlightRadioCard(radio) {
 }
 function onUsoChange(radio) {
   _highlightRadioCard(radio);
-  // Si Flotilla → ocultar selector de sucursal (Chucho atiende ambas vía mesa de flotillas).
+  // Fix P0 2026-06-08 — Paridad STL: el usuario SIEMPRE puede elegir sucursal,
+  // incluso en Flotilla (Chucho la usa para enrutar la mesa de flotillas a la
+  // sucursal correcta, no para ignorarla). Antes ocultábamos #fSucursalGroup
+  // — director pidió mantenerlo visible siempre, mismo patrón que STL.
   var sucGroup = document.getElementById('fSucursalGroup');
-  if (sucGroup) sucGroup.style.display = (radio.value === 'flotilla') ? 'none' : '';
+  if (sucGroup) sucGroup.style.display = '';
   // Paridad STL Pivote 2: toggle trust badge "Esquema empresarial" cuando Flotilla.
   var _empBadge = document.getElementById('trustBadgeEmpresarial');
   if (_empBadge) _empBadge.style.display = (radio.value === 'flotilla') ? 'inline-flex' : 'none';
@@ -2360,9 +2365,57 @@ function getTrackingContext() {
 
 // ── VEHICLE DATA ──
 let vehicles = [];
+
+// Hero stats 100% dinamicos al catalogo. NO hardcodear numeros que se desfasen del JSON.
+function renderHeroStats() {
+  try {
+    if (!vehicles || !vehicles.length) return;
+    const elVers = document.getElementById('heroStatVersiones');
+    const elMens = document.getElementById('heroStatMensualidad');
+    const elMensLbl = document.getElementById('heroStatMensualidadLabel');
+    const elBono = document.getElementById('heroStatBono');
+
+    // 1) Modelos unicos (name + version, agrupados)
+    if (elVers) {
+      const uniq = new Set(vehicles.map(v => ((v.name || '') + ' ' + (v.version || '')).trim().toUpperCase()).filter(Boolean));
+      elVers.textContent = uniq.size || '—';
+    }
+
+    // 2) Mensualidad minima entre modelos con oferta_vigente y mensualidad_oferta>0
+    const mens = vehicles
+      .filter(v => v && v.oferta_vigente && typeof v.mensualidad_oferta === 'number' && v.mensualidad_oferta > 0)
+      .map(v => ({ valor: v.mensualidad_oferta, modelo: ((v.name || '') + ' ' + (v.version || '')).trim() }));
+    if (elMens) {
+      if (mens.length) {
+        const min = mens.reduce((a, b) => a.valor < b.valor ? a : b);
+        elMens.textContent = 'Desde ' + (typeof fmt === 'function' ? fmt(min.valor) : ('$' + min.valor.toLocaleString('es-MX')));
+        if (elMensLbl) elMensLbl.textContent = 'Mensualidad · ' + min.modelo;
+      } else {
+        elMens.textContent = 'Tu plan';
+        if (elMensLbl) elMensLbl.textContent = 'A tu medida';
+      }
+    }
+
+    // 3) Bono maximo del catalogo (solo ofertas vigentes con bono_pesos>0)
+    if (elBono) {
+      const bonos = vehicles
+        .filter(v => v && v.oferta_vigente && typeof v.bono_pesos === 'number' && v.bono_pesos > 0)
+        .map(v => v.bono_pesos);
+      if (bonos.length) {
+        const max = Math.max.apply(null, bonos);
+        elBono.textContent = 'Hasta $' + Math.round(max / 1000) + 'K';
+      } else {
+        elBono.textContent = '—';
+      }
+    }
+  } catch (e) {
+    console.error('renderHeroStats error:', e);
+  }
+}
+
 fetch('catalogo-hyundai.json')
   .then(r => r.json())
-  .then(data => { vehicles = data; renderCards('all'); })
+  .then(data => { vehicles = data; renderHeroStats(); renderCards('all'); })
   .catch(e => console.error('Error cargando catalogo-hyundai.json:', e));
 
 // ── Enriquecimiento con datos oficiales del tabulador interno ──
