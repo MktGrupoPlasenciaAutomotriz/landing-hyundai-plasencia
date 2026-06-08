@@ -312,6 +312,12 @@ button, a, .v-card, .filter-chip, .filter-select, .filter-clear, .calc-term-btn 
 .trust-item { display: flex; align-items: center; gap: 8px; white-space: nowrap; font-size: 13px; font-weight: 600; color: var(--ink-600); }
 .trust-svg { width: 16px; height: 16px; flex-shrink: 0; color: var(--brand-accent); }
 
+/* ── Pivote 2 (2026-06-07): con solo 3 modelos validados por gerente, esconder
+   filtros sidebar + search bar. Intent tabs son suficientes. ── */
+.search-bar, .filters-section .filter-sidebar { display: none !important; }
+.filters-section .catalog-grid { grid-template-columns: 1fr !important; }
+.catalog-zone .container { max-width: 1240px; margin: 0 auto; padding: 0 16px; }
+
 /* ── Promo banner sticky (Pivote 2 evergreen Vero) ── */
 .promo-banner-sticky {
   background: linear-gradient(135deg, #00538F 0%, #00AAD2 100%);
@@ -2630,59 +2636,78 @@ function renderCards(filter) {
 // Card template unificado — usado por renderCards y por sugerencias en empty state
 // Abrevia el nombre de sucursal Hyundai para los badges
 function formatSucursalShort(loc, locs) {
-  if (Array.isArray(locs) && locs.length > 1) return '📍 Varias sedes';
+  // Pivote 2 — 2026-06-07: 2 sucursales reales (Plasencia + Santa Anita).
+  // Si el modelo aplica a ambas, mostrar "Plasencia + Santa Anita".
+  if (Array.isArray(locs) && locs.length > 1) return '📍 2 sucursales';
   var raw = (locs && locs.length === 1 ? locs[0].nombre : loc) || '';
   raw = String(raw)
     .replace(/^Hyundai\s+/i, '')
+    .replace(/^Plasencia Guadalajara$/i, 'Plasencia GDL')
     .replace(/^Guadalajara$/i, 'Plasencia GDL')
     .trim();
   return raw ? '📍 ' + raw : '';
 }
 
 function buildVCardHTML(v) {
-    const monthly = calcMonthly(v.price, 20, 36, v.tasa);
+    // Patrón Pivote 2 — paridad con Stellantis. SIN precio MSRP (Vero no nos lo dió).
+    // Ancla comercial: engancheDesde + bono + mensualidad solo del material gerencial.
     const hasImg = v.img && v.img.length > 0;
     const sucursalLabel = formatSucursalShort(v.loc, v.locs);
+    const typeLabels = { suv:'SUV', sedan:'Sedán', hatchback:'Hatchback', pickup:'Pickup', van:'Van', electrico:'Eléctrico' };
+    const yearTxt = (v.year && v.year > 0) ? (' ' + v.year) : '';
+
+    // Anchor offer (idéntico a Stellantis): engancheDesde o "tu asesor confirma".
+    const anchorOffer = (v.engancheDesde && v.engancheDesde > 0)
+      ? '<div class="v-card-enganche" style="font-family:var(--font-display);font-weight:800;font-size:18px;color:var(--ink-900,#0F1A2E);letter-spacing:0.2px;margin-top:8px;">Estrena desde ' + fmt(v.engancheDesde) + '<span style="font-size:11px;color:var(--ink-500,#64748B);font-weight:600;margin-left:4px;">*</span></div>'
+      : '<div class="v-card-consultar" style="font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--ink-700,#334155);margin-top:8px;">Tu asesor confirma precio y términos</div>';
+
+    // Bloque OFERTA VIGENTE — solo si hay datos confirmados por Vero.
+    const promoBlock = (v.oferta_vigente && v.bono_pesos && v.mensualidad_oferta)
+      ? '<div class="v-card-promo-block" style="margin-top:8px;padding:10px 12px;background:linear-gradient(135deg,rgba(0,170,210,0.12),rgba(0,53,143,0.06));border:1px solid rgba(0,170,210,0.30);border-left:3px solid #00AAD2;border-radius:6px;font-size:12px;line-height:1.4;">'
+        + '<div style="font-size:10px;font-weight:700;letter-spacing:0.4px;color:#00538F;text-transform:uppercase;margin-bottom:4px;">Oferta Vigente · Bono Flexible</div>'
+        + '<div style="display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;">'
+        +   '<strong style="font-family:var(--font-display);font-size:18px;font-weight:800;color:#00538F;line-height:1;">' + fmt(v.mensualidad_oferta) + '</strong>'
+        +   '<span style="font-size:11px;font-weight:600;color:var(--ink-600,#475569);">al mes · ' + v.plazo_meses + 'm</span>'
+        + '</div>'
+        + '<div style="font-size:11px;color:var(--ink-700,#334155);margin-top:4px;font-weight:600;">Bono Flexible $' + (v.bono_pesos).toLocaleString('es-MX') + ' MXN</div>'
+      + '</div>'
+      : '';
+
+    // Pills de programas evergreen (igual que Stellantis).
+    const programasPills = (v.programas && v.programas.length)
+      ? '<div class="v-card-programas" style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px;">' + v.programas.map(function(p){
+          return '<span style="font-size:10px;font-weight:600;color:var(--ink-600,#475569);background:var(--ink-50,#F8FAFC);border:1px solid var(--ink-200,#E2E8F0);padding:3px 8px;border-radius:9999px;">' + p + '</span>';
+        }).join('') + '</div>'
+      : '';
+
     return `
     <div class="v-card" onclick="openModal(${v.id})">
       <div class="v-card-img-wrap">
         ${hasImg
-          ? `<img class="v-card-img" src="${v.img}" alt="${v.name}" loading="lazy">`
-          : `<div class="empty-state-img" style="width:100%;height:100%;">
-               <div>
-                 <div style="margin-bottom:6px;"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
-                 <div>${v.name} ${v.year}</div>
-               </div>
+          ? `<img class="v-card-img" src="${v.img}" alt="${v.name}${yearTxt}" loading="lazy" width="800" height="500" decoding="async">`
+          : `<div class="v-card-empty" style="background:linear-gradient(135deg,#00538F,#00AAD2);width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;">
+               <div style="font-family:var(--font-display);font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:1px;">HYUNDAI</div>
+               <div style="font-size:14px;margin-top:6px;font-weight:600;">${v.name}${yearTxt}</div>
+               <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:4px;">Imagen próximamente</div>
              </div>`
         }
-        ${v.oferta_vigente ? `<div class="v-card-badge promo" style="background:#00AAD2;color:#fff;font-weight:800;letter-spacing:0.4px;">OFERTA VIGENTE</div>` : (v.badge ? `<div class="v-card-badge ${v.badge==='Más vendido'?'promo':''}">${v.badge}</div>` : '')}
-        ${v.photos > 0 ? `<div class="v-card-photos">${v.photos} foto${v.photos===1?'':'s'}</div>` : ''}
-        <div class="img-ref-chip" style="position:absolute;bottom:6px;left:6px;background:rgba(0,0,0,0.65);color:#fff;font-size:9px;padding:3px 8px;border-radius:4px;font-weight:500;letter-spacing:0.3px;">Imagen referencial</div>
-        ${sucursalLabel ? `<div class="v-card-loc-chip" style="position:absolute;bottom:6px;right:6px;background:rgba(15,26,46,0.85);color:#fff;font-size:10px;padding:3px 8px;border-radius:4px;font-weight:600;letter-spacing:0.2px;">${sucursalLabel}</div>` : ''}
+        ${v.oferta_vigente ? `<div class="v-card-badge promo" style="background:#00AAD2;color:#fff;font-weight:800;letter-spacing:0.4px;">OFERTA VIGENTE</div>` : ''}
+        ${hasImg ? `<div class="img-ref-chip" style="position:absolute;bottom:6px;left:6px;background:rgba(0,0,0,0.65);color:#fff;font-size:10px;padding:3px 8px;border-radius:4px;font-weight:500;letter-spacing:0.3px;z-index:2;">Imagen referencial</div>` : ''}
+        ${sucursalLabel ? `<div class="v-card-loc-chip" style="position:absolute;bottom:6px;right:6px;background:rgba(15,26,46,0.85);color:#fff;font-size:10px;padding:3px 8px;border-radius:4px;font-weight:600;letter-spacing:0.2px;z-index:2;">${sucursalLabel}</div>` : ''}
       </div>
       <div class="v-card-body">
         <div class="v-card-brand-row">
-          <span class="v-card-type">${{suv:'SUV',sedan:'Sedán',hatchback:'Hatchback',pickup:'Pickup',van:'Van',electrico:'Eléctrico'}[v.type] || v.type}</span>
-          ${v.oferta_vigente && v.bono_pesos ? `<span class="v-card-bono" style="margin-left:auto;font-size:11px;font-weight:800;color:#00AAD2;letter-spacing:0.3px;">+ BONO $${(v.bono_pesos/1000).toFixed(0)}K</span>` : ''}
+          <span class="v-card-brand" style="font-family:var(--font-display);font-weight:800;font-size:11px;letter-spacing:0.8px;text-transform:uppercase;color:#00538F;">HYUNDAI</span>
+          <span class="v-card-cat" style="font-size:10px;font-weight:600;color:var(--ink-500,#64748B);letter-spacing:0.4px;text-transform:uppercase;">${typeLabels[v.type] || v.type}</span>
         </div>
-        <div class="v-card-title">${v.name} ${v.year}</div>
-        <div class="v-card-specs">${[v.version, v.engine, v.trans].filter(Boolean).join(' · ')}</div>
-        ${v.oferta_vigente && v.mensualidad_oferta ? `
-        <div class="v-card-offer-row" style="margin-top:10px;padding:10px 12px;background:linear-gradient(135deg,rgba(0,170,210,0.10),rgba(0,53,143,0.08));border-left:3px solid #00AAD2;border-radius:6px;">
-          <div style="font-size:11px;font-weight:700;color:#00538F;letter-spacing:0.4px;text-transform:uppercase;">${v.oferta_hook || v.oferta_titulo || 'Oferta vigente'}</div>
-          <div style="display:flex;align-items:baseline;gap:8px;margin-top:4px;flex-wrap:wrap;">
-            <span style="font-size:22px;font-weight:800;color:#00538F;line-height:1;">${fmt(v.mensualidad_oferta)}</span>
-            <span style="font-size:12px;color:var(--ink-600,#475569);font-weight:600;">al mes · ${v.plazo_meses}m</span>
-          </div>
-          <div style="font-size:10px;color:var(--ink-500,#64748B);margin-top:4px;">Estrena desde ${fmt(v.enganche_desde)} · Bono Flexible $${(v.bono_pesos||0).toLocaleString('es-MX')}</div>
-        </div>` : ''}
-        <div class="v-card-price-row" style="margin-top:${v.oferta_vigente ? '10px' : '0'};">
-          <div class="v-card-price" title="Precio de lista, incluye IVA. Sujeto a disponibilidad y cambios sin previo aviso.">${fmt(v.price)}</div>
-          ${!v.oferta_vigente ? `<div class="v-card-monthly" title="Estimado con tasa de referencia Banorte">Desde ${fmt(monthly)}/mes</div>` : ''}
-        </div>
-        <div class="v-card-price-disclaimer" style="font-size:10px;color:var(--ink-400,#94A3B8);margin-top:4px;line-height:1.3;">Precio de lista, incluye IVA. Sujeto a disponibilidad y cambios sin previo aviso. Financiamiento y mensualidad se calculan con tu asesor.</div>
-        <div style="margin-top:8px;display:flex;gap:6px;position:relative;">
-          <button onclick="event.stopPropagation();openModal(${v.id})" style="flex:1;padding:12px;min-height:44px;background:var(--brand-accent,#00AAD2);color:#fff;border:none;border-radius:8px;font-family:var(--font-display);font-weight:700;font-size:14px;letter-spacing:0.2px;cursor:pointer;">Quiero información</button>
+        <div class="v-card-title">${v.name}${yearTxt}</div>
+        <div class="v-card-specs" style="font-size:12px;color:var(--ink-600,#475569);margin-top:2px;">${v.version || ''}</div>
+        ${anchorOffer}
+        ${promoBlock}
+        ${programasPills}
+        <div class="v-card-price-disclaimer" style="font-size:10px;color:var(--ink-400,#94A3B8);margin-top:8px;line-height:1.3;">*Consulta términos y condiciones. Tu asesor confirma precio total y mensualidad.</div>
+        <div style="margin-top:10px;display:flex;gap:6px;position:relative;">
+          <button onclick="event.stopPropagation();openModal(${v.id})" style="flex:1;padding:12px;min-height:44px;background:#00538F;color:#fff;border:none;border-radius:8px;font-family:var(--font-display);font-weight:700;font-size:14px;letter-spacing:0.2px;cursor:pointer;">Quiero que me contacten</button>
         </div>
       </div>
     </div>`;
@@ -2854,7 +2879,20 @@ function openModal(id) {
   currentCar = vehicles.find(v => v.id === id);
   if (!currentCar) return;
   setView('vehiculo', id);
-  dataLayer.push({ event: 'view_item', item_name: currentCar.name + ' ' + currentCar.year, item_price: currentCar.price, item_brand: currentCar.brand || '', vehicle_year: currentCar.year, sede: currentCar.loc || '', ...getTrackingContext() });
+  // Pivote 2 — item_price ya NO refleja MSRP (Vero no validó). Usamos engancheDesde como referencia.
+  dataLayer.push({
+    event: 'view_item',
+    item_name: currentCar.name + ' ' + currentCar.year,
+    item_price: currentCar.engancheDesde || 0,
+    item_brand: currentCar.brand || 'Hyundai',
+    vehicle_year: currentCar.year,
+    sede: currentCar.loc || '',
+    oferta_vigente: !!currentCar.oferta_vigente,
+    bono_pesos: currentCar.bono_pesos || 0,
+    mensualidad_oferta: currentCar.mensualidad_oferta || 0,
+    enganche_desde: currentCar.engancheDesde || 0,
+    ...getTrackingContext()
+  });
 
   const hasImg = currentCar.img && currentCar.img.length > 0;
   const imgEl = document.getElementById('modalImg');
@@ -2871,8 +2909,16 @@ function openModal(id) {
   }
 
   document.getElementById('modalName').textContent = `${currentCar.name} ${currentCar.year}`;
-  document.getElementById('modalPrice').textContent = fmt(currentCar.price);
-  document.getElementById('modalBadge').textContent = currentCar.badge;
+  // Modal anchor — Pivote 2: NO mostrar MSRP. Mostrar engancheDesde (Vero validó) o "Tu asesor confirma".
+  var modalPriceEl = document.getElementById('modalPrice');
+  if (modalPriceEl) {
+    if (currentCar.engancheDesde && currentCar.engancheDesde > 0) {
+      modalPriceEl.textContent = 'Estrena desde ' + fmt(currentCar.engancheDesde);
+    } else {
+      modalPriceEl.textContent = 'Tu asesor confirma precio';
+    }
+  }
+  document.getElementById('modalBadge').textContent = currentCar.oferta_vigente ? 'OFERTA VIGENTE' : (currentCar.badge || '');
   document.getElementById('modalVersion').textContent = currentCar.version;
 
   document.getElementById('modalSpecs').innerHTML = [
@@ -2904,7 +2950,7 @@ function openModal(id) {
     dataLayer.push({
       event: 'form_start',
       item_name: currentCar ? (currentCar.name + ' ' + currentCar.year) : '',
-      item_price: currentCar ? currentCar.price : 0,
+      item_price: currentCar ? (currentCar.engancheDesde || 0) : 0,
       vehicle_brand: currentCar ? (currentCar.brand || '') : '',
       vehicle_year: currentCar ? currentCar.year : '',
       sede: currentCar ? (currentCar.loc || '') : '',
@@ -2942,7 +2988,7 @@ function closeModal() {
       dataLayer.push({
         event: 'modal_close_before_submit',
         item_name: currentCar.name + ' ' + currentCar.year,
-        item_price: currentCar.price,
+        item_price: currentCar.engancheDesde || 0,
         ...getTrackingContext()
       });
     }
@@ -3308,7 +3354,14 @@ function submitForm() {
     telefono: '+52' + phone,
     email: email,
     vehiculo: `${currentCar.name} ${currentCar.year} ${currentCar.version}`.toUpperCase(),
-    precio: currentCar.price,
+    // Pivote 2 — precio NO viene de MSRP (Vero no nos lo dió). Usamos engancheDesde
+    // como ancla comercial verificada. Si no hay, 0 (asesor confirma).
+    precio: currentCar.engancheDesde || 0,
+    bono_pesos: currentCar.bono_pesos || 0,
+    mensualidad_oferta: currentCar.mensualidad_oferta || 0,
+    enganche_desde: currentCar.engancheDesde || 0,
+    plazo_meses_oferta: currentCar.plazo_meses || 0,
+    oferta_vigente: !!currentCar.oferta_vigente,
     sucursal: sucursalCanonica,
     agencia: sucursalCanonica,
     sucursal_key: sucKey,
@@ -3367,10 +3420,10 @@ function submitForm() {
     event_id: folio + '_Lead',    // dedup key Pixel↔CAPI Meta
     folio: folio,
     currency: 'MXN',
-    value: currentCar.price,
+    value: currentCar.engancheDesde || 0,
     item_name: currentCar.name + ' ' + currentCar.year,
-    item_price: currentCar.price,
-    lead_value: currentCar.price,
+    item_price: currentCar.engancheDesde || 0,
+    lead_value: currentCar.engancheDesde || 0,
     vehicle_brand: currentCar.brand || '',
     vehicle_year: currentCar.year,
     vehicle_version: currentCar.version || '',
@@ -3394,9 +3447,16 @@ function submitForm() {
   const waPhone = ASESOR_ASIGNADO.telefono.replace(/[^0-9]/g, '');
   const waMsg = `Hola, vi el ${currentCar.name} ${currentCar.year} en hyundai.grupoplasencia.com y me interesa más información. Soy ${nombre}.`;
   document.getElementById('waAsesor').href = `https://api.whatsapp.com/send/?phone=${waPhone}&text=${encodeURIComponent(waMsg)}&type=phone_number&app_absent=0`;
+  // Confirmación dinámica — Pivote 2: NO mostrar MSRP, sí oferta vigente cuando aplica.
+  var ofertaHtmlConf = '';
+  if (currentCar.oferta_vigente && currentCar.mensualidad_oferta) {
+    ofertaHtmlConf =
+      `<p><strong>Oferta Vigente:</strong> Bono $${(currentCar.bono_pesos||0).toLocaleString('es-MX')} · Desde ${fmt(currentCar.mensualidad_oferta)}/mes · ${currentCar.plazo_meses}m</p>`
+    + `<p><strong>Estrena desde:</strong> ${fmt(currentCar.engancheDesde)}</p>`;
+  }
   document.getElementById('confirmDetails').innerHTML = `
     <p><strong>Vehículo:</strong> ${currentCar.name} ${currentCar.year} ${currentCar.version}</p>
-    <p><strong>Precio:</strong> ${fmt(currentCar.price)}</p>
+    ${ofertaHtmlConf}
     <p><strong>Agencia:</strong> ${sucursalCanonica}</p>
     <p><strong>Uso:</strong> ${esFlotilla ? 'Flotilla (empresa)' : 'Personal'}</p>
     <p><strong>Tu asesor:</strong> ${ASESOR_ASIGNADO.nombre} · ${ASESOR_ASIGNADO.canal}</p>
