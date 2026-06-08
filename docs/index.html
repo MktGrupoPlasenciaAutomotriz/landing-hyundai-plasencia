@@ -157,14 +157,19 @@ button, a, .v-card, .filter-chip, .filter-select, .filter-clear, .calc-term-btn 
 .header-left { display: flex; align-items: center; gap: 14px; }
 .header-logo {
   height: 28px; width: auto; display: block;
-  /* Pivote 2 2026-06-07: logo Hyundai (azul oscuro) sobre header oscuro queda
-     invisible. Invertir a blanco con filter para garantizar contraste WCAG AA. */
   filter: brightness(0) invert(1);
 }
 .header-logo-gp { filter: brightness(0) invert(1); }
 @media(min-width: 768px) { .header-logo { height: 36px; } }
-.brand-logo { height: 44px; max-width: 180px; width: auto; display: block; background: transparent; padding: 0; border-radius: 0; }
-@media(min-width: 768px) { .brand-logo { height: 56px; max-width: 220px; padding: 0; border-radius: 0; } }
+/* P0 fix 2026-06-08 — Logo Hyundai (oficial azul #002C5F) sobre header dark queda
+   invisible. Filter:invert pierde la identidad de marca. Solución: chip blanco
+   contenedor que preserva los colores oficiales Hyundai y garantiza contraste WCAG AA. */
+.brand-logo {
+  height: 28px; max-width: 130px; width: auto; display: block;
+  background: #fff; padding: 5px 9px; border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18), inset 0 0 0 1px rgba(255,255,255,0.6);
+}
+@media(min-width: 768px) { .brand-logo { height: 36px; max-width: 170px; padding: 6px 12px; border-radius: 10px; } }
 .header-logo-gp {
   height: 30px; width: auto; display: block;
   filter: brightness(0) invert(1);
@@ -367,7 +372,41 @@ button, a, .v-card, .filter-chip, .filter-select, .filter-clear, .calc-term-btn 
 .intent-tab.active {
   background: var(--brand-primary, #00538F); color: #fff; border-color: var(--brand-primary, #00538F);
 }
-.intent-tab[data-intent="oferta"].active { background: #00AAD2; border-color: #00AAD2; }
+.intent-tab[data-intent="flotilla"].active { background: #00AAD2; border-color: #00AAD2; }
+
+/* ── Flotilla notice (B2B B2C divider, aparece solo con intent=flotilla) ── */
+.flotilla-notice { margin: 0 0 16px; }
+.flotilla-notice-inner {
+  background: linear-gradient(135deg, #00538F 0%, #00AAD2 100%);
+  color: #fff;
+  padding: 18px 20px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.flotilla-notice-inner strong { font-family: var(--font-display, inherit); font-size: 17px; letter-spacing: 0.2px; }
+.flotilla-notice-inner p { margin: 0; font-size: 13.5px; line-height: 1.5; opacity: 0.95; }
+.flotilla-notice-cta {
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 12px 18px;
+  min-height: 44px;
+  background: #fff;
+  color: #00538F;
+  border: none;
+  border-radius: 999px;
+  font-family: var(--font-body, inherit);
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.flotilla-notice-cta:hover { transform: translateY(-1px); }
+@media (min-width: 768px) {
+  .flotilla-notice-inner { flex-direction: row; align-items: center; justify-content: space-between; gap: 20px; }
+  .flotilla-notice-inner > div, .flotilla-notice-inner > p { flex: 1; }
+}
 
 /* ── SEARCH BAR (sticky slim ~56px) — refactor v2 ── */
 .search-bar {
@@ -1390,7 +1429,7 @@ body { overflow-x: hidden; max-width: 100vw; }
   .calc-term-btn { padding: 14px 2px; font-size: 12px; min-height: 48px; }
   .header { padding: 10px 0; }
   .header-logo { height: 28px; }
-  .brand-logo { height: 44px; }
+  .brand-logo { height: 24px; max-width: 115px; padding: 4px 8px; border-radius: 7px; }
   .header-logo-gp { height: 36px; }
   .filter-chip { padding: 11px 18px; min-height: 44px; }
   .filter-select, .filter-clear { min-height: 44px; }
@@ -1682,7 +1721,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       
       <div class="hero-vp">75 años acercándote al auto de tus sueños</div>
       <h1>Estrena tu <span class="accent">Hyundai</span><br>en Plasencia Guadalajara y Santa Anita</h1>
-      <p class="hero-sub">Bono Flexible hasta $65,000 en modelos AM 2026. Creta GLS Premium desde $5,225 al mes. Déjanos tus datos en 30 segundos y tu asesor te contacta por WhatsApp en menos de 2 horas.</p>
+      <p class="hero-sub">Bono Flexible hasta $100,000 en modelos AM 2026. Desde $5,225 al mes con Garantía 7 años. Tu primer auto, tu SUV familiar o tu híbrido — déjanos tus datos en 30 segundos y tu asesor te contacta por WhatsApp en menos de 2 horas.</p>
       <div class="hero-legacy-strip">
         <span><b>+75</b>años de experiencia</span><span class="leg-sep">·</span>
         <span><b>+15</b>marcas representadas</span><span class="leg-sep">·</span>
@@ -1788,9 +1827,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="promo-banner-sticky" id="promoBanner" role="status" aria-live="polite">
   <div class="container promo-banner-inner">
     <div class="promo-banner-text">
-      <strong>Bono Flexible hasta $65,000</strong> · Hyundai AM 2026
+      <strong>Bono Flexible hasta $100,000</strong> · Hyundai AM 2026
     </div>
-    <button class="promo-banner-cta" onclick="filterByIntent('oferta');document.getElementById('inventoryGrid').scrollIntoView({behavior:'smooth'});">Ver ofertas vigentes</button>
+    <button class="promo-banner-cta" onclick="filterByIntent('all');document.getElementById('inventoryGrid').scrollIntoView({behavior:'smooth'});">Ver ofertas vigentes</button>
   </div>
 </div>
 
@@ -1799,9 +1838,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="container">
     <div class="intent-tabs" role="tablist" id="intentTabs">
       <button role="tab" class="intent-tab active"        data-intent="all"       onclick="filterByIntent('all', this)"       aria-selected="true">Todos</button>
-      <button role="tab" class="intent-tab"               data-intent="oferta"    onclick="filterByIntent('oferta', this)"    aria-selected="false">Con oferta</button>
       <button role="tab" class="intent-tab"               data-intent="familia"   onclick="filterByIntent('familia', this)"   aria-selected="false">Familia</button>
-      <button role="tab" class="intent-tab"               data-intent="lifestyle" onclick="filterByIntent('lifestyle', this)" aria-selected="false">Lifestyle</button>
+      <button role="tab" class="intent-tab"               data-intent="joven"     onclick="filterByIntent('joven', this)"     aria-selected="false">Primer auto</button>
+      <button role="tab" class="intent-tab"               data-intent="premium"   onclick="filterByIntent('premium', this)"   aria-selected="false">Premium / Híbrido</button>
+      <button role="tab" class="intent-tab"               data-intent="flotilla"  onclick="filterByIntent('flotilla', this)"  aria-selected="false">Flotilla</button>
     </div>
   </div>
 </section>
@@ -1901,6 +1941,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <main class="catalog-main">
       <div class="catalog-headline">
         <span class="catalog-count"><strong id="carCount">0</strong> modelos</span>
+      </div>
+      <div class="flotilla-notice" id="flotillaNotice" hidden role="region" aria-label="Esquema flotilla Hyundai">
+        <div class="flotilla-notice-inner">
+          <strong>Esquema Flotilla Hyundai</strong>
+          <p>Factura mensual, deducible PFAE-PM, descuento por volumen ≥3 unidades y atención B2B directa con Chucho Porras. Todos los modelos aplican.</p>
+          <button type="button" class="flotilla-notice-cta" onclick="openContactFlotilla()">Cotizar flotilla por WhatsApp</button>
+        </div>
       </div>
       <div class="inventory-grid" id="inventoryGrid"></div>
     </main>
@@ -2115,30 +2162,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="form-group full" role="radiogroup" aria-labelledby="fUsoLabel">
               <label class="form-label" id="fUsoLabel">Uso del vehículo <span class="label-req">Obligatorio</span></label>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-                <label class="radio-card" style="display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid var(--ink-200,#E2E8F0);border-radius:10px;cursor:pointer;min-height:48px;">
+                <label class="radio-card is-preselected" data-default="1" style="display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid var(--ink-200,#E2E8F0);border-radius:10px;cursor:pointer;min-height:48px;position:relative;">
                   <input type="radio" name="fUso" value="personal" checked oninput="onUsoChange(this)" style="accent-color:var(--brand-accent,#00AAD2);min-width:18px;min-height:18px;">
-                  <span><strong style="font-size:14px;color:var(--ink-900);">Personal</strong><br><span style="font-size:11px;color:var(--ink-500);">Para mí o mi familia</span></span>
+                  <span><strong style="font-size:14px;color:var(--ink-900);">Personal</strong> <span style="font-size:10px;font-weight:700;color:var(--brand-accent);background:rgba(0,170,210,0.12);padding:1px 6px;border-radius:4px;letter-spacing:0.4px;">DEFAULT</span><br><span style="font-size:11px;color:var(--ink-500);">Para mí o mi familia · tu uso más común</span></span>
                 </label>
-                <label class="radio-card" style="display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid var(--ink-200,#E2E8F0);border-radius:10px;cursor:pointer;min-height:48px;">
+                <label class="radio-card" style="display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid var(--ink-200,#E2E8F0);border-radius:10px;cursor:pointer;min-height:48px;position:relative;">
                   <input type="radio" name="fUso" value="flotilla" oninput="onUsoChange(this)" style="accent-color:var(--brand-accent,#00AAD2);min-width:18px;min-height:18px;">
                   <span><strong style="font-size:14px;color:var(--ink-900);">Flotilla</strong><br><span style="font-size:11px;color:var(--ink-500);">Para mi empresa (2+ unidades)</span></span>
                 </label>
               </div>
             </div>
 
-            <!-- ── Sucursal preferida — Pivote 2 2026-06-07 ── -->
-            <div class="form-group full" id="fSucursalGroup" role="radiogroup" aria-labelledby="fSucursalLabel">
-              <label class="form-label" id="fSucursalLabel">Agencia donde quieres atención <span class="label-req">Obligatorio</span></label>
+            <!-- ── Sucursal preferida — Pivote 2 2026-06-07 / P0 2026-06-08: obligatoria, sin preselección ── -->
+            <div class="form-group full" id="fSucursalGroup" role="radiogroup" aria-labelledby="fSucursalLabel" aria-required="true">
+              <label class="form-label" id="fSucursalLabel">¿En cuál sucursal te queda mejor? <span class="label-req">Obligatorio</span></label>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-                <label class="radio-card" style="display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid var(--ink-200,#E2E8F0);border-radius:10px;cursor:pointer;min-height:48px;">
-                  <input type="radio" name="fSucursal" value="plasencia" checked oninput="onSucursalChange(this)" style="accent-color:var(--brand-accent,#00AAD2);min-width:18px;min-height:18px;">
+                <label class="radio-card" style="display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid var(--ink-200,#E2E8F0);border-radius:10px;cursor:pointer;min-height:48px;position:relative;">
+                  <input type="radio" name="fSucursal" value="plasencia" oninput="onSucursalChange(this)" style="accent-color:var(--brand-accent,#00AAD2);min-width:18px;min-height:18px;">
                   <span><strong style="font-size:14px;color:var(--ink-900);">Hyundai Plasencia</strong><br><span style="font-size:11px;color:var(--ink-500);">López Mateos Sur 2600</span></span>
                 </label>
-                <label class="radio-card" style="display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid var(--ink-200,#E2E8F0);border-radius:10px;cursor:pointer;min-height:48px;">
+                <label class="radio-card" style="display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid var(--ink-200,#E2E8F0);border-radius:10px;cursor:pointer;min-height:48px;position:relative;">
                   <input type="radio" name="fSucursal" value="santa_anita" oninput="onSucursalChange(this)" style="accent-color:var(--brand-accent,#00AAD2);min-width:18px;min-height:18px;">
                   <span><strong style="font-size:14px;color:var(--ink-900);">Hyundai Santa Anita</strong><br><span style="font-size:11px;color:var(--ink-500);">López Mateos Sur 7000</span></span>
                 </label>
               </div>
+              <div class="form-error-msg" id="fSucursal-error" role="alert" style="margin-top:6px;">Selecciona la agencia donde quieres atención</div>
             </div>
           </div>
 
@@ -2267,6 +2315,9 @@ function resolveAsesorWA(esFlotilla, sucursalKey) {
 var ASESOR_ASIGNADO = { nombre: HYU_SUCURSALES.plasencia.asesor.nombre, canal: HYU_SUCURSALES.plasencia.asesor.rol, telefono: HYU_SUCURSALES.plasencia.asesor.telefono };
 
 // Highlight visual de la radio-card activa (Personal/Flotilla y sucursales).
+// P0 fix 2026-06-08 — Director reportó "no se entiende que está preseleccionado".
+// Refuerzo: borde 3px + box-shadow + checkmark visible para que el preseleccionado
+// salte a la vista. Quita preseleccion al usuario sin perder claridad.
 function _highlightRadioCard(radio) {
   if (!radio) return;
   var groupName = radio.name;
@@ -2274,12 +2325,26 @@ function _highlightRadioCard(radio) {
   for (var i = 0; i < group.length; i++) {
     var card = group[i].closest('label.radio-card');
     if (!card) continue;
+    // Limpiar checkmark previo
+    var prev = card.querySelector('.radio-card-check');
+    if (prev) prev.remove();
     if (group[i].checked) {
       card.style.borderColor = 'var(--brand-accent, #00AAD2)';
-      card.style.background = 'rgba(0,170,210,0.06)';
+      card.style.borderWidth = '3px';
+      card.style.background = 'rgba(0,170,210,0.12)';
+      card.style.boxShadow = '0 0 0 4px rgba(0,170,210,0.14)';
+      // Agregar checkmark visible
+      var check = document.createElement('span');
+      check.className = 'radio-card-check';
+      check.setAttribute('aria-hidden', 'true');
+      check.style.cssText = 'position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;background:var(--brand-accent,#00AAD2);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;line-height:1;box-shadow:0 2px 6px rgba(0,170,210,0.4);';
+      check.textContent = '✓';
+      card.appendChild(check);
     } else {
       card.style.borderColor = 'var(--ink-200, #E2E8F0)';
+      card.style.borderWidth = '1.5px';
       card.style.background = 'transparent';
+      card.style.boxShadow = 'none';
     }
   }
 }
@@ -2465,7 +2530,23 @@ let selectedTerm = 36;
 let currentFilter = 'all';
 let currentPriceFilter = 'all';
 let currentLocFilter = 'all'; // 'all' | 'guadalajara' | 'santa_anita'
-let currentIntent = 'all';    // 'all' | 'oferta' | 'familia' | 'lifestyle' — Pivote 2 2026-06-07
+let currentIntent = 'all';    // 'all' | 'familia' | 'joven' | 'premium' | 'flotilla' — Pivote 2 2026-06-08 (personas Hyundai)
+
+// Atajo B2B desde el banner de Flotilla — abre WhatsApp directo a Chucho Porras
+function openContactFlotilla() {
+  var msg = 'Hola Chucho, vengo del sitio Hyundai Plasencia. Quiero cotizar flotilla (PFAE/PM). ¿Me puedes ayudar con esquema fiscal y descuento por volumen?';
+  // Telefono Chucho: ver HYU_FLOTILLA_ASESOR. Limpio el formato a digitos.
+  var tel = (typeof HYU_FLOTILLA_ASESOR !== 'undefined' && HYU_FLOTILLA_ASESOR.telefono) ? HYU_FLOTILLA_ASESOR.telefono : '+52 332 102 0076';
+  var digits = tel.replace(/\D/g, '');
+  var url = 'https://wa.me/' + digits + '?text=' + encodeURIComponent(msg);
+  if (window.dataLayer) dataLayer.push({
+    event: 'flotilla_wa_click',
+    content_type: 'flotilla_notice_cta',
+    intent_active: 'flotilla',
+    ...(typeof getTrackingContext === 'function' ? getTrackingContext() : {})
+  });
+  window.open(url, '_blank', 'noopener');
+}
 
 function filterByIntent(val, clickedTab) {
   currentIntent = val;
@@ -2683,13 +2764,22 @@ function renderCards(filter) {
   const grid = document.getElementById('inventoryGrid');
   let filtered = filter === 'all' ? vehicles.slice() : vehicles.filter(v => v.type === filter);
 
-  // Filtro intent (Pivote 2 — 'all' | 'oferta' | 'familia' | 'lifestyle')
-  if (typeof currentIntent !== 'undefined' && currentIntent !== 'all') {
-    if (currentIntent === 'oferta') {
-      filtered = filtered.filter(v => v.oferta_vigente === true);
-    } else {
-      filtered = filtered.filter(v => v.intent === currentIntent);
-    }
+  // Filtro intent (Pivote 2 2026-06-08 — personas Hyundai)
+  // 'all'      → todos los modelos
+  // 'familia'  → Creta GLS, Creta Grand 7p, Tucson GLS
+  // 'joven'    → Grand i10 HB, Grand i10 Sedán
+  // 'premium'  → Elantra HEV, Tucson HEV, Santa Fe HEV
+  // 'flotilla' → todos los modelos (no filtra; activa banner B2B + sugiere toggle Flotilla del modal)
+  if (typeof currentIntent !== 'undefined' && currentIntent !== 'all' && currentIntent !== 'flotilla') {
+    filtered = filtered.filter(v => v.intent === currentIntent);
+  }
+  // Banner B2B Flotilla — visible solo cuando intent === 'flotilla'
+  // Fix P0 2026-06-08: removida redeclaración `var grid` (const grid ya existe en línea ~2764).
+  if (grid) grid.setAttribute('data-intent-active', currentIntent || 'all');
+  var flotillaNotice = document.getElementById('flotillaNotice');
+  if (flotillaNotice) {
+    if (currentIntent === 'flotilla') flotillaNotice.removeAttribute('hidden');
+    else flotillaNotice.setAttribute('hidden', '');
   }
 
   // Filtro de sucursal (Plasencia GDL / Santa Anita / all)
@@ -3491,6 +3581,20 @@ function submitForm() {
     }
   });
 
+  // P0 fix 2026-06-08 — Sucursal obligatoria (sin preselección). Asesor B2C/B2B
+  // necesita saber dónde acompañar, incluso en Flotilla (Chucho coordina).
+  var sucChecked = document.querySelector('input[name="fSucursal"]:checked');
+  var sucGrp = document.getElementById('fSucursalGroup');
+  var sucErr = document.getElementById('fSucursal-error');
+  if (!sucChecked) {
+    if (sucErr) sucErr.classList.add('show');
+    if (sucGrp) sucGrp.style.outline = '2px solid var(--color-error,#EF4444)';
+    if (sucGrp && !firstError) firstError = sucGrp;
+  } else {
+    if (sucErr) sucErr.classList.remove('show');
+    if (sucGrp) sucGrp.style.outline = '';
+  }
+
   const privacyBox = document.getElementById('fPrivacy');
   if (!privacyBox.checked) {
     showFieldError('fPrivacy');
@@ -3622,7 +3726,7 @@ function submitForm() {
     item_name: currentCar.name + (currentCar.year > 0 ? ' ' + currentCar.year : ''),
     item_brand: currentCar.brand || 'Hyundai',
     item_category: currentCar.type || '',
-    item_variant: currentCar.intent || '',  // intent (familia/lifestyle) — análisis por persona
+    item_variant: currentCar.intent || '',  // intent (familia/joven/premium) — análisis por persona
     item_price: currentCar.engancheDesde || 0,
     lead_value: currentCar.engancheDesde || 0,
     // Vehicle metadata enriquecida
