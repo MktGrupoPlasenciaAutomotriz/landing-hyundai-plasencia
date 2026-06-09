@@ -202,20 +202,24 @@ button, a, .v-card, .filter-chip, .filter-select, .filter-clear, .calc-term-btn 
 
 /* ── HERO ── */
 .hero {
-  /* 2026-06-08: composición collage casero retirada por orden del director
-     (autos en colores no oficiales + perspectivas inconsistentes).
-     Hero limpio HyundaiGO con gradient + mesh sutil. El producto se cuenta
-     con copy + hero stats dinámicos + promo banner + intent tabs. */
+  /* 2026-06-08 noche: hero adhoc generado para la SPA (editorial automotive
+     photography, Creta GLS Premium 2026 azul navy, golden hour Guadalajara,
+     espacio negativo izquierdo para copy). Reemplaza al collage casero
+     retirado previamente. Scrim navy gradient protege legibilidad del copy. */
   position: relative; overflow: hidden;
-  background: linear-gradient(135deg, var(--brand-primary-dark) 0%, #002C5F 50%, var(--brand-primary) 100%);
+  background:
+    linear-gradient(135deg, var(--brand-primary-dark) 0%, #002C5F 50%, var(--brand-primary) 100%);
   color: #fff;
   padding: 96px 0 104px;
   min-height: 620px;
 }
 .hero::before {
   content:''; position: absolute; inset: 0;
-  background: var(--gradient-mesh);
+  background:
+    linear-gradient(90deg, rgba(0,30,64,0.92) 0%, rgba(0,44,95,0.72) 32%, rgba(0,44,95,0.18) 62%, rgba(0,44,95,0.0) 92%),
+    url('imagenes/hero/hero-creta-glsp-2026.jpg') center right / cover no-repeat;
   pointer-events: none;
+  z-index: 0;
 }
 .hero::after {
   content:''; position: absolute; inset: 0;
@@ -231,7 +235,11 @@ button, a, .v-card, .filter-chip, .filter-select, .filter-clear, .calc-term-btn 
 .hero-content { position: relative; z-index: 2; text-align: left; max-width: 640px; }
 @media (max-width: 768px) {
   .hero { padding: 64px 0 72px; min-height: auto; }
-  .hero::before { background: var(--gradient-mesh); }
+  .hero::before {
+    background:
+      linear-gradient(180deg, rgba(0,30,64,0.55) 0%, rgba(0,44,95,0.78) 55%, rgba(0,44,95,0.92) 100%),
+      url('imagenes/hero/hero-creta-glsp-2026.jpg') center bottom / cover no-repeat;
+  }
   .hero-content { text-align: center; max-width: 100%; }
 }
 .hero-tagline {
